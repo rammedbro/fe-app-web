@@ -1,0 +1,12 @@
+node_modules
+build
+logs
+*.log
+
+.idea
+.yalc
+.firebase
+
+yalc.lock
+package-lock.json
+yarn.lock
