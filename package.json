@@ -19,6 +19,7 @@
     "pinia": "^2.1.7",
     "socket.io-client": "^4.7.5",
     "vue": "^3.4.19",
+    "vue-query": "^1.26.0",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {

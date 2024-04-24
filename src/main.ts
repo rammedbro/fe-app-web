@@ -5,7 +5,6 @@ import { router } from '@/app/providers/router';
 import { pinia } from '@/app/providers/pinia';
 import { useSentry } from '@/app/providers/sentry';
 // import { useSocket } from '@/app/providers/socket';
-import * as firebase from '@/app/providers/firebase';
 import App from '@/app/ui/App.vue';
 
 declare const __APP_VERSION__: string;
@@ -63,9 +62,6 @@ async function init() {
 
   // Mounting
   vue.mount('#app');
-
-  // Firebase
-  firebase.start('#firebaseui-auth-container');
 }
 
 window.addEventListener('load', () => {
