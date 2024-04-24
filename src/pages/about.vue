@@ -4,11 +4,9 @@
 
 <template>
   <section>
-    <h2>Terms of service</h2>
+    <h2>About</h2>
 
-    <p>
-      There will be content here soon!
-    </p>
+    <p>There will be content here soon!</p>
   </section>
 </template>
 
