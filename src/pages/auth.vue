@@ -14,7 +14,7 @@ import { useUserStore } from '@/entities/user';
 const { setUser, unsetUser } = useUserStore();
 const login = ref<string | null>(null);
 const password = ref<string | null>(null);
-const details = ref('null');
+const details = ref<string | null>(null);
 const signInSafe = () => {
   if (login.value && password.value) {
     signIgn(login.value, password.value)
@@ -31,7 +31,9 @@ const signInSafe = () => {
 
 onMounted(() => {
   onAuthStateChanged(auth, user => {
-    details.value = JSON.stringify(user, null, 2);
+    details.value = user
+      ? JSON.stringify(user, null, 2)
+      : null;
   });
 
   if (ui.isPendingRedirect()) {
@@ -52,8 +54,11 @@ onMounted(() => {
   <section>
     <h2>Auth</h2>
 
-    <div class="sign-in">
-      <label class="login">
+    <div
+      v-if="details === null"
+      :class="$style.signIn"
+    >
+      <label :class="$style.login">
         <span>Login</span>
         <input
           v-model="login"
@@ -62,7 +67,7 @@ onMounted(() => {
           title="Логин"
         />
       </label>
-      <label class="password">
+      <label :class="$style.password">
         <span>Password</span>
         <input
           v-model="password"
@@ -81,39 +86,41 @@ onMounted(() => {
     </div>
 
     <button
+      v-if="details"
       id="sign-out"
-      class="sign-out"
+      :class="$style.signOut"
       @click="() => signOut().then(unsetUser)"
     >
       Выйти
     </button>
 
     <h4>Account details</h4>
-    <pre class="account-details">{{ details }}</pre>
+    <pre :class="$style.accountDetails">{{ details || 'null' }}</pre>
   </section>
 </template>
 
-<style>
-.sign-in {
+<style module lang="scss">
+.signIn {
   display: flex;
   flex-direction: column;
   width: 200px;
   margin: 0 auto 20px;
+
+  & .login,
+  & .password {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
 }
 
-.sign-in .login,
-.sign-in .password {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
-}
-
-.sign-out {
+.signOut {
   width: 200px;
   margin-bottom: 20px;
 }
 
-.account-details {
+.accountDetails {
   text-align: left;
+  overflow: auto;
 }
 </style>
