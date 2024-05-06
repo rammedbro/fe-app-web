@@ -1,11 +1,10 @@
+<script lang="ts" setup>
+import { Nav } from '@/widgets/nav';
+</script>
+
 <template>
   <div :class="$style.app">
-    <nav :class="$style.nav">
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/auth">Auth</RouterLink>
-      <RouterLink to="/help/privacy-policy">Privacy policy</RouterLink>
-      <RouterLink to="/help/terms-of-service">Terms of service</RouterLink>
-    </nav>
+    <Nav />
 
     <main>
       <RouterView />
@@ -21,10 +20,5 @@
   padding: 2rem;
   box-sizing: border-box;
   text-align: center;
-}
-
-.nav {
-  display: flex;
-  flex-direction: column;
 }
 </style>

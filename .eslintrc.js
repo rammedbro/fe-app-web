@@ -31,17 +31,13 @@ module.exports = {
     ],
     'eqeqeq': ['error', 'always'],
     'linebreak-style': ['error', 'unix'],
-    'no-console': [
-      'error',
-      { allow: ['warn', 'error', 'time', 'info', 'timeEnd'] },
-    ],
+    'no-undef': 'off',
     'no-new': 'error',
     'no-var': 'error',
     'no-empty': ['error', { allowEmptyCatch: true }],
     'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 1 }],
     'no-prototype-builtins': 'error',
 
-    'no-undef': 'off',
     'indent': 'off',
     '@typescript-eslint/indent': ['error', 2, { 'SwitchCase': 1 }],
     'quotes': 'off',

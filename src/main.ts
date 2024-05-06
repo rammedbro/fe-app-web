@@ -4,64 +4,51 @@ import '@/app/providers/style';
 import { router } from '@/app/providers/router';
 import { pinia } from '@/app/providers/pinia';
 import { useSentry } from '@/app/providers/sentry';
-// import { useSocket } from '@/app/providers/socket';
 import App from '@/app/ui/App.vue';
 
 declare const __APP_VERSION__: string;
 
 async function init() {
-  // Application
-  const app = await getApplication();
+  const { emitter, logger, config, workers } = await getApplication();
+  const app = createApp(App)
+    .use(pinia)
+    .use(router);
+
+  app.config.globalProperties.version = __APP_VERSION__;
+  app.config.globalProperties.config = config.get();
+  app.config.performance = true;
+  app.config.errorHandler = ((err, _, info) => {
+    logger.error({ data: { err, info } });
+  });
+  app.config.warnHandler = ((msg, _, info) => {
+    logger.info({ data: { msg, info } });
+  });
 
   // Emitter
-  app.emitter.addEventListener('update', evt => {
-    app.logger.info({
+  emitter.addEventListener('update', evt => {
+    logger.info({
       name: 'Application update event',
       data: evt,
     });
   });
 
-  // Log
-  app.logger.info({
-    name: 'Application successfully started with config',
-    data: app.config.get(),
-  });
-
-  // Api
-  app.api.get('/api/hello-world/')
-    .then(response => {
-      app.logger.info({
-        name: 'proxy server check request',
-        data: response.data,
-      });
-    })
-    .catch(err => app.logger.error({ data: err }));
-
   // Web worker
-  app.workers.dedicated.start();
-  app.workers.dedicated.addEventListener('update', evt => console.info(evt));
+  workers.dedicated.start();
+  workers.dedicated.addEventListener('update', evt => console.info(evt));
 
   // Service worker
-  await app.workers.service.start();
-  app.workers.dedicated.addEventListener('notification', evt => console.info(evt));
-
-  // Vue
-  const vue = createApp(App)
-    .use(pinia)
-    .use(router);
+  await workers.service.start();
+  workers.dedicated.addEventListener('notification', evt => console.info(evt));
 
   // Sentry
-  useSentry(vue, router, {
+  useSentry(app, router, {
     dsn: 'https://4dfe7c0b0078b3dac5942feff6846719@o4504389401968640.ingest.us.sentry.io/4507131709947904',
-    environment: app.config.env() as string,
+    environment: config.env() as string,
     release: __APP_VERSION__,
   });
 
-  // Wss
-  // useSocket(`http://localhost:${ app.config.get('host.port') }`, '/socket');
-
   // Mounting
-  vue.mount('#app');
+  app.mount('#app');
 }
 
 window.addEventListener('load', () => {
