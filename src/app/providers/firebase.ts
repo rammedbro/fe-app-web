@@ -1,4 +1,3 @@
-import * as firebaseui from 'firebaseui';
 import { initializeApp } from 'firebase/app';
 import {
   initializeAuth,
@@ -7,11 +6,7 @@ import {
   signOut as signOutDefault,
 } from 'firebase/auth';
 
-export {
-  EmailAuthProvider,
-  GoogleAuthProvider,
-  onAuthStateChanged,
-} from 'firebase/auth';
+export { onAuthStateChanged } from 'firebase/auth';
 export const app = initializeApp({
   apiKey: 'AIzaSyAkWHV6KJIAAsmifShVYZlRtGUTC1i7jY8',
   authDomain: 'fe-app-791ce.firebaseapp.com',
@@ -26,5 +21,4 @@ export const auth = initializeAuth(app, {
 });
 export const signIgn = signInWithEmailAndPassword.bind(null, auth);
 export const signOut = signOutDefault.bind(null, auth);
-export const ui = new firebaseui.auth.AuthUI(auth);
 

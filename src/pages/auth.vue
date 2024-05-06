@@ -1,13 +1,9 @@
 <script setup lang="ts">
-import 'firebaseui/dist/firebaseui.css';
 import {
   auth,
-  ui,
-  EmailAuthProvider,
-  GoogleAuthProvider,
-  onAuthStateChanged,
   signIgn,
   signOut,
+  onAuthStateChanged,
 } from '@/app/providers/firebase';
 import { useUserStore } from '@/entities/user';
 
@@ -15,7 +11,8 @@ const { setUser, unsetUser } = useUserStore();
 const login = ref<string | null>(null);
 const password = ref<string | null>(null);
 const details = ref<string | null>(null);
-const signInSafe = () => {
+
+function onAuthSubmit() {
   if (login.value && password.value) {
     signIgn(login.value, password.value)
       .then(({ user: { displayName, email, uid } }) =>
@@ -23,30 +20,17 @@ const signInSafe = () => {
           name: displayName,
           email,
           uid,
-        }));
+        }))
+      .catch(() => alert('Invalid credentials!'));
   } else {
-    console.error('Please provide a login and password');
+    alert('Please provide a login and password!');
   }
-};
+}
 
-onMounted(() => {
-  onAuthStateChanged(auth, user => {
-    details.value = user
-      ? JSON.stringify(user, null, 2)
-      : null;
-  });
-
-  if (ui.isPendingRedirect()) {
-    ui.start('#firebaseui-auth-container', {
-      signInSuccessUrl: '/',
-      signInOptions: [
-        EmailAuthProvider.PROVIDER_ID,
-        GoogleAuthProvider.PROVIDER_ID,
-      ],
-      tosUrl: '/help/terms-of-service',
-      privacyPolicyUrl: '/help/privacy-policy',
-    });
-  }
+onAuthStateChanged(auth, user => {
+  details.value = user
+    ? JSON.stringify(user, null, 2)
+    : null;
 });
 </script>
 
@@ -54,7 +38,7 @@ onMounted(() => {
   <section>
     <h2>Auth</h2>
 
-    <div
+    <form
       v-if="details === null"
       :class="$style.signIn"
     >
@@ -78,16 +62,15 @@ onMounted(() => {
       </label>
 
       <button
-        id="sign-in"
-        @click="signInSafe"
+        type="submit"
+        @click.prevent="onAuthSubmit"
       >
         Войти
       </button>
-    </div>
+    </form>
 
     <button
       v-if="details"
-      id="sign-out"
       :class="$style.signOut"
       @click="() => signOut().then(unsetUser)"
     >
