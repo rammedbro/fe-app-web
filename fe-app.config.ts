@@ -1,3 +1,5 @@
+/// <reference types="node"/>
+
 import type { FEAppConfig } from '@imolater/fe-app-types';
 import pkg from './package.json';
 
@@ -20,8 +22,7 @@ const config: FEAppConfig = {
   },
   server: {
     sentry: {
-      authToken:
-        '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',
+      authToken: process.env.SENTRY_AUTH_TOKEN,
       project: 'fe-app',
       url: 'https://imolater-company.sentry.io/',
       release: pkg.version,

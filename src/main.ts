@@ -6,16 +6,18 @@ import { pinia } from '@/app/providers/pinia';
 import { useSentry } from '@/app/providers/sentry';
 import App from '@/app/ui/App.vue';
 
-declare const __APP_VERSION__: string;
-
 async function init() {
   const { emitter, logger, config, workers } = await getApplication();
   const app = createApp(App)
     .use(pinia)
     .use(router);
 
-  app.config.globalProperties.version = __APP_VERSION__;
-  app.config.globalProperties.config = config.get();
+  Object.assign(app.config.globalProperties, {
+    version: __APP_VERSION__,
+    config: config.get(),
+    env: import.meta.env,
+  });
+  console.log(app.config.globalProperties);
   app.config.performance = true;
   app.config.errorHandler = ((err, _, info) => {
     logger.error({ data: { err, info } });
