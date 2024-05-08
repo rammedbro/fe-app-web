@@ -8,6 +8,7 @@ import {
 
 export { onAuthStateChanged } from 'firebase/auth';
 export const app = initializeApp({
+  // It's ok to include Firebase API keys in your code when you use them only with Firebase-related APIs.
   apiKey: 'AIzaSyAkWHV6KJIAAsmifShVYZlRtGUTC1i7jY8',
   authDomain: 'fe-app-791ce.firebaseapp.com',
   projectId: 'fe-app-791ce',
