@@ -1,7 +1,9 @@
 {
-  "name": "fe-app-integration-example",
   "private": true,
   "version": "0.0.0",
+  "name": "fe-app-web",
+  "description": "Frontend application written in Vue + TS and scaffolded with fe-app",
+  "keywords": ["vue", "typescript", "vite", "express", "fsd"],
   "scripts": {
     "prepare": "husky install",
     "dev": "fe-app dev",
