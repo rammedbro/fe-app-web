@@ -33,11 +33,12 @@
     "src/**/*.vue"
   ],
   "files": [
-    "src/types/auto-imports.d.ts",
-    "src/types/vite-env.d.ts",
-    "src/types/vue.d.ts"
+    "src/shared/types/auto-imports.d.ts",
+    "src/shared/types/vite-env.d.ts",
+    "src/shared/types/vue.d.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "build"
   ]
 }
