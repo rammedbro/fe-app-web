@@ -13,7 +13,7 @@ const config: FEAppConfig = {
   build: {
     useTsConfigPaths: true,
     useAutoImport: {
-      dts: 'src/types/auto-imports.d.ts',
+      dts: 'src/shared/types/auto-imports.d.ts',
     },
     useWorkers: {
       dedicated: true,
