@@ -4,20 +4,27 @@ import '@/app/providers/style';
 import { router } from '@/app/providers/router';
 import { pinia } from '@/app/providers/pinia';
 import { useSentry } from '@/app/providers/sentry';
+import {
+  configInjectionKey,
+  emitterInjectionKey,
+  loggerInjectionKey,
+} from '@/shared/const';
 import App from '@/app/ui/App.vue';
 
 async function init() {
   const { emitter, logger, config, workers } = await getApplication();
   const app = createApp(App)
     .use(pinia)
-    .use(router);
+    .use(router)
+    .provide(configInjectionKey, config)
+    .provide(emitterInjectionKey, emitter)
+    .provide(loggerInjectionKey, logger);
 
   Object.assign(app.config.globalProperties, {
     version: __APP_VERSION__,
     config: config.get(),
     env: import.meta.env,
   });
-  console.log(app.config.globalProperties);
   app.config.performance = true;
   app.config.errorHandler = ((err, _, info) => {
     logger.error({ data: { err, info } });
@@ -30,7 +37,7 @@ async function init() {
   emitter.addEventListener('update', evt => {
     logger.info({
       name: 'Application update event',
-      data: evt,
+      data: (evt as CustomEvent).detail,
     });
   });
 

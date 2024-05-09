@@ -31,6 +31,10 @@ module.exports = {
     ],
     'eqeqeq': ['error', 'always'],
     'linebreak-style': ['error', 'unix'],
+    'no-console': [
+      'error',
+      { allow: ['warn', 'error', 'time', 'info', 'timeEnd'] },
+    ],
     'no-undef': 'off',
     'no-new': 'error',
     'no-var': 'error',
