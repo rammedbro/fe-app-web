@@ -18,7 +18,8 @@ async function init() {
     .use(router)
     .provide(configInjectionKey, config)
     .provide(emitterInjectionKey, emitter)
-    .provide(loggerInjectionKey, logger);
+    .provide(loggerInjectionKey, logger)
+    .directive<HTMLElement>('focus', el => el.focus());
 
   Object.assign(app.config.globalProperties, {
     version: __APP_VERSION__,
