@@ -1,6 +1,7 @@
 import { defineConfig, type CSSModulesOptions } from 'vite';
 import { createHash } from 'node:crypto';
 import vue from '@vitejs/plugin-vue';
+import jsx from '@vitejs/plugin-vue-jsx';
 import pkg from './package.json';
 
 const generateScopedName: CSSModulesOptions['generateScopedName'] = (name, filename) => {
@@ -29,5 +30,6 @@ export default defineConfig((config) => ({
   },
   plugins: [
     vue(),
+    jsx(),
   ],
 }));
