@@ -1,9 +1,19 @@
 <script setup lang="ts">
-
+defineOptions({
+  name: 'Navigation',
+});
+defineProps({
+  title: {
+    type: String,
+    default: 'Navigation',
+  },
+});
 </script>
 
 <template>
-  <h4>Navigation</h4>
+  <h4>
+    <slot name="title" v-bind="{ title }">{{ title }}</slot>
+  </h4>
 
   <nav :class="$style.nav">
     <RouterLink to="/">Home</RouterLink>
@@ -13,9 +23,4 @@
   </nav>
 </template>
 
-<style module>
-.nav {
-  display: flex;
-  flex-direction: column;
-}
-</style>
+<style module src="./Nav.module.css" />

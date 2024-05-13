@@ -3,7 +3,13 @@
   "version": "0.0.0",
   "name": "fe-app-web",
   "description": "Frontend application written in Vue + TS and scaffolded with fe-app",
-  "keywords": ["vue", "typescript", "vite", "express", "fsd"],
+  "keywords": [
+    "vue",
+    "typescript",
+    "vite",
+    "express",
+    "fsd"
+  ],
   "scripts": {
     "prepare": "husky install",
     "dev": "fe-app dev",
@@ -32,6 +38,7 @@
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "@vitejs/plugin-vue": "^5.0.4",
+    "@vitejs/plugin-vue-jsx": "^3.1.0",
     "eslint": "^8.57.0",
     "eslint-plugin-vue": "^9.23.0",
     "husky": "^7.0.4",
