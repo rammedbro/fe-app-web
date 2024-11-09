@@ -4,7 +4,7 @@ import { Modal } from '@/shared/ui';
 </script>
 
 <template>
-  <div :class="$style.app">
+  <div class="container mx-auto min-h-screen">
     <Nav />
 
     <main>
@@ -24,14 +24,3 @@ import { Modal } from '@/shared/ui';
     </Modal>
   </div>
 </template>
-
-<style module>
-.app {
-  max-width: 1280px;
-  height: 100vh;
-  margin: 0 auto;
-  padding: 2rem;
-  box-sizing: border-box;
-  text-align: center;
-}
-</style>

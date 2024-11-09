@@ -1,9 +1,7 @@
-import env from 'postcss-preset-env';
-import cssnano from 'cssnano';
-
 export default {
-  plugins: [
-    env(),
-    cssnano(),
-  ],
+  plugins: {
+    'postcss-preset-env': {},
+    'tailwindcss': {},
+    'cssnano': {},
+  },
 };
