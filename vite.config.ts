@@ -1,5 +1,6 @@
 import { defineConfig, type CSSModulesOptions } from 'vite';
 import { createHash } from 'node:crypto';
+import browserslistToEsbuild from 'browserslist-to-esbuild';
 import vue from '@vitejs/plugin-vue';
 import jsx from '@vitejs/plugin-vue-jsx';
 import pkg from './package.json';
@@ -14,6 +15,10 @@ const generateScopedName: CSSModulesOptions['generateScopedName'] = (name, filen
 export default defineConfig((config) => ({
   define: {
     __APP_VERSION__: JSON.stringify(pkg.version),
+  },
+  build: {
+    target: browserslistToEsbuild(),
+    cssMinify: false, // Delegate it to cssnano
   },
   css: {
     devSourcemap: true,
