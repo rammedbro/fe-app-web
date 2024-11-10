@@ -1,26 +1,30 @@
 <script setup lang="ts">
+import NavItem from '@/widgets/nav/ui/NavItem.vue';
+
 defineOptions({
   name: 'Navigation',
 });
-defineProps({
-  title: {
-    type: String,
-    default: 'Navigation',
-  },
-});
+
+const navItems = [
+  { text: 'Home', href: '/', icon: 'create-outline' },
+  { text: 'Login', href: '/auth', icon: 'arrow-forward-circle-outline' },
+  { text: 'Sign up', href: '/auth' },
+];
 </script>
 
 <template>
-  <h4>
-    <slot name="title" v-bind="{ title }">{{ title }}</slot>
-  </h4>
+  <nav class="navbar">
+    <div class="container flex items-center mx-auto p-2">
+      <RouterLink to="/" class="font-logo text-primary text-2xl">conduit</RouterLink>
 
-  <nav :class="$style.nav">
-    <RouterLink to="/">Home</RouterLink>
-    <RouterLink to="/auth">Auth</RouterLink>
-    <RouterLink to="/help/privacy-policy">Privacy policy</RouterLink>
-    <RouterLink to="/help/terms-of-service">Terms of service</RouterLink>
+      <ul class="nav flex items-center ml-auto gap-2">
+        <li
+          v-for="item in navItems"
+          :key="item.text"
+        >
+          <NavItem :item="item" />
+        </li>
+      </ul>
+    </div>
   </nav>
 </template>
-
-<style module src="./Nav.module.css" />
