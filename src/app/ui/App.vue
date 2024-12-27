@@ -1,11 +1,14 @@
 <script lang="ts" setup>
-import { Nav } from '@/widgets/nav';
+import { Header } from '@/widgets/header';
+import { Footer } from '@/widgets/footer';
 </script>
 
 <template>
-  <Nav />
+<Header />
 
-  <main>
-    <RouterView />
-  </main>
+<main class="flex-1">
+  <RouterView />
+</main>
+
+<Footer />
 </template>

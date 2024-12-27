@@ -1,0 +1,13 @@
+@layer _base, primevue, _components, _utilities;
+
+@layer _base {
+  @tailwind base;
+}
+
+@layer _components {
+  @tailwind components;
+}
+
+@layer _utilities {
+  @tailwind utilities;
+}

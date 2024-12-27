@@ -86,7 +86,7 @@ module.exports = {
 
     'vue/multi-word-component-names': 'off',
     'vue/attributes-order': 'error',
-    'vue/html-indent': ['error', 2],
+    'vue/html-indent': 'off',
     'vue/max-len': [
       'error',
       {
@@ -113,7 +113,7 @@ module.exports = {
     ],
     'vue/max-attributes-per-line': [
       'error',
-      { singleline: 3, multiline: 1 },
+      { singleline: 5, multiline: 1 },
     ],
     'vue/block-lang': ['error', {
       script: {

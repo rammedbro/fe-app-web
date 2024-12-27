@@ -3,7 +3,9 @@ import { createHash } from 'node:crypto';
 import browserslistToEsbuild from 'browserslist-to-esbuild';
 import vue from '@vitejs/plugin-vue';
 import jsx from '@vitejs/plugin-vue-jsx';
+import svg from 'vite-svg-loader';
 import pkg from './package.json';
+import tailwindConfig from './tailwind.config';
 
 const generateScopedName: CSSModulesOptions['generateScopedName'] = (name, filename) => {
   const hash = createHash('md5').update(filename).digest('hex').slice(0, 5);
@@ -15,6 +17,7 @@ const generateScopedName: CSSModulesOptions['generateScopedName'] = (name, filen
 export default defineConfig((config) => ({
   define: {
     __APP_VERSION__: JSON.stringify(pkg.version),
+    __TAILWIND_CONFIG__: JSON.stringify(tailwindConfig),
   },
   build: {
     target: browserslistToEsbuild(),
@@ -22,11 +25,6 @@ export default defineConfig((config) => ({
   },
   css: {
     devSourcemap: true,
-    preprocessorOptions: {
-      scss: {
-        additionalData: '@import "./src/app/assets/css/variables.scss";',
-      },
-    },
     modules: {
       scopeBehaviour: 'local',
       generateScopedName: (config.mode === 'production') ? '[hash:base64:5]' : generateScopedName,
@@ -36,5 +34,6 @@ export default defineConfig((config) => ({
   plugins: [
     vue(),
     jsx(),
+    svg(),
   ],
 }));

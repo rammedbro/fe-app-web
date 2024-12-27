@@ -1,6 +1,6 @@
 node_modules
 build
-src/shared/types/auto-imports.d.ts
+src/app/ambient/auto-imports.d.ts
 
 .firebase
 .yalc

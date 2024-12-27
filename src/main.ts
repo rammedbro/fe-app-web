@@ -3,7 +3,8 @@ import { getApplication } from '@imolater/fe-app-client';
 import '@/app/providers/style';
 import { router } from '@/app/providers/router';
 import { pinia } from '@/app/providers/pinia';
-import { useSentry } from '@/app/providers/sentry';
+// import { sentry } from '@/app/providers/sentry';
+import { primevue } from '@/app/providers/primevue';
 import {
   configInjectionKey,
   emitterInjectionKey,
@@ -12,10 +13,11 @@ import {
 import App from '@/app/ui/App.vue';
 
 async function init() {
-  const { emitter, logger, config, workers } = await getApplication();
+  const { emitter, logger, config } = await getApplication();
   const app = createApp(App)
     .use(pinia)
     .use(router)
+    .use(primevue)
     .provide(configInjectionKey, config)
     .provide(emitterInjectionKey, emitter)
     .provide(loggerInjectionKey, logger)
@@ -42,20 +44,18 @@ async function init() {
     });
   });
 
-  // Web worker
-  workers.dedicated.start();
-  workers.dedicated.addEventListener('update', evt => console.info(evt));
-
-  // Service worker
-  await workers.service.start();
-  workers.dedicated.addEventListener('notification', evt => console.info(evt));
+  // Workers
+  // workers.dedicated.start();
+  // workers.dedicated.addEventListener('update', evt => console.info(evt));
+  // await workers.service.start();
+  // workers.dedicated.addEventListener('notification', evt => console.info(evt));
 
   // Sentry
-  useSentry(app, router, {
-    dsn: 'https://4dfe7c0b0078b3dac5942feff6846719@o4504389401968640.ingest.us.sentry.io/4507131709947904',
-    environment: config.env() as string,
-    release: __APP_VERSION__,
-  });
+  // useSentry(app, router, {
+  //   dsn: 'https://4dfe7c0b0078b3dac5942feff6846719@o4504389401968640.ingest.us.sentry.io/4507131709947904',
+  //   environment: config.env() as string,
+  //   release: __APP_VERSION__,
+  // });
 
   // Mounting
   app.mount('#app');
