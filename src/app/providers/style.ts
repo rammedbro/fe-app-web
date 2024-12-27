@@ -1,1 +1,2 @@
-import '@/app/assets/css/tailwind.css';
+import 'primeicons/primeicons.css';
+import '@/app/style/main.css';

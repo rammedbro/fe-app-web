@@ -34,9 +34,9 @@
     "src/**/*.vue"
   ],
   "files": [
-    "src/shared/types/auto-imports.d.ts",
-    "src/shared/types/vite-env.d.ts",
-    "src/shared/types/vue.d.ts"
+    "src/app/ambient/auto-imports.d.ts",
+    "src/app/ambient/vite-env.d.ts",
+    "src/app/ambient/vue.d.ts"
   ],
   "exclude": [
     "node_modules",

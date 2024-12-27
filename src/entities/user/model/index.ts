@@ -7,26 +7,18 @@ export interface User {
 }
 
 export const useUserStore = defineStore('user', () => {
-  const uid = ref<string | null>(null);
-  const name = ref<string | null>(null);
-  const email = ref<string | null>(null);
+  const user = ref<User | null>(null);
 
-  function setUser(user: User) {
-    uid.value = user.uid;
-    name.value = user.name;
-    email.value = user.email;
+  function setUser(payload: User) {
+    user.value = payload;
   }
 
   function unsetUser() {
-    uid.value = null;
-    name.value = null;
-    email.value = null;
+    user.value = null;
   }
 
   return {
-    uid,
-    name,
-    email,
+    user,
     setUser,
     unsetUser,
   };
