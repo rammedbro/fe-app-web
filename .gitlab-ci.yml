@@ -5,6 +5,7 @@ stages:
   - install
   - build
   - check
+  - deploy
 
 default:
   image: ${NODE_IMAGE}
@@ -83,3 +84,9 @@ lint:types:
     - merge_requests
   script:
     - pnpm lint:types
+
+deploy:
+  stage: deploy
+  when: manual
+  script:
+    - curl $DEPLOY_HOOK
