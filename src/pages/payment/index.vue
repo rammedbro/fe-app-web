@@ -189,17 +189,19 @@
 </template>
 
 <script setup lang="ts">
-import InputText from 'primevue/inputtext';
-import Select from 'primevue/select';
-import DatePicker from 'primevue/datepicker';
-import RadioButton from 'primevue/radiobutton';
-import Checkbox from 'primevue/checkbox';
 import Button from 'primevue/button';
+import Checkbox from 'primevue/checkbox';
+import DatePicker from 'primevue/datepicker';
 import Divider from 'primevue/divider';
+import InputText from 'primevue/inputtext';
+import RadioButton from 'primevue/radiobutton';
 import Rating from 'primevue/rating';
-import visaImgUrl from '@/shared/assets/images/visa.png';
-import mastercardImgUrl from '@/shared/assets/images/mastercard.png';
-import paypalImgUrl from '@/shared/assets/images/paypal.png';
-import bitcoinImgUrl from '@/shared/assets/images/bitcoin.png';
-import securitySafetyImgUrl from '@/shared/assets/images/security-safety.png';
+import Select from 'primevue/select';
+import {
+  bitcoinImgUrl,
+  mastercardImgUrl,
+  paypalImgUrl,
+  securitySafetyImgUrl,
+  visaImgUrl,
+} from '@/shared/assets/images';
 </script>

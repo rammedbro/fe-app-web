@@ -42,8 +42,8 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import Button from 'primevue/button';
-import { useUserStore } from '@/entities/user';
 import { useRouter } from 'vue-router';
+import { useUserStore } from '@/entities/user';
 
 const { user } = storeToRefs(useUserStore());
 const router = useRouter();

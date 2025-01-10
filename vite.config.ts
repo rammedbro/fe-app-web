@@ -1,8 +1,8 @@
-import { defineConfig, type CSSModulesOptions } from 'vite';
 import { createHash } from 'node:crypto';
-import browserslistToEsbuild from 'browserslist-to-esbuild';
 import vue from '@vitejs/plugin-vue';
 import jsx from '@vitejs/plugin-vue-jsx';
+import browserslistToEsbuild from 'browserslist-to-esbuild';
+import { defineConfig, type CSSModulesOptions } from 'vite';
 import svg from 'vite-svg-loader';
 import pkg from './package.json';
 import tailwindConfig from './tailwind.config';

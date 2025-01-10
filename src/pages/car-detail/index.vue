@@ -140,15 +140,15 @@
 </template>
 
 <script setup lang="ts">
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
+import Avatar from 'primevue/avatar';
+import Badge from 'primevue/badge';
 import Button from 'primevue/button';
+import Carousel from 'primevue/carousel';
 import Galleria from 'primevue/galleria';
 import Rating from 'primevue/rating';
-import Badge from 'primevue/badge';
-import Avatar from 'primevue/avatar';
-import Carousel from 'primevue/carousel';
+import { defaultCarouselResponsiveOptions } from '@/shared/model';
 import { Card } from '@/shared/ui';
-import { defaultCarouselResponsiveOptions } from '@/shared/const';
-import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 
 const galleryImages = [
   { src: 'https://primefaces.org/cdn/primevue/images/galleria/galleria1.jpg', alt: 'Placeholder image' },

@@ -4,3 +4,7 @@ src/app/ambient/auto-imports.d.ts
 
 .firebase
 .yalc
+
+!.eslintrc.cjs
+!.stylelintrc.js
+!.lintstagedrc.js

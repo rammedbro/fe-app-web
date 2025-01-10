@@ -68,27 +68,26 @@
 </template>
 
 <script setup lang="ts">
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 import Button from 'primevue/button';
 import Carousel from 'primevue/carousel';
-import Banner1ImgUrl from '@/shared/assets/images/ads/banner-1.jpg';
-import Banner2ImgUrl from '@/shared/assets/images/ads/banner-2.jpg';
-import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
-import { defaultCarouselResponsiveOptions } from '@/shared/const';
-import { Card } from '@/shared/ui';
 import { PickupDropoffWidgetDesktop, PickupDropoffWidgetMobile } from '@/widgets/pickup-dropoff';
+import { banner1ImgUrl, banner2ImgUrl } from '@/shared/assets/images';
+import { defaultCarouselResponsiveOptions } from '@/shared/model';
+import { Card } from '@/shared/ui';
 
 const banners = [
   {
     title: 'The Best Platform for Car Rental',
     desc: 'Ease of doing a car rental safely and reliably. Of course at a low price.',
     link: '/cars',
-    img: Banner1ImgUrl,
+    img: banner1ImgUrl,
   },
   {
     title: 'Easy way to rent a car at a low price',
     desc: 'Providing cheap car rental services and safe and comfortable facilities.',
     link: '/cars',
-    img: Banner2ImgUrl,
+    img: banner2ImgUrl,
   },
 ];
 const cars = [

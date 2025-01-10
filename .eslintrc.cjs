@@ -3,6 +3,8 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:vue/vue3-recommended',
+    'plugin:import/recommended',
+    '@feature-sliced',
   ],
   plugins: [
     '@typescript-eslint',
@@ -15,6 +17,13 @@ module.exports = {
     ecmaVersion: 2020,
     ecmaFeatures: {
       'jsx': true,
+    },
+  },
+  settings: {
+    'import/resolver': {
+      typescript: {
+        alwaysTryTypes: true,
+      },
     },
   },
   rules: {

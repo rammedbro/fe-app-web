@@ -52,11 +52,11 @@
 <script setup lang="ts">
 import Form from '@primevue/forms/form';
 import { storeToRefs } from 'pinia';
+import Button from 'primevue/button';
 import IftaLabel from 'primevue/iftalabel';
 import InputText from 'primevue/inputtext';
-import Button from 'primevue/button';
-import { signIn, signOut, onAuthStateChange } from '@/shared/api';
 import { useUserStore } from '@/entities/user';
+import { signIn, signOut, onAuthStateChange } from '@/shared/api';
 
 const { setUser, unsetUser } = useUserStore();
 const { user } = storeToRefs(useUserStore());

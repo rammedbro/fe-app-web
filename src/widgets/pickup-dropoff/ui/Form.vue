@@ -57,9 +57,9 @@
 </template>
 
 <script setup lang="ts">
-import Select from 'primevue/select';
 import Datepicker from 'primevue/datepicker';
 import Divider from 'primevue/divider';
+import Select from 'primevue/select';
 
 interface Props {
   layout?: 'horizontal' | 'vertical';
