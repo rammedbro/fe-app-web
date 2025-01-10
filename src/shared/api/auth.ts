@@ -1,4 +1,3 @@
-import { initializeApp } from 'firebase/app';
 import {
   initializeAuth,
   browserLocalPersistence,
@@ -6,6 +5,7 @@ import {
   signOut as signOutDefault,
   onAuthStateChanged,
 } from 'firebase/auth';
+import { initializeApp } from 'firebase/app';
 
 const app = initializeApp({
   // It's ok to include Firebase API keys in your code when you use them only with Firebase-related APIs.

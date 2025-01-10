@@ -51,8 +51,8 @@
 </template>
 
 <script setup lang="ts">
-import { GasStationIcon, Profile2UserIcon, SteeringWheelIcon } from '@/shared/ui';
 import Button from 'primevue/button';
+import { GasStationIcon, Profile2UserIcon, SteeringWheelIcon } from '@/shared/ui';
 
 defineProps<{
   img: string;

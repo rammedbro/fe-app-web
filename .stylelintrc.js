@@ -1,6 +1,6 @@
 export default {
-  "extends": [
-    "stylelint-config-recommended",
-    "stylelint-config-tailwindcss"
+  extends: [
+    'stylelint-config-recommended',
+    'stylelint-config-tailwindcss',
   ],
 };

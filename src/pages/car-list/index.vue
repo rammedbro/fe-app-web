@@ -82,14 +82,14 @@
 
 <script setup lang="ts">
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
-import Checkbox from 'primevue/checkbox';
-import Slider from 'primevue/slider';
-import { Card } from '@/shared/ui';
-import Paginator from 'primevue/paginator';
-import Drawer from 'primevue/drawer';
-import Toolbar from 'primevue/toolbar';
 import Button from 'primevue/button';
+import Checkbox from 'primevue/checkbox';
+import Drawer from 'primevue/drawer';
+import Paginator from 'primevue/paginator';
+import Slider from 'primevue/slider';
+import Toolbar from 'primevue/toolbar';
 import { PickupDropoffWidgetDesktop, PickupDropoffWidgetMobile } from '@/widgets/pickup-dropoff';
+import { Card } from '@/shared/ui';
 
 const cars = [
   { img: 'https://primefaces.org/cdn/primevue/images/product/blue-t-shirt.jpg' },

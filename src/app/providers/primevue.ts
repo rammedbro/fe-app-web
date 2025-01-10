@@ -1,6 +1,6 @@
-import PrimeVue, { type PrimeVueConfiguration } from 'primevue/config';
 import { definePreset } from '@primevue/themes';
 import Aura from '@primevue/themes/aura';
+import PrimeVue, { type PrimeVueConfiguration } from 'primevue/config';
 import type { App, Plugin } from 'vue';
 
 export const primevue: Plugin = (app: App) => {

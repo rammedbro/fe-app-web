@@ -24,7 +24,7 @@ import IconField from 'primevue/iconfield';
 import InputIcon from 'primevue/inputicon';
 import InputText from 'primevue/inputtext';
 import { useRoute, useRouter } from 'vue-router';
-import HeaderProfile from '@/widgets/header/ui/HeaderProfile.vue';
+import HeaderProfile from './HeaderProfile.vue';
 
 const router = useRouter();
 const route = useRoute();

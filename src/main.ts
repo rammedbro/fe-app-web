@@ -1,16 +1,16 @@
-import { createApp } from 'vue';
 import { getApplication } from '@imolater/fe-app-client';
+import { createApp } from 'vue';
 import '@/app/providers/style';
-import { router } from '@/app/providers/router';
 import { pinia } from '@/app/providers/pinia';
 // import { sentry } from '@/app/providers/sentry';
 import { primevue } from '@/app/providers/primevue';
+import { router } from '@/app/providers/router';
+import App from '@/app/ui/App.vue';
 import {
   configInjectionKey,
   emitterInjectionKey,
   loggerInjectionKey,
-} from '@/shared/const';
-import App from '@/app/ui/App.vue';
+} from '@/shared/model';
 
 async function init() {
   const { emitter, logger, config } = await getApplication();
