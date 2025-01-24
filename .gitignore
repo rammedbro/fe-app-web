@@ -1,9 +1,10 @@
 node_modules
 build
+config.json
+src/shared/api/openapi
 
 logs
 *.log
-
 temp.*
 *.temp
 

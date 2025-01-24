@@ -1,6 +1,7 @@
 node_modules
 build
 src/app/ambient/auto-imports.d.ts
+src/shared/api/openapi
 
 .firebase
 .yalc

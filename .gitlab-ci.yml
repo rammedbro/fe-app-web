@@ -24,10 +24,22 @@ default:
     - pnpm install --prefer-offline
     - echo -e "\e[0Ksection_end:`date +%s`:npm_install\r\e[0K"
 
+secure-files:
+  stage: install
+  variables:
+    SECURE_FILES_DOWNLOAD_PATH: './'
+  script:
+    - curl --silent "https://gitlab.com/gitlab-org/incubation-engineering/mobile-devops/download-secure-files/-/raw/main/installer" | sh
+  artifacts:
+    paths:
+      - config.json
+
 install:
   stage: install
   extends:
     - .node-modules-cache
+  needs:
+    - secure-files
   except:
     - tags
     - merge_requests
@@ -35,6 +47,9 @@ install:
     policy: pull-push
   script:
     - echo "This is a stub message"
+  artifacts:
+    paths:
+      - config.json
 
 build:
   stage: build
@@ -53,8 +68,6 @@ lint:js:
   stage: check
   extends:
     - .node-modules-cache
-  needs:
-    - build
   except:
     - tags
     - merge_requests
@@ -65,8 +78,6 @@ lint:css:
   stage: check
   extends:
     - .node-modules-cache
-  needs:
-    - build
   except:
     - tags
     - merge_requests
@@ -77,8 +88,6 @@ lint:types:
   stage: check
   extends:
     - .node-modules-cache
-  needs:
-    - build
   except:
     - tags
     - merge_requests

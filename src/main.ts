@@ -6,6 +6,7 @@ import { pinia } from '@/app/providers/pinia';
 import { primevue } from '@/app/providers/primevue';
 import { router } from '@/app/providers/router';
 import App from '@/app/ui/App.vue';
+import api from '@/shared/api';
 import {
   configInjectionKey,
   emitterInjectionKey,
@@ -35,6 +36,9 @@ async function init() {
   app.config.warnHandler = ((msg, _, info) => {
     logger.info({ data: { msg, info } });
   });
+
+  // Api
+  api.setConfig({ baseURL: config.get('api.url') as string });
 
   // Emitter
   emitter.addEventListener('update', evt => {
