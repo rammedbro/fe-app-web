@@ -1,7 +1,16 @@
 <template>
 <div class="container py-8 lg:py-16 mx-auto">
   <div
-    v-if="user === null"
+    v-if="user"
+    class="bg-white rounded-lg min-w-sm p-8 mx-auto"
+  >
+    <h2 class="text-2xl font-bold mb-6">Account details</h2>
+    <pre class="overflow-scroll mb-6">{{ user }}</pre>
+
+    <Button label="Logout" @click="signOut().then(unsetUser)" />
+  </div>
+  <div
+    v-else
     class="bg-white rounded-lg max-w-sm p-8 mx-auto"
   >
     <h2 class="text-2xl font-bold mb-6">Sign in</h2>
@@ -36,16 +45,6 @@
       <Button type="submit" label="Login" />
     </Form>
   </div>
-
-  <div
-    v-else
-    class="bg-white rounded-lg min-w-sm p-8 mx-auto"
-  >
-    <h2 class="text-2xl font-bold mb-6">Account details</h2>
-    <pre class="overflow-scroll mb-6">{{ details || 'null' }}</pre>
-
-    <Button label="Logout" @click="signOut().then(unsetUser)" />
-  </div>
 </div>
 </template>
 
@@ -56,13 +55,11 @@ import Button from 'primevue/button';
 import IftaLabel from 'primevue/iftalabel';
 import InputText from 'primevue/inputtext';
 import { useUserStore } from '@/entities/user';
-import { signIn, signOut, onAuthStateChange } from '@/shared/api';
-
+import { getUser, signIn, signOut } from '@/shared/api';
 const { setUser, unsetUser } = useUserStore();
 const { user } = storeToRefs(useUserStore());
 const login = ref<string | null>(null);
 const password = ref<string | null>(null);
-const details = ref<string | null>(null);
 
 async function onAuthSubmit() {
   if (!login.value || !password.value) {
@@ -70,16 +67,12 @@ async function onAuthSubmit() {
   }
 
   try {
-    const { user: { displayName, email, uid } } = await signIn(login.value!, password.value!);
-    setUser({ name: displayName, email, uid });
+    await signIn(login.value!, password.value!);
+    const { data } = await getUser<true>({ path: { id: 1 } });
+
+    setUser(data);
   } catch (e) {
     console.error(e);
   }
 }
-
-onAuthStateChange(user => {
-  details.value = user
-    ? JSON.stringify(user, null, 2)
-    : null;
-});
 </script>

@@ -1,5 +1,3 @@
-/// <reference types="node"/>
-
 import type { FEAppConfig } from '@imolater/fe-app-types';
 import pkg from './package.json';
 

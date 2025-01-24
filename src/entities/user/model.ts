@@ -1,11 +1,7 @@
 import { defineStore } from 'pinia';
+import type { User } from '@/shared/model';
 
-export interface User {
-  uid: string;
-  name: string | null;
-  email: string | null;
-}
-
+export type { User };
 export const useUserStore = defineStore('user', () => {
   const user = ref<User | null>(null);
 
