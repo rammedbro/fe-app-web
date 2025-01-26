@@ -1,8 +1,11 @@
+/**
+ * @see https://commitlint.js.org/reference/configuration.html#configuration
+ * @type {import('@commitlint/types').UserConfig}
+ */
 export default {
-  'extends': [
-    '@commitlint/config-conventional',
-  ],
+  extends: ['@commitlint/config-conventional'],
   rules: {
-    'subject-case': [2, 'always', ['sentence-case', 'upper-case']],
+    'scope-empty': [2, 'never'],
+    'subject-case': [2, 'always', ['sentence-case']],
   },
 };
