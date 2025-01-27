@@ -51,15 +51,17 @@ install:
   cache:
     policy: pull-push
   script:
-    - echo "This is a stub message"
+    - pnpm build:api
   artifacts:
     paths:
-      - config.json
+      - src/shared/api/openapi
 
 build:
   stage: build
   extends:
     - .node-modules-cache
+  needs:
+    - secure-files
   script:
     - pnpm build
   artifacts:
@@ -72,6 +74,8 @@ lint:js:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   extends:
     - .node-modules-cache
+  needs:
+    - install
   script:
     - pnpm lint:js
 
@@ -81,6 +85,8 @@ lint:css:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   extends:
     - .node-modules-cache
+  needs:
+    - install
   script:
     - pnpm lint:css
 
@@ -90,6 +96,8 @@ lint:types:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   extends:
     - .node-modules-cache
+  needs:
+    - install
   script:
     - pnpm lint:types
 

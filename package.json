@@ -20,7 +20,7 @@
   },
   "type": "module",
   "scripts": {
-    "prepare": "run-p husky:install build:api",
+    "prepare": "husky install",
     "dev": "fe-app dev",
     "build": "run-s build:api build:app",
     "build:app": "fe-app build",
@@ -28,8 +28,7 @@
     "start": "fe-app start",
     "lint:types": "fe-app-scripts lint-types",
     "lint:js": "eslint \"**/*.{js,jsx,ts,tsx,vue}\"",
-    "lint:css": "stylelint \"**/*.{css,scss}\"",
-    "husky:install": "husky install"
+    "lint:css": "stylelint \"**/*.{css,scss}\""
   },
   "dependencies": {
     "@hey-api/client-axios": "^0.5.1",
