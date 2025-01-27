@@ -7,14 +7,10 @@ export default {
   branches: ['master', 'next'],
   plugins: [
     '@semantic-release/commit-analyzer',
-    '@semantic-release/release-notes-generator',
+    ['semantic-release-jira-notes', { jiraHost: 'imolater.atlassian.net' }],
     '@semantic-release/changelog',
-    [
-      '@semantic-release/gitlab',
-      {
-        assets: ['build/**'],
-      },
-    ],
+    '@semantic-release/npm',
+    '@semantic-release/gitlab',
     [
       '@semantic-release/git',
       {
