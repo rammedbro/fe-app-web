@@ -10,7 +10,7 @@ stages:
 
 workflow:
   rules:
-    - if: $CI_COMMIT_MESSAGE =~ /[skip ci]$/
+    - if: $CI_COMMIT_TITLE =~ /\[skip ci\]$/
       when: never
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
     - if: $CI_PIPELINE_SOURCE == 'web'
