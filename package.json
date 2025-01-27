@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "1.0.0",
+  "version": "0.0.0",
   "name": "fe-app-web",
   "description": "Frontend application written in Vue + TS and scaffolded with fe-app",
   "keywords": [
