@@ -2,11 +2,11 @@ import {
   initializeAuth,
   browserLocalPersistence,
   signInWithEmailAndPassword,
-  signOut as signOutDefault,
   onAuthStateChanged,
 } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 
+export const isAuthenticated = ref(false);
 const app = initializeApp({
   // It's ok to include Firebase API keys in your code when you use them only with Firebase-related APIs.
   apiKey: 'AIzaSyAkWHV6KJIAAsmifShVYZlRtGUTC1i7jY8',
@@ -20,7 +20,13 @@ const app = initializeApp({
 const auth = initializeAuth(app, {
   persistence: browserLocalPersistence,
 });
+onAuthStateChanged(auth, async () => {
+  isAuthenticated.value = Boolean(auth.currentUser);
+});
+
 export const signIn = signInWithEmailAndPassword.bind(null, auth);
-export const signOut = signOutDefault.bind(null, auth);
-export const onAuthStateChange = onAuthStateChanged.bind(null, auth);
+export const signOut = async () => {
+  await auth.signOut();
+  window.location.reload();
+};
 

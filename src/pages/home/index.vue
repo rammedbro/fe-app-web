@@ -25,57 +25,89 @@
     </template>
   </Carousel>
 
-  <PickupDropoffWidgetDesktop v-if="breakpoints.md.value" class="mb-8" />
-  <PickupDropoffWidgetMobile v-else />
+  <PickupDropoffDesktop v-if="breakpoints.md.value" class="mb-8" />
+  <PickupDropoffMobile v-else />
 
-  <section class="mb-8">
+  <section
+    v-intersection-observer="([e]: IntersectionObserverEntry[]) =>
+      e?.isIntersecting && !popularCars.isReady.value &&popularCars.execute()"
+    class="mb-8"
+  >
     <div class="flex items-center justify-between mb-4">
       <div class="text-content-300">Popular cars</div>
 
-      <Button text link label="View All" />
+      <Button
+        as="router-link"
+        :to="{name: 'car-list', query: {sortBy: ['rating']}}"
+        text
+        label="View all"
+      />
     </div>
 
     <Carousel
-      :value="cars"
+      v-if="popularCars.isReady.value"
+      :value="popularCars.state.value"
       :num-visible="4"
       :num-scroll="1"
       :show-navigators="false"
       :responsive-options="defaultCarouselResponsiveOptions"
       content-class="-mx-2"
     >
-      <template #item="{data}">
-        <Card :img="data.img" class="mx-2" />
+      <template #item="{ data }">
+        <Card v-bind="data as Car" class="mx-2" />
       </template>
     </Carousel>
+    <Spinner v-else class="block mx-auto" />
   </section>
 
-  <section class="mb-8">
+  <section
+    v-intersection-observer="([e]: IntersectionObserverEntry[]) =>
+      e?.isIntersecting && !cheapCars.isReady.value && cheapCars.execute()"
+    class="mb-8"
+  >
     <div class="flex items-center justify-between mb-4">
-      <div class="text-content-300">Recommended cars</div>
+      <div class="text-content-300">Cheap cars</div>
 
-      <Button text link label="View All" />
+      <Button
+        as="router-link"
+        :to="{name: 'car-list', query: {sortBy: ['price']}}"
+        text
+        label="View all"
+      />
     </div>
 
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 mb-6">
-      <Card v-for="car in cars" :key="car.img" :img="car.img" />
+    <div v-if="cheapCars.isReady.value">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 mb-6">
+        <Card v-for="car in cheapCars.state.value" :key="car.id" v-bind="car as Car" />
+      </div>
+      <div class="flex justify-center">
+        <Button
+          as="router-link"
+          :to="{name: 'car-list', query: {sortBy: ['price']}}"
+          label="Show more"
+        />
+      </div>
     </div>
-
-    <div class="flex justify-center">
-      <Button as="router-link" :to="{name: 'car-list'}" label="Show more" />
-    </div>
+    <Spinner v-else class="block mx-auto" />
   </section>
 </div>
 </template>
 
 <script setup lang="ts">
+import { vIntersectionObserver } from '@vueuse/components';
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 import Button from 'primevue/button';
 import Carousel from 'primevue/carousel';
-import { PickupDropoffWidgetDesktop, PickupDropoffWidgetMobile } from '@/widgets/pickup-dropoff';
+import Spinner from 'primevue/progressspinner';
+import { PickupDropoffDesktop, PickupDropoffMobile } from '@/widgets/pickup-dropoff';
+import { getCarList } from '@/shared/api';
 import { banner1ImgUrl, banner2ImgUrl } from '@/shared/assets/images';
-import { defaultCarouselResponsiveOptions } from '@/shared/model';
-import { Card } from '@/shared/ui';
+import { useAsync } from '@/shared/lib/async';
+import { defaultCarouselResponsiveOptions } from '@/shared/model/breakpoints';
+import type { Car } from '@/shared/model/models';
+import { Card } from '@/shared/ui/card';
 
+const breakpoints = useBreakpoints(breakpointsTailwind);
 const banners = [
   {
     title: 'The Best Platform for Car Rental',
@@ -90,13 +122,14 @@ const banners = [
     img: banner2ImgUrl,
   },
 ];
-const cars = [
-  { img: 'https://primefaces.org/cdn/primevue/images/product/blue-t-shirt.jpg' },
-  { img: 'https://primefaces.org/cdn/primevue/images/product/bracelet.jpg' },
-  { img: 'https://primefaces.org/cdn/primevue/images/product/brown-purse.jpg' },
-  { img: 'https://primefaces.org/cdn/primevue/images/product/bamboo-watch.jpg' },
-  { img: 'https://primefaces.org/cdn/primevue/images/product/black-watch.jpg' },
-  { img: 'https://primefaces.org/cdn/primevue/images/product/blue-band.jpg' },
-];
-const breakpoints = useBreakpoints(breakpointsTailwind);
+const popularCars = useAsync(
+  () => getCarList<true>({ query: { sortBy: ['rating'], limit: 10 } }).then(res => res.data),
+  [],
+  { immediate: false },
+);
+const cheapCars = useAsync(
+  () => getCarList<true>({ query: { sortBy: ['price'], limit: 10 } }).then(res => res.data),
+  [],
+  { immediate: false },
+);
 </script>

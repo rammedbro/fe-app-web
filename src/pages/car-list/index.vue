@@ -1,80 +1,88 @@
 <template>
 <div class="flex">
-  <component
-    :is="responsiveAsideComponent"
+  <CarListAside
     v-model:visible="isDrawerVisible"
-    v-bind="responsiveAsideComponentProps"
-  >
-    <section class="mb-14">
-      <div class="text-content-300 mb-6">Type</div>
-      <ul>
-        <li
-          v-for="item in ['Sport', 'SUV', 'MPV', 'Sedan', 'Coupe', 'Hatchback']"
-          :key="item"
-          class="flex items-center mb-8"
-        >
-          <Checkbox class="mr-3" />
-          <label class="text-lg font-semibold">
-            <span class="text-content-400 mr-2">{{ item }}</span>
-            <span class="text-content-300">(12)</span>
-          </label>
-        </li>
-      </ul>
-    </section>
-
-    <section class="mb-14">
-      <div class="text-content-300 mb-6">Capacity</div>
-      <ul>
-        <li
-          v-for="item in [2, 4, 6, 8]"
-          :key="item"
-          class="flex items-center mb-8"
-        >
-          <Checkbox class="mr-3" />
-          <label class="text-lg font-semibold">
-            <span class="text-content-400 mr-2">Person</span>
-            <span class="text-content-300">(4)</span>
-          </label>
-        </li>
-      </ul>
-    </section>
-
-    <section>
-      <div class="text-content-300 mb-6">Price</div>
-
-      <div>
-        <Slider class="mb-4" />
-        <div class="flex items-center justify-between">
-          <div class="text-sm text-content-300">0</div>
-          <div class="text-sm text-content-300">100</div>
-        </div>
-      </div>
-    </section>
-  </component>
+    v-model:filter="options"
+  />
 
   <div class="flex-1 px-4 xl:px-8 py-8">
     <div class="md:flex md:justify-center">
-      <PickupDropoffWidgetDesktop v-if="breakpoints.md.value" class="mb-6" />
-      <PickupDropoffWidgetMobile v-else />
+      <PickupDropoffDesktop v-if="breakpoints.md.value" class="mb-6" />
+      <PickupDropoffMobile v-else />
     </div>
 
     <div class="flex justify-end">
-      <Toolbar v-if="!breakpoints.xl.value" class="rounded-full mb-6">
-        <template #start>
-          <Button icon="pi pi-filter" severity="secondary" text @click="isDrawerVisible = true" />
-        </template>
-        <template #end>
-          <Button icon="pi pi-sort-alpha-down" severity="secondary" text />
+      <Toolbar class="rounded-full mb-6">
+        <template #center>
+          <Button
+            v-if="!breakpoints.xl.value"
+            icon="pi pi-filter"
+            severity="secondary"
+            text
+            @click="isDrawerVisible = true"
+          />
+          <Button icon="pi pi-sort-alpha-down" severity="secondary" text @click="sortByPopoverRef?.toggle" />
+          <Popover ref="sortByPopoverRef">
+            <ListBox
+              v-model="sortBy"
+              :options="['brand', 'model', 'rating', 'price', 'gasoline']"
+              multiple
+              checkmark
+              class="border-0 shadow-none"
+            />
+          </Popover>
         </template>
       </Toolbar>
     </div>
 
-    <div class="flex flex-wrap justify-center xl:justify-start gap-4 mb-6">
-      <Card v-for="car in cars" :key="car.img" :img="car.img" class="lg:max-w-[340px]" />
+    <div
+      ref="itemsRef"
+      class="flex flex-wrap justify-center xl:justify-start gap-4 mb-6"
+    >
+      <template v-if="carsAsync.isReady.value">
+        <Card
+          v-for="car in carsAsync.state.value"
+          :key="car.id"
+          v-bind="car"
+          class="lg:max-w-[340px]"
+        />
+      </template>
+      <template v-else>
+        <div
+          v-for="n in limit"
+          :key="n"
+          class="block bg-white rounded-lg w-full max-w-[340px] p-3 md:p-6"
+        >
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <div class="w-full">
+              <Skeleton height="18px" class="mb-2" />
+              <Skeleton height="12px" />
+            </div>
+
+            <Skeleton size="40px" />
+          </div>
+          <Skeleton height="160px" class="mb-4" />
+          <div class="grid grid-cols-3 gap-2 mb-6">
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+          </div>
+          <div class="flex items-center justify-between gap-4 mt-auto">
+            <Skeleton width="60%" height="30px" />
+            <Skeleton width="40%" height="44px" />
+          </div>
+        </div>
+      </template>
     </div>
 
     <div class="flex justify-center">
-      <Paginator :rows="5" :total-records="120" :rows-per-page-options="[10,25,50,100]" />
+      <Paginator
+        :rows="limit"
+        :first="page > 1 ? (page - 1) * limit : 0"
+        :total-records="totalCount"
+        :rows-per-page-options="[10,25,50,100]"
+        @page="onUpdatePaginatorState"
+      />
     </div>
   </div>
 </div>
@@ -83,28 +91,57 @@
 <script setup lang="ts">
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 import Button from 'primevue/button';
-import Checkbox from 'primevue/checkbox';
-import Drawer from 'primevue/drawer';
-import Paginator from 'primevue/paginator';
-import Slider from 'primevue/slider';
+import ListBox from 'primevue/listbox';
+import Paginator, { type PageState } from 'primevue/paginator';
+import Popover, { type PopoverMethods } from 'primevue/popover';
+import Skeleton from 'primevue/skeleton';
 import Toolbar from 'primevue/toolbar';
-import { PickupDropoffWidgetDesktop, PickupDropoffWidgetMobile } from '@/widgets/pickup-dropoff';
-import { Card } from '@/shared/ui';
+import { useRouter, useRoute } from 'vue-router';
+import CarListAside from './ui/Aside.vue';
+import { PickupDropoffDesktop, PickupDropoffMobile } from '@/widgets/pickup-dropoff';
+import { getCarList } from '@/shared/api';
+import { useAsync } from '@/shared/lib/async';
+import { useRouteQuery } from '@/shared/lib/router';
+import { ensureArray } from '@/shared/lib/objects';
+import type { GetCarListOptions, SortDirection } from '@/shared/model/models';
+import { Card } from '@/shared/ui/card';
 
-const cars = [
-  { img: 'https://primefaces.org/cdn/primevue/images/product/blue-t-shirt.jpg' },
-  { img: 'https://primefaces.org/cdn/primevue/images/product/bracelet.jpg' },
-  { img: 'https://primefaces.org/cdn/primevue/images/product/brown-purse.jpg' },
-  { img: 'https://primefaces.org/cdn/primevue/images/product/bamboo-watch.jpg' },
-  { img: 'https://primefaces.org/cdn/primevue/images/product/black-watch.jpg' },
-  { img: 'https://primefaces.org/cdn/primevue/images/product/blue-band.jpg' },
-];
+const router = useRouter();
+const route = useRoute();
+const itemsRef = ref<HTMLDivElement | null>(null);
+const sortByPopoverRef = ref<PopoverMethods | null>(null);
+const page = useRouteQuery('page', 1, { transform: Number });
+const limit = useRouteQuery('limit', 10, { transform: Number });
+const sortBy = useRouteQuery<string[]>('sortBy', [], { transform: ensureArray });
+const sortDir = useRouteQuery<SortDirection>('sortDir', 'asc');
+const options = reactive({
+  page,
+  limit,
+  sortBy,
+  sortDir,
+});
+const totalCount = ref(0);
+const carsAsync = useAsync(
+  async (args?: GetCarListOptions) => {
+    const { data, headers } = await getCarList<true>({ query: args });
+
+    // page.value = Number(headers['x-page']);
+    totalCount.value = Number(headers['x-total-count']);
+
+    return data;
+  },
+  [],
+  { immediate: false },
+);
 const breakpoints = useBreakpoints(breakpointsTailwind);
 const isDrawerVisible = ref(false);
-const responsiveAsideComponent = computed(() => breakpoints.xl.value ? 'aside' : Drawer);
-const responsiveAsideComponentProps = computed(() =>
-  breakpoints.xl.value
-    ? { class: 'bg-white border-t-2 border-t-gray min-w-[320px] p-8' }
-    : { header: 'Filters' },
-);
+
+watch(options, async (value) => {
+  await carsAsync.execute(value);
+  itemsRef.value?.scrollIntoView({ behavior: 'smooth' });
+});
+
+function onUpdatePaginatorState(state: PageState) {
+  router.push({ query: { ...route.query, page: state.page + 1, limit: state.rows }, replace: true });
+}
 </script>

@@ -1,5 +1,4 @@
 import type { FEAppConfig } from '@imolater/fe-app-types';
-import pkg from './package.json';
 
 const config: FEAppConfig = {
   logLevel: 'error',
@@ -12,18 +11,6 @@ const config: FEAppConfig = {
     useTsConfigPaths: true,
     useAutoImport: {
       dts: 'src/app/ambient/auto-imports.d.ts',
-    },
-    useWorkers: {
-      dedicated: true,
-      service: true,
-    },
-  },
-  server: {
-    sentry: {
-      authToken: process.env.SENTRY_AUTH_TOKEN,
-      project: 'fe-app',
-      url: 'https://imolater-company.sentry.io/',
-      release: pkg.version,
     },
   },
 };

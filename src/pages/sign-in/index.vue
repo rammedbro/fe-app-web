@@ -1,18 +1,6 @@
 <template>
 <div class="container py-8 lg:py-16 mx-auto">
-  <div
-    v-if="user"
-    class="bg-white rounded-lg min-w-sm p-8 mx-auto"
-  >
-    <h2 class="text-2xl font-bold mb-6">Account details</h2>
-    <pre class="overflow-scroll mb-6">{{ user }}</pre>
-
-    <Button label="Logout" @click="signOut().then(unsetUser)" />
-  </div>
-  <div
-    v-else
-    class="bg-white rounded-lg max-w-sm p-8 mx-auto"
-  >
+  <div class="bg-white rounded-lg max-w-sm p-8 mx-auto">
     <h2 class="text-2xl font-bold mb-6">Sign in</h2>
     <Form
       class="flex flex-col"
@@ -42,7 +30,7 @@
         />
       </IftaLabel>
 
-      <Button type="submit" label="Login" />
+      <Button type="submit" label="Sign In" />
     </Form>
   </div>
 </div>
@@ -50,14 +38,15 @@
 
 <script setup lang="ts">
 import Form from '@primevue/forms/form';
-import { storeToRefs } from 'pinia';
 import Button from 'primevue/button';
 import IftaLabel from 'primevue/iftalabel';
 import InputText from 'primevue/inputtext';
+import { useRouter } from 'vue-router';
 import { useUserStore } from '@/entities/user';
-import { getUser, signIn, signOut } from '@/shared/api';
-const { setUser, unsetUser } = useUserStore();
-const { user } = storeToRefs(useUserStore());
+import { getUser, signIn } from '@/shared/api';
+
+const router = useRouter();
+const { setUser } = useUserStore();
 const login = ref<string | null>(null);
 const password = ref<string | null>(null);
 
@@ -71,6 +60,8 @@ async function onAuthSubmit() {
     const { data } = await getUser<true>({ path: { id: 1 } });
 
     setUser(data);
+
+    await router.push({ name: 'profile-dashboard' });
   } catch (e) {
     console.error(e);
   }

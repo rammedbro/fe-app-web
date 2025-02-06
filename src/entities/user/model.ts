@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import type { User } from '@/shared/model';
+import type { User } from '@/shared/model/models';
 
 export type { User };
 export const useUserStore = defineStore('user', () => {

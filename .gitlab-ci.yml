@@ -10,8 +10,6 @@ stages:
 
 workflow:
   rules:
-    - if: $CI_COMMIT_TITLE =~ /\[skip ci\]$/
-      when: never
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
     - if: $CI_PIPELINE_SOURCE == 'web'
     - if: $CI_COMMIT_TAG
@@ -78,19 +76,9 @@ lint:js:
     - .node-modules-cache
   needs:
     - install
+    - secure-files
   script:
     - pnpm lint:js
-
-lint:css:
-  stage: check
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-  extends:
-    - .node-modules-cache
-  needs:
-    - install
-  script:
-    - pnpm lint:css
 
 lint:types:
   stage: check
@@ -102,6 +90,17 @@ lint:types:
     - install
   script:
     - pnpm lint:types
+
+lint:css:
+  stage: check
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  extends:
+    - .node-modules-cache
+  needs:
+    - install
+  script:
+    - pnpm lint:css
 
 release:
   stage: release
@@ -118,7 +117,7 @@ release:
     GIT_COMMITTER_NAME: $GITLAB_USER_NAME
     GIT_COMMITTER_EMAIL: $GITLAB_USER_EMAIL
   script:
-    - pnpm semantic-release
+    - pnpm release
 
 deploy:
   stage: deploy
