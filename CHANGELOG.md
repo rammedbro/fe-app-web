@@ -1,3 +1,10 @@
+## [1.1.0](https://gitlab.com/imolater/fe-app-web/compare/v1.0.0...v1.1.0) (2025-02-06)
+
+
+### Features
+
+* **[FAW-40](https://imolater.atlassian.net/browse/FAW-40):** Replace dummy data with api calls ([6aabf6b](https://gitlab.com/imolater/fe-app-web/commit/6aabf6b3fce9ac710b84c0ace8e3b9e5dc68d9a2))
+
 ## 1.0.0 (2025-01-27)
 
 
