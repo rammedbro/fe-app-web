@@ -13,23 +13,23 @@ The file will include more content in the future.
 
 The project uses FSD hence it has particular folder structure consisting of:
 
-* app - application settings, ui and providers
-* assets - styles, images, fonts, etc.
-* entities - variety of data object types used by application
-* features - small pieces of business logic
-* pages - web pages registered in router
-* shared - third party modules
-* types - types (as name suggest)
-* widgets - assembling of entities and features into complex blocks
-* main.ts - application's entry point. It's a main file where we assemble and mount our app, listen to events, catch
-  errors. All in all, doing global things. 
+- app - application settings, ui and providers
+- assets - styles, images, fonts, etc.
+- entities - variety of data object types used by application
+- features - small pieces of business logic
+- pages - web pages registered in router
+- shared - third party modules
+- types - types (as name suggest)
+- widgets - assembling of entities and features into complex blocks
+- main.ts - application's entry point. It's a main file where we assemble and mount our app, listen to events, catch
+  errors. All in all, doing global things.
 
 ## Noteworthy
 
-* All tooling packages, like eslint, stylelint, lintstaged, etc., and its config files installed via 
-[fe-app-codegen](https://github.com/rammedbro/fe-app/tree/master/packages/codegen/) module.
-* The fe-app package uses several config files for various purposes:
-  * `fe-app.config.ts` - main setup file for bundling and serving
-  * `client.config.ts` - client config handling file
-  * `server.config.ts` - server response mocking file
-  * `vite.config.ts` - vite setup file
+- All tooling packages, like eslint, stylelint, lintstaged, etc., and its config files installed via
+  [fe-app-codegen](https://github.com/rammedbro/fe-app/tree/master/packages/codegen/) module.
+- The fe-app package uses several config files for various purposes:
+  - `fe-app.config.ts` - main setup file for bundling and serving
+  - `client.config.ts` - client config handling file
+  - `server.config.ts` - server response mocking file
+  - `vite.config.ts` - vite setup file

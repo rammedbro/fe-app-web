@@ -6,9 +6,7 @@ import { router } from './router.ts';
 export const sentry: Plugin = (app: App, options: Partial<Options> = {}): void => {
   Sentry.init({
     app,
-    integrations: [
-      Sentry.browserTracingIntegration({ router }),
-    ],
+    integrations: [Sentry.browserTracingIntegration({ router })],
     tracesSampleRate: 1.0,
     ...options,
   });

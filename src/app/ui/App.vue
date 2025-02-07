@@ -1,11 +1,11 @@
 <template>
-<Header />
+  <Header />
 
-<main class="flex-1">
-  <RouterView :key="$route.path" />
-</main>
+  <main class="flex-1">
+    <RouterView :key="$route.path" />
+  </main>
 
-<Footer />
+  <Footer />
 </template>
 
 <script lang="ts" setup>

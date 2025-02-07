@@ -1,9 +1,4 @@
-import {
-  initializeAuth,
-  browserLocalPersistence,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-} from 'firebase/auth';
+import { initializeAuth, browserLocalPersistence, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 
 export const isAuthenticated = ref(false);
@@ -29,4 +24,3 @@ export const signOut = async () => {
   await auth.signOut();
   window.location.reload();
 };
-

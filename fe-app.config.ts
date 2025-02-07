@@ -1,7 +1,9 @@
 import type { FEAppConfig } from '@imolater/fe-app-types';
 
-const config: FEAppConfig = {
-  logLevel: 'error',
+/**
+ * @see https://gitlab.com/imolater/fe-app/-/blob/master/packages/types/docs/api/interfaces/FEAppConfig.md
+ */
+export default {
   configs: {
     clientConfig: 'client.config.ts',
     serverConfig: 'server.config.ts',
@@ -13,6 +15,5 @@ const config: FEAppConfig = {
       dts: 'src/app/ambient/auto-imports.d.ts',
     },
   },
-};
-
-export default config;
+  logLevel: 'error',
+} as FEAppConfig;

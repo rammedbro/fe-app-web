@@ -7,11 +7,7 @@ import { primevue } from '@/app/providers/primevue';
 import { router } from '@/app/providers/router';
 import App from '@/app/ui/App.vue';
 import api from '@/shared/api';
-import {
-  configInjectionKey,
-  emitterInjectionKey,
-  loggerInjectionKey,
-} from '@/shared/model/symbols';
+import { configInjectionKey, emitterInjectionKey, loggerInjectionKey } from '@/shared/model/symbols';
 
 async function init() {
   const { emitter, logger, config } = await getApplication();
@@ -22,7 +18,7 @@ async function init() {
     .provide(configInjectionKey, config)
     .provide(emitterInjectionKey, emitter)
     .provide(loggerInjectionKey, logger)
-    .directive<HTMLElement>('focus', el => el.focus());
+    .directive<HTMLElement>('focus', (el) => el.focus());
 
   Object.assign(app.config.globalProperties, {
     version: __APP_VERSION__,
@@ -34,11 +30,11 @@ async function init() {
   // Api
   api.setConfig({
     baseURL: config.get('api.url') as string,
-    paramsSerializer: params => qs.stringify(params),
+    paramsSerializer: (params) => qs.stringify(params),
   });
 
   // Emitter
-  emitter.addEventListener('update', evt => {
+  emitter.addEventListener('update', (evt) => {
     logger.info({
       name: 'Application update event',
       data: (evt as CustomEvent).detail,

@@ -1,22 +1,22 @@
 <template>
-<header class="bg-white py-6 lg:py-10">
-  <div class="container flex flex-wrap lg:items-center gap-4 mx-auto">
-    <RouterLink to="/" class="text-3xl font-bold text-primary uppercase">Morent</RouterLink>
+  <header class="bg-white py-6 lg:py-10">
+    <div class="container flex flex-wrap lg:items-center gap-4 mx-auto">
+      <RouterLink to="/" class="text-3xl font-bold text-primary uppercase">Morent</RouterLink>
 
-    <HeaderProfile class="lg:order-3 ml-auto" />
+      <HeaderProfile class="lg:order-3 ml-auto" />
 
-    <IconField class="w-full lg:max-w-[500px] lg:order-2 lg:ml-16">
-      <InputIcon class="pi pi-search" />
-      <InputText
-        v-model="searchInput"
-        placeholder="Search something here"
-        class="w-full rounded-full"
-        @keyup.enter="search"
-      />
-      <InputIcon class="pi pi-sliders-h cursor-pointer" @click="search" />
-    </IconField>
-  </div>
-</header>
+      <IconField class="w-full lg:max-w-[500px] lg:order-2 lg:ml-16">
+        <InputIcon class="pi pi-search" />
+        <InputText
+          v-model="searchInput"
+          placeholder="Search something here"
+          class="w-full rounded-full"
+          @keyup.enter="search"
+        />
+        <InputIcon class="pi pi-sliders-h cursor-pointer" @click="search" />
+      </IconField>
+    </div>
+  </header>
 </template>
 
 <script setup lang="ts">

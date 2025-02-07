@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 const opened = defineModel({
   type: Boolean,
   default: false,
@@ -19,22 +18,9 @@ function close() {
   <button v-if="closed" @click="open">Open modal</button>
 
   <Teleport to="body">
-    <Transition
-      :enter-active-class="$style.transitionEnter"
-      :leave-active-class="$style.transitionLeave"
-    >
-      <div
-        v-if="opened"
-        :class="$style.layout"
-        @click="close"
-      >
-        <div
-          v-focus
-          tabindex="0"
-          :class="$style.modal"
-          @click.stop
-          @keyup.esc="close"
-        >
+    <Transition :enter-active-class="$style.transitionEnter" :leave-active-class="$style.transitionLeave">
+      <div v-if="opened" :class="$style.layout" @click="close">
+        <div v-focus tabindex="0" :class="$style.modal" @click.stop @keyup.esc="close">
           <div :class="$style.title">
             <slot name="title">Modal title</slot>
           </div>
@@ -43,12 +29,7 @@ function close() {
             <slot name="default">Modal content!</slot>
           </div>
 
-          <button
-            :class="$style.close"
-            @click="close"
-          >
-            Close
-          </button>
+          <button :class="$style.close" @click="close">Close</button>
         </div>
       </div>
     </Transition>
@@ -64,7 +45,7 @@ function close() {
   right: 0;
   z-index: 999;
   overflow: hidden;
-  background: rgba(0, 0, 0, .3);
+  background: rgba(0, 0, 0, 0.3);
 }
 
 .modal {

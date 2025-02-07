@@ -1,11 +1,10 @@
 import colors from 'tailwindcss/colors';
 
-/** @type {import('tailwindcss').Config} */
+/**
+ * @type {import('tailwindcss').Config}
+ */
 export default {
-  content: [
-    './index.html',
-    './src/**/*.{tsx,vue}',
-  ],
+  content: ['./index.html', './src/**/*.{tsx,vue}'],
   darkMode: ['selector', '.dark'],
   theme: {
     fontFamily: {
@@ -63,4 +62,3 @@ export default {
   },
   plugins: [],
 };
-

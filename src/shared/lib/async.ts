@@ -18,7 +18,7 @@ interface UseAsyncStateOptions<Data> {
 export function useAsync<Data, Args>(
   promise: (...args: Args[]) => Promise<Data>,
   initialState: Data,
-  options: UseAsyncStateOptions<Data> = {},
+  options: UseAsyncStateOptions<Data> = {}
 ): UseAsyncStateReturn<Data, Args> {
   const { immediate = true, resetOnExecute = false, onSuccess, onError } = options;
   const state = shallowRef(initialState);

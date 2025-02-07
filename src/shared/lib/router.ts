@@ -14,16 +14,13 @@ export function useRouteQuery<T extends RouteQueryValueRaw = RouteQueryValueRaw,
 ) {
   const route = useRoute();
   const router = useRouter();
-  const {
-    transform = (value: T) => value as unknown as R,
-    replace,
-  } = options;
+  const { transform = (value: T) => value as unknown as R, replace } = options;
 
   return computed<R>({
     get: () => {
       const value = route.query[name];
 
-      return value ? transform(route.query[name] as T) : defaultValue as R;
+      return value ? transform(route.query[name] as T) : (defaultValue as R);
     },
     set: (value: R) => {
       return router.push({

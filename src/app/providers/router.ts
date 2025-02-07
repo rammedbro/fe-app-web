@@ -13,13 +13,13 @@ export const router = createRouter({
       path: '/sign-in',
       name: 'sign-in',
       component: () => import('@/pages/sign-in/index.vue'),
-      beforeEnter: () => isAuthenticated.value ? { name: 'profile-dashboard' } : true,
+      beforeEnter: () => (isAuthenticated.value ? { name: 'profile-dashboard' } : true),
     },
     {
       path: '/sign-up',
       name: 'sign-up',
       component: () => import('@/pages/sign-up/index.vue'),
-      beforeEnter: () => isAuthenticated.value ? { name: 'profile-dashboard' } : true,
+      beforeEnter: () => (isAuthenticated.value ? { name: 'profile-dashboard' } : true),
     },
     {
       path: '/cars',
@@ -40,7 +40,7 @@ export const router = createRouter({
       path: '/profile',
       name: 'profile',
       component: () => import('@/pages/profile/_layout/ProfileLayout.vue'),
-      beforeEnter: () => isAuthenticated.value ? true : { name: 'sign-in' },
+      beforeEnter: () => (isAuthenticated.value ? true : { name: 'sign-in' }),
       children: [
         {
           path: 'dashboard',

@@ -1,39 +1,29 @@
 <template>
-<div class="container py-8 lg:py-16 mx-auto">
-  <div class="bg-white rounded-lg max-w-sm p-8 mx-auto">
-    <h2 class="text-2xl font-bold mb-6">Sign in</h2>
-    <Form
-      class="flex flex-col"
-      @submit="onAuthSubmit"
-    >
-      <IftaLabel>
-        <label for="login">Login</label>
-        <InputText
-          id="login"
-          v-model="login"
-          name="login"
-          title="Login"
-          fluid
-          class="mb-6"
-        />
-      </IftaLabel>
-      <IftaLabel>
-        <label for="password">Password</label>
-        <InputText
-          id="password"
-          v-model="password"
-          type="password"
-          name="password"
-          title="Password"
-          fluid
-          class="mb-6"
-        />
-      </IftaLabel>
+  <div class="container py-8 lg:py-16 mx-auto">
+    <div class="bg-white rounded-lg max-w-sm p-8 mx-auto">
+      <h2 class="text-2xl font-bold mb-6">Sign in</h2>
+      <Form class="flex flex-col" @submit="onAuthSubmit">
+        <IftaLabel>
+          <label for="login">Login</label>
+          <InputText id="login" v-model="login" name="login" title="Login" fluid class="mb-6" />
+        </IftaLabel>
+        <IftaLabel>
+          <label for="password">Password</label>
+          <InputText
+            id="password"
+            v-model="password"
+            type="password"
+            name="password"
+            title="Password"
+            fluid
+            class="mb-6"
+          />
+        </IftaLabel>
 
-      <Button type="submit" label="Sign In" />
-    </Form>
+        <Button type="submit" label="Sign In" />
+      </Form>
+    </div>
   </div>
-</div>
 </template>
 
 <script setup lang="ts">
