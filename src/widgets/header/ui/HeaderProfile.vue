@@ -1,6 +1,12 @@
 <template>
   <div v-if="user" class="flex items-center gap-4">
-    <Button as="router-link" :to="{ name: 'profile-favorites' }" icon="pi pi-heart-fill" rounded variant="outlined" />
+    <Button
+      as="router-link"
+      :to="{ name: ProfileFavoritesRouteName }"
+      icon="pi pi-heart-fill"
+      rounded
+      variant="outlined"
+    />
     <Button icon="pi pi-bell" rounded variant="outlined" @click="notificationPopover?.toggle" />
     <Popover ref="notificationPopover" class="w-[320px]">
       <div class="flex items-center justify-between mb-4">
@@ -18,14 +24,20 @@
         </li>
       </ul>
     </Popover>
-    <Button as="router-link" :to="{ name: 'profile-settings' }" icon="pi pi-cog" rounded variant="outlined" />
-    <Button as="router-link" :to="{ name: 'profile-dashboard' }" icon="pi pi-user" rounded variant="outlined" />
+    <Button as="router-link" :to="{ name: ProfileSettingsRouteName }" icon="pi pi-cog" rounded variant="outlined" />
+    <Button as="router-link" :to="{ name: ProfileDashboardRouteName }" icon="pi pi-user" rounded variant="outlined" />
   </div>
-  <Button v-else as="router-link" :to="{ name: 'sign-in' }" icon="pi pi-sign-in" rounded variant="outlined" />
+  <Button v-else as="router-link" :to="{ name: SignInRouteName }" icon="pi pi-sign-in" rounded variant="outlined" />
 </template>
 
 <script setup lang="ts">
-import { useAsyncState } from '@vueuse/core';
+import {
+  ProfileDashboardRouteName,
+  ProfileFavoritesRouteName,
+  ProfileSettingsRouteName,
+  SignInRouteName,
+} from '@/shared/router/routes.ts';
+import { useAsync } from '@/shared/lib/async';
 import { storeToRefs } from 'pinia';
 import Button from 'primevue/button';
 import Checkbox from 'primevue/checkbox';
@@ -37,7 +49,7 @@ import { getNotificationList } from '@/shared/api';
 const { user } = storeToRefs(useUserStore());
 const seenIds = ref<number[]>([]);
 const notificationPopover = ref<PopoverMethods | null>(null);
-const notificationsAsync = useAsyncState(
+const notificationsAsync = useAsync(
   async (id: number) => {
     const { data } = await getNotificationList<true>({ path: { id } });
 
@@ -57,7 +69,7 @@ const filteredNotifications = computed(() => {
 
 watch(user, (value) => {
   if (value) {
-    notificationsAsync.execute(0, value.id);
+    notificationsAsync.execute(value.id);
   }
 });
 </script>

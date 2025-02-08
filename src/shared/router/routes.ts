@@ -1,0 +1,11 @@
+export const HomeRouteName = 'home';
+export const SignInRouteName = 'sign-in';
+export const CarListRouteName = 'car-list';
+export const CarDetailRouteName = 'car-detail';
+export const PaymentRouteName = 'payment';
+export const ProfileRouteName = 'profile';
+export const ProfileDashboardRouteName = 'profile-dashboard';
+export const ProfileFavoritesRouteName = 'profile-favorites';
+export const ProfileSettingsRouteName = 'profile-settings';
+export const PrivacyPolicyRouteName = 'privacy-policy';
+export const TermsOfServiceRouteName = 'terms-of-service';

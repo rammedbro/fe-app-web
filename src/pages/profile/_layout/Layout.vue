@@ -5,9 +5,9 @@
         <section class="mb-12">
           <div class="font-semibold uppercase text-content-300 ml-4 mb-6">Main menu</div>
           <ul class="grid gap-2">
-            <li v-for="item in menus.main" :key="item.to">
+            <li v-for="item in menus.main" :key="item.route">
               <RouterLink
-                :to="item.to"
+                :to="{ name: item.route }"
                 exact-active-class="bg-primary text-white"
                 class="flex gap-4 p-4 rounded-lg [&:not(.router-link-active)]:hover:bg-primary/5"
               >
@@ -21,9 +21,9 @@
         <section>
           <div class="font-semibold uppercase text-content-300 ml-4 mb-6">Preferences</div>
           <ul class="grid gap-2">
-            <li v-for="item in menus.preferences" :key="item.to">
+            <li v-for="item in menus.preferences" :key="item.route">
               <RouterLink
-                :to="item.to"
+                :to="{ name: item.route }"
                 exact-active-class="bg-primary text-white"
                 class="flex gap-4 p-4 rounded-lg [&:not(.router-link-active)]:hover:bg-primary/5"
               >
@@ -55,6 +55,11 @@
 </template>
 
 <script setup lang="ts">
+import {
+  ProfileDashboardRouteName,
+  ProfileFavoritesRouteName,
+  ProfileSettingsRouteName,
+} from '@/shared/router/routes.ts';
 import Button from 'primevue/button';
 import Drawer from 'primevue/drawer';
 import Toolbar from 'primevue/toolbar';
@@ -62,14 +67,14 @@ import { signOut } from '@/shared/api';
 
 const menus = {
   main: [
-    { to: 'dashboard', text: 'Dashboard', icon: 'pi-home' },
-    { to: 'favorites', text: 'Favorites', icon: 'pi-heart' },
-    { to: 'rents', text: 'Rents', icon: 'pi-car' },
-    { to: 'chat', text: 'Chat', icon: 'pi-send' },
+    { route: ProfileDashboardRouteName, text: 'Dashboard', icon: 'pi-home' },
+    { route: ProfileFavoritesRouteName, text: 'Favorites', icon: 'pi-heart' },
+    // { text: 'Rents', icon: 'pi-car' },
+    // { text: 'Chat', icon: 'pi-send' },
   ],
   preferences: [
-    { to: 'settings', text: 'Settings', icon: 'pi-cog' },
-    { to: 'help', text: 'Help & Center', icon: 'pi-question-circle' },
+    { route: ProfileSettingsRouteName, text: 'Settings', icon: 'pi-cog' },
+    // { text: 'Help & Center', icon: 'pi-question-circle' },
   ],
 };
 const isDrawerVisible = ref(false);

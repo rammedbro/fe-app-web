@@ -58,7 +58,7 @@
               <div class="font-semibold text-content-300 line-through">${{ car.price }}</div>
             </div>
 
-            <Button as="router-link" :to="{ name: 'payment' }" label="Rent Now" />
+            <Button as="router-link" :to="{ name: PaymentRouteName }" label="Rent Now" />
           </div>
         </div>
       </section>
@@ -108,7 +108,7 @@
 
         <Button
           as="router-link"
-          :to="{ name: 'car-list', query: { sortBy: ['createdAt'], sortDir: 'desc' } }"
+          :to="{ name: CarListRouteName, query: { sortBy: ['createdAt'], sortDir: 'desc' } }"
           text
           label="View all"
         />
@@ -123,7 +123,7 @@
         content-class="-mx-4"
       >
         <template #item="{ data }">
-          <Card v-bind="data as Car" class="mx-4" />
+          <CarCard v-bind="data as Car" class="mx-4" />
         </template>
       </Carousel>
       <Spinner v-else class="block mx-auto" />
@@ -138,7 +138,12 @@
       <div class="flex items-center justify-between mb-4">
         <div class="text-content-300">Recommended cars</div>
 
-        <Button as="router-link" :to="{ name: 'car-list', query: { sortBy: ['rating'] } }" text label="View all" />
+        <Button
+          as="router-link"
+          :to="{ name: CarListRouteName, query: { sortBy: ['rating'] } }"
+          text
+          label="View all"
+        />
       </div>
 
       <Carousel
@@ -150,7 +155,7 @@
         content-class="-mx-4"
       >
         <template #item="{ data }">
-          <Card v-bind="data as Car" class="mx-4" />
+          <CarCard v-bind="data as Car" class="mx-4" />
         </template>
       </Carousel>
       <Spinner v-else class="block mx-auto" />
@@ -173,7 +178,8 @@ import { getCar, getCarList } from '@/shared/api';
 import { useAsync } from '@/shared/lib/async';
 import { defaultCarouselResponsiveOptions } from '@/shared/model/breakpoints';
 import type { Car } from '@/shared/model/models.ts';
-import { Card } from '@/shared/ui/card';
+import { CarCard } from '@/entities/car';
+import { CarListRouteName, PaymentRouteName } from '@/shared/router/routes';
 
 const route = useRoute();
 const breakpoints = useBreakpoints(breakpointsTailwind);

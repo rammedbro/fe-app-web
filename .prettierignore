@@ -2,3 +2,4 @@ node_modules
 build
 src/app/ambient/auto-imports.d.ts
 src/shared/api/openapi
+pnpm-lock.yaml

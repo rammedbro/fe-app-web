@@ -1,0 +1,1 @@
+export { TermsOfServiceRoute } from './router';

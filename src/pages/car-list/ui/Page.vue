@@ -34,7 +34,7 @@
 
       <div ref="itemsRef" class="flex flex-wrap justify-center xl:justify-start gap-4 mb-6">
         <template v-if="carsAsync.isReady.value">
-          <Card v-for="car in carsAsync.state.value" :key="car.id" v-bind="car" class="lg:max-w-[340px]" />
+          <CarCard v-for="car in carsAsync.state.value" :key="car.id" v-bind="car" class="lg:max-w-[340px]" />
         </template>
         <template v-else>
           <div v-for="n in limit" :key="n" class="block bg-white rounded-lg w-full max-w-[340px] p-3 md:p-6">
@@ -82,14 +82,14 @@ import Popover, { type PopoverMethods } from 'primevue/popover';
 import Skeleton from 'primevue/skeleton';
 import Toolbar from 'primevue/toolbar';
 import { useRouter, useRoute } from 'vue-router';
-import CarListAside from './ui/Aside.vue';
+import CarListAside from './Aside.vue';
 import { PickupDropoffDesktop, PickupDropoffMobile } from '@/widgets/pickup-dropoff';
 import { getCarList } from '@/shared/api';
 import { useAsync } from '@/shared/lib/async';
 import { useRouteQuery } from '@/shared/lib/router';
 import { ensureArray } from '@/shared/lib/objects';
 import type { GetCarListOptions, SortDirection } from '@/shared/model/models';
-import { Card } from '@/shared/ui/card';
+import { CarCard } from '@/entities/car';
 
 const router = useRouter();
 const route = useRoute();

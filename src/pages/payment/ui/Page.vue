@@ -153,7 +153,7 @@
           <div>
             <div class="text-4xl font-bold mb-2">{{ car.brand }} {{ car.model }}</div>
             <div class="flex items-center gap-2">
-              <Rating :model-value="Number(car.rating)" />
+              <Rating :model-value="Number(car.rating)" readonly />
               <div class="text-sm text-content-400">{{ car.views }} Reviews</div>
             </div>
           </div>

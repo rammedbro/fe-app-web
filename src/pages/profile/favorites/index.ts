@@ -1,0 +1,1 @@
+export { ProfileFavoritesRoute } from './router';

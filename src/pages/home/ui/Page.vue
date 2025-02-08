@@ -17,7 +17,7 @@
           <div class="absolute inset-y-0 left-0 md:right-1/3 text-white p-4 md:p-6">
             <div class="md:text-4xl lg:text-5xl xl:text-3xl font-semibold mb-3">{{ data.title }}</div>
             <p class="text-xs md:text-xl lg:text-3xl xl:text-lg font-medium mb-4 md:mb-8">{{ data.desc }}</p>
-            <Button as="router-link" :to="data.link" label="Rental car" />
+            <Button as="router-link" :to="{ name: data.route }" label="Rental car" />
           </div>
         </div>
       </template>
@@ -35,7 +35,12 @@
       <div class="flex items-center justify-between mb-4">
         <div class="text-content-300">Popular cars</div>
 
-        <Button as="router-link" :to="{ name: 'car-list', query: { sortBy: ['rating'] } }" text label="View all" />
+        <Button
+          as="router-link"
+          :to="{ name: CarListRouteName, query: { sortBy: ['rating'] } }"
+          text
+          label="View all"
+        />
       </div>
 
       <Carousel
@@ -48,7 +53,7 @@
         content-class="-mx-2"
       >
         <template #item="{ data }">
-          <Card v-bind="data as Car" class="mx-2" />
+          <CarCard v-bind="data as Car" class="mx-2" />
         </template>
       </Carousel>
       <Spinner v-else class="block mx-auto" />
@@ -63,15 +68,15 @@
       <div class="flex items-center justify-between mb-4">
         <div class="text-content-300">Cheap cars</div>
 
-        <Button as="router-link" :to="{ name: 'car-list', query: { sortBy: ['price'] } }" text label="View all" />
+        <Button as="router-link" :to="{ name: CarListRouteName, query: { sortBy: ['price'] } }" text label="View all" />
       </div>
 
       <div v-if="cheapCars.isReady.value">
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 mb-6">
-          <Card v-for="car in cheapCars.state.value" :key="car.id" v-bind="car as Car" />
+          <CarCard v-for="car in cheapCars.state.value" :key="car.id" v-bind="car as Car" />
         </div>
         <div class="flex justify-center">
-          <Button as="router-link" :to="{ name: 'car-list', query: { sortBy: ['price'] } }" label="Show more" />
+          <Button as="router-link" :to="{ name: CarListRouteName, query: { sortBy: ['price'] } }" label="Show more" />
         </div>
       </div>
       <Spinner v-else class="block mx-auto" />
@@ -91,20 +96,21 @@ import { banner1ImgUrl, banner2ImgUrl } from '@/shared/assets/images';
 import { useAsync } from '@/shared/lib/async';
 import { defaultCarouselResponsiveOptions } from '@/shared/model/breakpoints';
 import type { Car } from '@/shared/model/models';
-import { Card } from '@/shared/ui/card';
+import { CarCard } from '@/entities/car';
+import { CarListRouteName } from '@/shared/router/routes';
 
 const breakpoints = useBreakpoints(breakpointsTailwind);
 const banners = [
   {
     title: 'The Best Platform for Car Rental',
     desc: 'Ease of doing a car rental safely and reliably. Of course at a low price.',
-    link: '/cars',
+    route: CarListRouteName,
     img: banner1ImgUrl,
   },
   {
     title: 'Easy way to rent a car at a low price',
     desc: 'Providing cheap car rental services and safe and comfortable facilities.',
-    link: '/cars',
+    route: CarListRouteName,
     img: banner2ImgUrl,
   },
 ];

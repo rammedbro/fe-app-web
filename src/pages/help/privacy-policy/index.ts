@@ -1,0 +1,1 @@
+export { PrivacyPolicyRoute } from './router';

@@ -1,7 +1,7 @@
 <template>
   <header class="bg-white py-6 lg:py-10">
     <div class="container flex flex-wrap lg:items-center gap-4 mx-auto">
-      <RouterLink to="/" class="text-3xl font-bold text-primary uppercase">Morent</RouterLink>
+      <RouterLink :to="{ name: HomeRouteName }" class="text-3xl font-bold text-primary uppercase">Morent</RouterLink>
 
       <HeaderProfile class="lg:order-3 ml-auto" />
 
@@ -20,6 +20,7 @@
 </template>
 
 <script setup lang="ts">
+import { CarListRouteName, HomeRouteName } from '@/shared/router/routes';
 import IconField from 'primevue/iconfield';
 import InputIcon from 'primevue/inputicon';
 import InputText from 'primevue/inputtext';
@@ -34,6 +35,6 @@ const searchInput = computed({
 });
 
 function search() {
-  router.push({ name: 'car-list', query: { search: searchInput.value } });
+  router.push({ name: CarListRouteName, query: { search: searchInput.value } });
 }
 </script>

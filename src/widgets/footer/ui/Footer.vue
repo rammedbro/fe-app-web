@@ -3,7 +3,9 @@
     <div class="container mx-auto">
       <div class="flex flex-wrap justify-between gap-8">
         <div class="max-w-72">
-          <RouterLink to="/" class="block text-3xl font-bold text-primary uppercase mb-4">Morent</RouterLink>
+          <RouterLink :to="{ name: HomeRouteName }" class="block text-3xl font-bold text-primary uppercase mb-4">
+            Morent
+          </RouterLink>
           <p class="text-[#131313] text-opacity-60 font-medium">
             Our vision is to provide convenience and help increase your sales business.
           </p>
@@ -27,8 +29,8 @@
         <div>{{ new Date().getFullYear() }} MORENT. All rights reserved</div>
 
         <div class="flex justify-between gap-4 md:gap-8 md:ml-auto">
-          <RouterLink :to="routes.find((i) => i.name === 'privacy-policy')!">Privacy & Policy</RouterLink>
-          <RouterLink :to="routes.find((i) => i.name === 'terms-of-service')!"> Terms & Conditions </RouterLink>
+          <RouterLink :to="{ name: PrivacyPolicyRouteName }">Privacy & Policy</RouterLink>
+          <RouterLink :to="{ name: TermsOfServiceRouteName }">Terms & Conditions</RouterLink>
         </div>
       </div>
     </div>
@@ -37,13 +39,11 @@
 
 <script setup lang="ts">
 import Divider from 'primevue/divider';
-import { useRouter } from 'vue-router';
+import { HomeRouteName, PrivacyPolicyRouteName, TermsOfServiceRouteName } from '@/shared/router/routes';
 
 const menus: [string, string[]][] = [
   ['About', ['How it works', 'Featured', 'Partnership', 'Business Relation']],
   ['Community', ['Events', 'Blog', 'Podcast', 'Invite a friend']],
   ['Socials', ['Discord', 'Instagram', 'Twitter', 'Facebook']],
 ];
-const router = useRouter();
-const routes = router.getRoutes();
 </script>

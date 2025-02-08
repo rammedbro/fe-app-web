@@ -1,0 +1,1 @@
+export { ProfileDashboardRoute } from './router';

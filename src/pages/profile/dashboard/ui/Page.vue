@@ -55,7 +55,7 @@
           Click the button below and chose your first drive!
         </p>
 
-        <Button as="router-link" to="/cars" label="Rent Now" />
+        <Button as="router-link" :to="{ name: CarListRouteName }" label="Rent Now" />
       </template>
     </section>
 
@@ -85,6 +85,7 @@
 </template>
 
 <script setup lang="ts">
+import { CarListRouteName } from '@/shared/router/routes.ts';
 import { useAsyncState } from '@vueuse/core';
 import Button from 'primevue/button';
 import Divider from 'primevue/divider';

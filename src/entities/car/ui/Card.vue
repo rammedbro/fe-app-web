@@ -9,7 +9,7 @@
       <Button icon="pi pi-heart" variant="text" rounded />
     </div>
 
-    <RouterLink :to="{ name: 'car-detail', params: { id } }">
+    <RouterLink :to="{ name: CarDetailRouteName, params: { id } }">
       <img :src="images[0]" :alt="`${brand} ${model}`" class="w-full h-[240px] rounded-lg mb-6" />
     </RouterLink>
 
@@ -39,12 +39,13 @@
         <div class="text-sm font-medium text-content-300 line-through">${{ Number(price).toFixed(2) }}</div>
       </div>
 
-      <Button as="router-link" :to="{ name: 'payment', params: { id } }" type="submit" label="Rent Now" />
+      <Button as="router-link" :to="{ name: PaymentRouteName, params: { id } }" type="submit" label="Rent Now" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { CarDetailRouteName, PaymentRouteName } from '@/shared/router/routes.ts';
 import Button from 'primevue/button';
 import type { Car } from '@/shared/model/models';
 import { GasStationIcon, Profile2UserIcon, SteeringWheelIcon } from '@/shared/ui/icons';

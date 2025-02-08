@@ -1,0 +1,1 @@
+export { CarDetailRoute } from './router';
