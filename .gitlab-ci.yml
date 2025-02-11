@@ -68,7 +68,7 @@ build:
     paths:
       - build
 
-lint:js:
+lint:
   stage: check
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
@@ -78,29 +78,7 @@ lint:js:
     - install
     - secure-files
   script:
-    - pnpm lint:js
-
-lint:types:
-  stage: check
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-  extends:
-    - .node-modules-cache
-  needs:
-    - install
-  script:
-    - pnpm lint:types
-
-lint:css:
-  stage: check
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-  extends:
-    - .node-modules-cache
-  needs:
-    - install
-  script:
-    - pnpm lint:css
+    - pnpm lint
 
 release:
   stage: release

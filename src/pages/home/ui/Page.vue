@@ -26,77 +26,19 @@
     <PickupDropoffDesktop v-if="breakpoints.md.value" class="mb-8" />
     <PickupDropoffMobile v-else />
 
-    <section
-      v-intersection-observer="
-        ([e]: IntersectionObserverEntry[]) => e?.isIntersecting && !popularCars.isReady.value && popularCars.execute()
-      "
-      class="mb-8"
-    >
-      <div class="flex items-center justify-between mb-4">
-        <div class="text-content-300">Popular cars</div>
+    <CarCarouselBlock title="Popular cars" :query="{ sortBy: ['rating'], limit: 10 }" />
 
-        <Button
-          as="router-link"
-          :to="{ name: CarListRouteName, query: { sortBy: ['rating'] } }"
-          text
-          label="View all"
-        />
-      </div>
-
-      <Carousel
-        v-if="popularCars.isReady.value"
-        :value="popularCars.state.value"
-        :num-visible="4"
-        :num-scroll="1"
-        :show-navigators="false"
-        :responsive-options="defaultCarouselResponsiveOptions"
-        content-class="-mx-2"
-      >
-        <template #item="{ data }">
-          <CarCard v-bind="data as Car" class="mx-2" />
-        </template>
-      </Carousel>
-      <Spinner v-else class="block mx-auto" />
-    </section>
-
-    <section
-      v-intersection-observer="
-        ([e]: IntersectionObserverEntry[]) => e?.isIntersecting && !cheapCars.isReady.value && cheapCars.execute()
-      "
-      class="mb-8"
-    >
-      <div class="flex items-center justify-between mb-4">
-        <div class="text-content-300">Cheap cars</div>
-
-        <Button as="router-link" :to="{ name: CarListRouteName, query: { sortBy: ['price'] } }" text label="View all" />
-      </div>
-
-      <div v-if="cheapCars.isReady.value">
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 mb-6">
-          <CarCard v-for="car in cheapCars.state.value" :key="car.id" v-bind="car as Car" />
-        </div>
-        <div class="flex justify-center">
-          <Button as="router-link" :to="{ name: CarListRouteName, query: { sortBy: ['price'] } }" label="Show more" />
-        </div>
-      </div>
-      <Spinner v-else class="block mx-auto" />
-    </section>
+    <CarCarouselBlock title="Cheap cars" :query="{ sortBy: ['price'], limit: 10 }" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { vIntersectionObserver } from '@vueuse/components';
+import { CarCarouselBlock } from '@/widgets/car-carousel-block';
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 import Button from 'primevue/button';
 import Carousel from 'primevue/carousel';
-import Spinner from 'primevue/progressspinner';
 import { PickupDropoffDesktop, PickupDropoffMobile } from '@/widgets/pickup-dropoff';
-import { getCarList } from '@/shared/api';
 import { banner1ImgUrl, banner2ImgUrl } from '@/shared/assets/images';
-import { useAsync } from '@/shared/lib/async';
-import { defaultCarouselResponsiveOptions } from '@/shared/model/breakpoints';
-import type { Car } from '@/shared/model/models';
-import { CarCard } from '@/entities/car';
 import { CarListRouteName } from '@/shared/router/routes';
 
 const breakpoints = useBreakpoints(breakpointsTailwind);
@@ -114,14 +56,4 @@ const banners = [
     img: banner2ImgUrl,
   },
 ];
-const popularCars = useAsync(
-  () => getCarList<true>({ query: { sortBy: ['rating'], limit: 10 } }).then((res) => res.data),
-  [],
-  { immediate: false }
-);
-const cheapCars = useAsync(
-  () => getCarList<true>({ query: { sortBy: ['price'], limit: 10 } }).then((res) => res.data),
-  [],
-  { immediate: false }
-);
 </script>

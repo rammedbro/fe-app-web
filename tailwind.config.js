@@ -40,8 +40,8 @@ export default {
         900: '#040815',
       },
       success: {},
-      error: {},
-      warning: {},
+      error: colors.red['600'],
+      warning: colors.yellow['500'],
       info: {},
     },
     screens: {

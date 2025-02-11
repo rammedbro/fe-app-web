@@ -4,14 +4,14 @@ interface UseAsyncStateReturn<Data, Args> {
   state: ShallowRef<Data>;
   isReady: Ref<boolean>;
   isLoading: Ref<boolean>;
-  error: Ref<unknown>;
+  error: Ref<Error | null>;
   execute: (...args: Args[]) => Promise<Data>;
 }
 
 interface UseAsyncStateOptions<Data> {
   immediate?: boolean;
   onSuccess?: (data: Data) => void;
-  onError?: (e: unknown) => void;
+  onError?: (e: Error | null) => void;
   resetOnExecute?: boolean;
 }
 
@@ -24,7 +24,7 @@ export function useAsync<Data, Args>(
   const state = shallowRef(initialState);
   const isReady = ref(false);
   const isLoading = ref(false);
-  const error = ref<unknown>(null);
+  const error = ref<Error | null>(null);
   const execute = async (...args: Args[]): Promise<Data> => {
     isReady.value = false;
     isLoading.value = true;
@@ -44,10 +44,10 @@ export function useAsync<Data, Args>(
 
       return data;
     } catch (e) {
-      error.value = e;
+      error.value = e instanceof Error ? e : typeof e === 'string' ? new Error(e) : null;
 
       if (onError) {
-        onError(e);
+        onError(error.value);
 
         return state.value;
       } else {

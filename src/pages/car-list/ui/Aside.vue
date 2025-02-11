@@ -78,7 +78,7 @@ import Slider from 'primevue/slider';
 import { useRouter, useRoute } from 'vue-router';
 import { useRouteQuery } from '@/shared/lib/router';
 import { ensureArray } from '@/shared/lib/objects';
-import { CarSteering, CarType, type GetCarListOptions } from '@/shared/model/models';
+import { CarSteering, CarType, type GetCarListOptions } from '@/entities/car';
 
 const visible = defineModel<boolean>('visible', { default: false });
 const filter = defineModel<GetCarListOptions>('filter', { default: {} });

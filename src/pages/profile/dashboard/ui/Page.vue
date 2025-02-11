@@ -55,7 +55,7 @@
           Click the button below and chose your first drive!
         </p>
 
-        <Button as="router-link" :to="{ name: CarListRouteName }" label="Rent Now" />
+        <Button as="router-link" :to="{ name: CarListRouteName }" label="Rent now" />
       </template>
     </section>
 
@@ -79,14 +79,21 @@
           </div>
         </template>
       </template>
+      <div v-else-if="recentOrdersAsync.error.value" class="text-center">
+        <p class="mb-4">
+          Something went wrong while fetching your most recent rents :(<br />
+          Try to push button bellow and see what happens!
+        </p>
+        <Button label="Retry" @click="() => recentOrdersAsync.execute()" />
+      </div>
       <Spinner v-else class="block mx-auto" />
     </section>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useAsync } from '@/shared/lib/async.ts';
 import { CarListRouteName } from '@/shared/router/routes.ts';
-import { useAsyncState } from '@vueuse/core';
 import Button from 'primevue/button';
 import Divider from 'primevue/divider';
 import Spinner from 'primevue/progressspinner';
@@ -94,19 +101,35 @@ import { PickupDropoffForm } from '@/widgets/pickup-dropoff';
 import { useUserStore } from '@/entities/user';
 import { getOrderList } from '@/shared/api';
 import type { Order } from '@/shared/model/models.ts';
+import { useToast } from 'primevue/usetoast';
 
+const toast = useToast();
 const { user } = useUserStore();
 const currentOrder = ref<Order | undefined>();
-const recentOrdersAsync = useAsyncState(async () => {
-  const { data } = await getOrderList<true>({
-    path: { id: user!.id },
-    query: {
-      sortBy: ['createdAt'],
-      sortDir: 'desc',
-    },
-  });
-  currentOrder.value = data[0];
+const recentOrdersAsync = useAsync(
+  async () => {
+    const { data } = await getOrderList<true>({
+      path: { id: user!.id },
+      query: {
+        sortBy: ['createdAt'],
+        sortDir: 'desc',
+      },
+    });
+    currentOrder.value = data[0];
 
-  return data;
-}, []);
+    return data;
+  },
+  [],
+  {
+    onError(e) {
+      console.error(e?.message);
+      toast.add({
+        severity: 'error',
+        summary: 'Fetch error',
+        detail: 'Something went wrong while your recent rents.',
+        life: 5000,
+      });
+    },
+  }
+);
 </script>

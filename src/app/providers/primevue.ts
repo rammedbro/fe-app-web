@@ -1,6 +1,7 @@
 import { definePreset } from '@primevue/themes';
 import Aura from '@primevue/themes/aura';
 import PrimeVue, { type PrimeVueConfiguration } from 'primevue/config';
+import ToastService from 'primevue/toastservice';
 import type { App, Plugin } from 'vue';
 
 export const primevue: Plugin = (app: App) => {
@@ -26,4 +27,5 @@ export const primevue: Plugin = (app: App) => {
       },
     },
   } as PrimeVueConfiguration);
+  app.use(ToastService);
 };

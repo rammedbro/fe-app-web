@@ -1,6 +1,6 @@
 <template>
   <div class="container py-8 mx-auto">
-    <template v-if="carAsync.isReady.value && car">
+    <template v-if="car">
       <section class="flex flex-col lg:flex-row gap-4 md:gap-8 mb-4 md:mb-8">
         <Galleria
           :value="car.images"
@@ -95,110 +95,42 @@
           <Button text label="Show more" icon="pi pi-chevron-down" icon-pos="right" />
         </div>
       </section>
+
+      <CarCarouselBlock title="Recent cars" :query="{ sortBy: ['createdAt'], sortDir: 'desc', limit: 10 }" />
+
+      <CarCarouselBlock title="Recommended cars" :query="{ sortBy: ['rating'], limit: 10 }" />
     </template>
-    <Spinner v-else class="block mx-auto" />
-
-    <section
-      v-intersection-observer="
-        ([e]: IntersectionObserverEntry[]) => e?.isIntersecting && !recentCars.isReady.value && recentCars.execute()
-      "
-    >
-      <div class="flex items-center justify-between mb-4">
-        <div class="text-content-300">Recent cars</div>
-
-        <Button
-          as="router-link"
-          :to="{ name: CarListRouteName, query: { sortBy: ['createdAt'], sortDir: 'desc' } }"
-          text
-          label="View all"
-        />
-      </div>
-
-      <Carousel
-        v-if="recentCars.isReady.value"
-        :value="recentCars.state.value"
-        :num-visible="3"
-        :show-navigators="false"
-        :responsive-options="defaultCarouselResponsiveOptions"
-        content-class="-mx-4"
-      >
-        <template #item="{ data }">
-          <CarCard v-bind="data as Car" class="mx-4" />
-        </template>
-      </Carousel>
-      <Spinner v-else class="block mx-auto" />
-    </section>
-
-    <section
-      v-intersection-observer="
-        ([e]: IntersectionObserverEntry[]) =>
-          e?.isIntersecting && !recommendedCars.isReady.value && recommendedCars.execute()
-      "
-    >
-      <div class="flex items-center justify-between mb-4">
-        <div class="text-content-300">Recommended cars</div>
-
-        <Button
-          as="router-link"
-          :to="{ name: CarListRouteName, query: { sortBy: ['rating'] } }"
-          text
-          label="View all"
-        />
-      </div>
-
-      <Carousel
-        v-if="recommendedCars.isReady.value"
-        :value="recommendedCars.state.value"
-        :num-visible="3"
-        :show-navigators="false"
-        :responsive-options="defaultCarouselResponsiveOptions"
-        content-class="-mx-4"
-      >
-        <template #item="{ data }">
-          <CarCard v-bind="data as Car" class="mx-4" />
-        </template>
-      </Carousel>
-      <Spinner v-else class="block mx-auto" />
-    </section>
+    <div v-else class="text-center">
+      <p class="mb-4">
+        Something went wrong while fetching a car :(<br />
+        Try to push button bellow and see what happens!
+      </p>
+      <Button label="Reload" @click="reload" />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { vIntersectionObserver } from '@vueuse/components';
+import { useCarStore } from '@/entities/car';
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
+import { storeToRefs } from 'pinia';
 import Avatar from 'primevue/avatar';
 import Badge from 'primevue/badge';
 import Button from 'primevue/button';
-import Carousel from 'primevue/carousel';
 import Galleria from 'primevue/galleria';
-import Spinner from 'primevue/progressspinner';
 import Rating from 'primevue/rating';
-import { useRoute } from 'vue-router';
-import { getCar, getCarList } from '@/shared/api';
-import { useAsync } from '@/shared/lib/async';
-import { defaultCarouselResponsiveOptions } from '@/shared/model/breakpoints';
-import type { Car } from '@/shared/model/models.ts';
-import { CarCard } from '@/entities/car';
-import { CarListRouteName, PaymentRouteName } from '@/shared/router/routes';
+import { PaymentRouteName } from '@/shared/router/routes';
+import { CarCarouselBlock } from '@/widgets/car-carousel-block';
+import { onBeforeRouteUpdate } from 'vue-router';
+import { beforeEnter } from '@/pages/car-detail/router/guards';
 
-const route = useRoute();
 const breakpoints = useBreakpoints(breakpointsTailwind);
-const id = computed(() => Number(route.params.id));
-const carAsync = useAsync(async () => {
-  const { data } = await getCar<true>({ path: { id: id.value } });
-
-  return data;
-}, undefined);
-const car = carAsync.state;
+const { car } = storeToRefs(useCarStore());
 const title = computed(() => `${car.value?.brand} ${car.value?.model}`);
-const recentCars = useAsync(
-  () => getCarList<true>({ query: { sortBy: ['createdAt'], sortDir: 'desc', limit: 10 } }).then(({ data }) => data),
-  [],
-  { immediate: false }
-);
-const recommendedCars = useAsync(
-  () => getCarList<true>({ query: { sortBy: ['rating'], limit: 10 } }).then(({ data }) => data),
-  [],
-  { immediate: false }
-);
+
+onBeforeRouteUpdate((...args) => beforeEnter(...args));
+
+function reload() {
+  window.location.reload();
+}
 </script>

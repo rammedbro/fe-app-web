@@ -47,7 +47,7 @@
 <script setup lang="ts">
 import { CarDetailRouteName, PaymentRouteName } from '@/shared/router/routes.ts';
 import Button from 'primevue/button';
-import type { Car } from '@/shared/model/models';
+import type { Car } from '@/entities/car/model/types';
 import { GasStationIcon, Profile2UserIcon, SteeringWheelIcon } from '@/shared/ui/icons';
 
 const { price, discount } = defineProps<Car>();

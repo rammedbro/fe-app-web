@@ -30,6 +30,7 @@ async function init() {
   // Api
   api.setConfig({
     baseURL: config.get('api.url') as string,
+    throwOnError: true,
     paramsSerializer: (params) => qs.stringify(params),
   });
 

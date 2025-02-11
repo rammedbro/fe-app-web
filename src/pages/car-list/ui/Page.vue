@@ -36,31 +36,19 @@
         <template v-if="carsAsync.isReady.value">
           <CarCard v-for="car in carsAsync.state.value" :key="car.id" v-bind="car" class="lg:max-w-[340px]" />
         </template>
+        <div v-else-if="carsAsync.error.value" class="w-full text-center">
+          <p class="mb-4">
+            Something went wrong while fetching cars :(<br />
+            Try to push button bellow and see what happens!
+          </p>
+          <Button label="Retry" @click="() => carsAsync.execute(options)" />
+        </div>
         <template v-else>
-          <div v-for="n in limit" :key="n" class="block bg-white rounded-lg w-full max-w-[340px] p-3 md:p-6">
-            <div class="flex items-start justify-between gap-4 mb-4">
-              <div class="w-full">
-                <Skeleton height="18px" class="mb-2" />
-                <Skeleton height="12px" />
-              </div>
-
-              <Skeleton size="40px" />
-            </div>
-            <Skeleton height="160px" class="mb-4" />
-            <div class="grid grid-cols-3 gap-2 mb-6">
-              <Skeleton height="20px" />
-              <Skeleton height="20px" />
-              <Skeleton height="20px" />
-            </div>
-            <div class="flex items-center justify-between gap-4 mt-auto">
-              <Skeleton width="60%" height="30px" />
-              <Skeleton width="40%" height="44px" />
-            </div>
-          </div>
+          <CarCardSkeleton v-for="n in limit" :key="n" />
         </template>
       </div>
 
-      <div class="flex justify-center">
+      <div v-if="carsAsync.isReady.value" class="flex justify-center">
         <Paginator
           :rows="limit"
           :first="page > 1 ? (page - 1) * limit : 0"
@@ -79,8 +67,8 @@ import Button from 'primevue/button';
 import ListBox from 'primevue/listbox';
 import Paginator, { type PageState } from 'primevue/paginator';
 import Popover, { type PopoverMethods } from 'primevue/popover';
-import Skeleton from 'primevue/skeleton';
 import Toolbar from 'primevue/toolbar';
+import { useToast } from 'primevue/usetoast';
 import { useRouter, useRoute } from 'vue-router';
 import CarListAside from './Aside.vue';
 import { PickupDropoffDesktop, PickupDropoffMobile } from '@/widgets/pickup-dropoff';
@@ -88,11 +76,12 @@ import { getCarList } from '@/shared/api';
 import { useAsync } from '@/shared/lib/async';
 import { useRouteQuery } from '@/shared/lib/router';
 import { ensureArray } from '@/shared/lib/objects';
-import type { GetCarListOptions, SortDirection } from '@/shared/model/models';
-import { CarCard } from '@/entities/car';
+import type { SortDirection } from '@/shared/model/models';
+import { CarCard, CarCardSkeleton, type GetCarListOptions } from '@/entities/car';
 
 const router = useRouter();
 const route = useRoute();
+const toast = useToast();
 const itemsRef = ref<HTMLDivElement | null>(null);
 const sortByPopoverRef = ref<PopoverMethods | null>(null);
 const page = useRouteQuery('page', 1, { transform: Number });
@@ -110,20 +99,30 @@ const carsAsync = useAsync(
   async (args?: GetCarListOptions) => {
     const { data, headers } = await getCarList<true>({ query: args });
 
-    // page.value = Number(headers['x-page']);
     totalCount.value = Number(headers['x-total-count']);
 
     return data;
   },
   [],
-  { immediate: false }
+  {
+    immediate: false,
+    onError(e) {
+      console.error(e?.message);
+      toast.add({
+        severity: 'error',
+        summary: 'Fetch error',
+        detail: 'Something went wrong while fetching cars.',
+        life: 5000,
+      });
+    },
+  }
 );
 const breakpoints = useBreakpoints(breakpointsTailwind);
 const isDrawerVisible = ref(false);
 
 watch(options, async (value) => {
   await carsAsync.execute(value);
-  itemsRef.value?.scrollIntoView({ behavior: 'smooth' });
+  itemsRef.value?.scrollIntoView({ behavior: 'smooth', block: 'center' });
 });
 
 function onUpdatePaginatorState(state: PageState) {
