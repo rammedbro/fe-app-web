@@ -35,9 +35,9 @@
   "dependencies": {
     "@hey-api/client-axios": "0.5.1",
     "@imolater/fe-app-client": "0.3.2",
-    "@primevue/forms": "^4.2.5",
     "@primevue/themes": "^4.2.5",
     "@sentry/vue": "^7.107.0",
+    "@vee-validate/zod": "^4.15.0",
     "@vueuse/components": "^12.5.0",
     "@vueuse/core": "^12.2.0",
     "axios": "^1.7.4",
@@ -49,8 +49,10 @@
     "query-string": "^9.1.1",
     "socket.io-client": "^4.7.5",
     "tailwindcss": "^3.4.14",
+    "vee-validate": "^4.15.0",
     "vue": "3.4.35",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.8.1",

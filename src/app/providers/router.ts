@@ -5,6 +5,7 @@ import { HomeRoute } from '@/pages/home';
 import { PrivacyPolicyRoute } from '@/pages/help/privacy-policy';
 import { PaymentRoute } from '@/pages/payment';
 import { ProfileRoute } from '@/pages/profile/router.ts';
+import { SignUpRoute } from '@/pages/sign-up';
 import { SignInRoute } from '@/pages/sign-in';
 import { createRouter, createWebHistory } from 'vue-router';
 
@@ -12,6 +13,7 @@ export const router = createRouter({
   history: createWebHistory(),
   routes: [
     HomeRoute,
+    SignUpRoute,
     SignInRoute,
     CarListRoute,
     CarDetailRoute,

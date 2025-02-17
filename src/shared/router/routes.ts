@@ -1,4 +1,5 @@
 export const HomeRouteName = 'home';
+export const SignUpRouteName = 'sign-up';
 export const SignInRouteName = 'sign-in';
 export const CarListRouteName = 'car-list';
 export const CarDetailRouteName = 'car-detail';

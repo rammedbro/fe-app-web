@@ -2,7 +2,7 @@
   <div class="container py-8 lg:py-16 mx-auto">
     <div class="bg-white rounded-lg max-w-sm p-8 mx-auto">
       <h2 class="text-2xl font-bold mb-6">Sign in</h2>
-      <Form class="flex flex-col" @submit="onAuthSubmit">
+      <form class="flex flex-col" @submit.prevent="submit">
         <IftaLabel>
           <label for="login">Login</label>
           <InputText id="login" v-model="login" name="login" title="Login" fluid class="mb-6" />
@@ -20,15 +20,17 @@
           />
         </IftaLabel>
 
-        <Button type="submit" label="Sign In" :loading="isLoading" />
-        <Message v-if="error" severity="error" variant="simple" class="mt-2">{{ error }}</Message>
-      </Form>
+        <div class="grid gap-2">
+          <Button type="submit" label="Sign in" :loading="isLoading" />
+          <Button as="router-link" :to="{ name: SignUpRouteName }" label="Sign up" link />
+          <Message v-if="error" severity="error" variant="simple">{{ error }}</Message>
+        </div>
+      </form>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import Form from '@primevue/forms/form';
 import Button from 'primevue/button';
 import IftaLabel from 'primevue/iftalabel';
 import InputText from 'primevue/inputtext';
@@ -36,7 +38,7 @@ import Message from 'primevue/message';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '@/entities/user';
 import { getUser, signIn } from '@/shared/api';
-import { ProfileDashboardRouteName } from '@/shared/router/routes';
+import { ProfileDashboardRouteName, SignUpRouteName } from '@/shared/router/routes';
 
 const router = useRouter();
 const { setUser } = useUserStore();
@@ -59,7 +61,7 @@ function validate() {
   return true;
 }
 
-async function onAuthSubmit() {
+async function submit() {
   try {
     error.value = null;
     if (!validate()) return;

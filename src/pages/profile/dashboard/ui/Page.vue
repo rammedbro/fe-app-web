@@ -108,8 +108,12 @@ const { user } = useUserStore();
 const currentOrder = ref<Order | undefined>();
 const recentOrdersAsync = useAsync(
   async () => {
+    if (!user) {
+      throw new Error('User is not defined');
+    }
+
     const { data } = await getOrderList<true>({
-      path: { id: user!.id },
+      path: { id: user.id },
       query: {
         sortBy: ['createdAt'],
         sortDir: 'desc',
