@@ -1,3 +1,13 @@
+## [1.2.0](https://gitlab.com/imolater/fe-app-web/compare/v1.1.0...v1.2.0) (2025-02-22)
+
+### Features
+
+- **[FAW-34](https://imolater.atlassian.net/browse/FAW-34):** Add signup page ([ea641b0](https://gitlab.com/imolater/fe-app-web/commit/ea641b0f11df403b189513a8e728cc79e8c02b4b))
+- **[FAW-42](https://imolater.atlassian.net/browse/FAW-42):** Add content for privacy policy and terms and conditions pages ([263ee72](https://gitlab.com/imolater/fe-app-web/commit/263ee72bdd7bc5a51547cd76e5e8cda5158b0f54))
+- **[FAW-47](https://imolater.atlassian.net/browse/FAW-47):** Refactor routes according to fsd ([5be48dd](https://gitlab.com/imolater/fe-app-web/commit/5be48dd0e905aecbe1f98603624e4c364ab05c2d))
+- **[FAW-48](https://imolater.atlassian.net/browse/FAW-48):** Add error dialog and global error handling ([7d7b660](https://gitlab.com/imolater/fe-app-web/commit/7d7b66074dcf8043d3d410c544c5802edab8e95d))
+- **[FAW-49](https://imolater.atlassian.net/browse/FAW-49):** Add authentication and session handling ([2853e3f](https://gitlab.com/imolater/fe-app-web/commit/2853e3f76629480cb9a9391f566dbb3c246a5d3a))
+
 ## [1.1.0](https://gitlab.com/imolater/fe-app-web/compare/v1.0.0...v1.1.0) (2025-02-06)
 
 ### Features
