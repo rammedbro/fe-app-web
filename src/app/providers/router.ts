@@ -1,18 +1,23 @@
+import { useAuthStore } from '@/entities/auth';
 import { CarDetailRoute } from '@/pages/car-detail';
 import { CarListRoute } from '@/pages/car-list';
+import { ErrorRoute } from '@/pages/error';
 import { TermsOfServiceRoute } from '@/pages/help/terms-of-service';
 import { HomeRoute } from '@/pages/home';
 import { PrivacyPolicyRoute } from '@/pages/help/privacy-policy';
 import { PaymentRoute } from '@/pages/payment';
-import { ProfileRoute } from '@/pages/profile/router.ts';
+import { ProfileRoute } from '@/pages/profile';
 import { SignUpRoute } from '@/pages/sign-up';
 import { SignInRoute } from '@/pages/sign-in';
+import { ErrorRouteName, ProfileDashboardRouteName, SignInRouteName } from '@/shared/router/routes.ts';
+import { storeToRefs } from 'pinia';
 import { createRouter, createWebHistory } from 'vue-router';
 
-export const router = createRouter({
+const router = createRouter({
   history: createWebHistory(),
   routes: [
     HomeRoute,
+    ErrorRoute,
     SignUpRoute,
     SignInRoute,
     CarListRoute,
@@ -38,3 +43,26 @@ export const router = createRouter({
     return { top: 0 };
   },
 });
+
+router.beforeEach(async (to, _, next) => {
+  const authStore = useAuthStore();
+  const { isAuthenticated } = storeToRefs(authStore);
+
+  if (!authStore.isLoaded) {
+    const { error, status } = await authStore.fetchSession();
+
+    if (status !== 200) {
+      return next({ name: ErrorRouteName, query: { error } });
+    }
+  }
+
+  if (to.meta.requiresAuth === true && !isAuthenticated.value) {
+    next({ name: SignInRouteName });
+  } else if (to.meta.requiresGuest === true && isAuthenticated.value) {
+    next({ name: ProfileDashboardRouteName });
+  } else {
+    next();
+  }
+});
+
+export { router };

@@ -25,6 +25,11 @@
     }
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
-  "files": ["src/app/ambient/auto-imports.d.ts", "src/app/ambient/vite-env.d.ts", "src/app/ambient/vue.d.ts"],
+  "files": [
+    "src/app/ambient/auto-imports.d.ts",
+    "src/app/ambient/vite-env.d.ts",
+    "src/app/ambient/vue.d.ts",
+    "src/app/ambient/router.d.ts"
+  ],
   "exclude": ["node_modules", "build"]
 }

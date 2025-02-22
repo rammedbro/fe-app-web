@@ -1,5 +1,5 @@
 <template>
-  <div v-if="user" class="flex items-center gap-4">
+  <div v-if="isAuthenticated" class="flex items-center gap-4">
     <Button
       as="router-link"
       :to="{ name: ProfileFavoritesRouteName }"
@@ -33,6 +33,7 @@
 </template>
 
 <script setup lang="ts">
+import { useAuthStore } from '@/entities/auth';
 import {
   ProfileDashboardRouteName,
   ProfileFavoritesRouteName,
@@ -46,17 +47,16 @@ import Checkbox from 'primevue/checkbox';
 import Popover, { type PopoverMethods } from 'primevue/popover';
 import Spinner from 'primevue/progressspinner';
 import ToggleSwitch from 'primevue/toggleswitch';
-import { useUserStore } from '@/entities/user';
 import { getNotificationList } from '@/shared/api';
 import { useToast } from 'primevue/usetoast';
 
 const toast = useToast();
-const { user } = storeToRefs(useUserStore());
+const { isAuthenticated } = storeToRefs(useAuthStore());
 const seenIds = ref<number[]>([]);
 const notificationPopover = ref<PopoverMethods | null>(null);
 const notificationsAsync = useAsync(
-  async (id: number) => {
-    const { data } = await getNotificationList<true>({ path: { id } });
+  async () => {
+    const { data } = await getNotificationList<true>({ withCredentials: true });
 
     data.forEach((item) => item.isSeen && seenIds.value.push(item.id));
 
@@ -83,9 +83,13 @@ const filteredNotifications = computed(() => {
   return onlyUnseen.value ? items.filter((item) => !item.isSeen) : items;
 });
 
-watch(user, (value) => {
-  if (value) {
-    notificationsAsync.execute(value.id);
-  }
-});
+watch(
+  isAuthenticated,
+  (value) => {
+    if (!value) return;
+
+    notificationsAsync.execute();
+  },
+  { once: true }
+);
 </script>

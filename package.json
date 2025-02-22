@@ -41,7 +41,6 @@
     "@vueuse/components": "^12.5.0",
     "@vueuse/core": "^12.2.0",
     "axios": "^1.7.4",
-    "firebase": "^10.11.0",
     "lodash": "^4.17.21",
     "pinia": "^2.1.7",
     "primeicons": "^7.0.0",

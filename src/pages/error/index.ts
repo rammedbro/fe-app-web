@@ -1,0 +1,1 @@
+export { ErrorRoute } from './router';

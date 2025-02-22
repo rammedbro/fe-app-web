@@ -35,7 +35,7 @@
         </section>
 
         <section class="mt-auto">
-          <Button icon="pi pi-sign-out" text label="Sign Out" size="large" @click="signOut" />
+          <Button icon="pi pi-sign-out" text label="Sign Out" size="large" :loading="isLoading" @click="submit" />
         </section>
       </div>
     </Drawer>
@@ -59,12 +59,18 @@ import {
   ProfileDashboardRouteName,
   ProfileFavoritesRouteName,
   ProfileSettingsRouteName,
+  SignInRouteName,
 } from '@/shared/router/routes.ts';
 import Button from 'primevue/button';
 import Drawer from 'primevue/drawer';
 import Toolbar from 'primevue/toolbar';
-import { signOut } from '@/shared/api';
+import { useAuthStore } from '@/entities/auth';
+import { useToast } from 'primevue/usetoast';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
+const toast = useToast();
+const { logout } = useAuthStore();
 const menus = {
   main: [
     { route: ProfileDashboardRouteName, text: 'Dashboard', icon: 'pi-home' },
@@ -78,4 +84,33 @@ const menus = {
   ],
 };
 const isDrawerVisible = ref(false);
+const isLoading = ref(false);
+
+async function submit() {
+  isLoading.value = true;
+
+  const { error, status } = await logout();
+
+  isLoading.value = false;
+
+  switch (status) {
+    case 200:
+      await router.push({ name: SignInRouteName });
+      toast.add({
+        severity: 'success',
+        summary: 'Logout succeeded',
+        detail: 'Lets go to the sign in page',
+        life: 5000,
+      });
+      break;
+    default:
+      console.error(error);
+      toast.add({
+        severity: 'error',
+        summary: 'Logout failed',
+        detail: 'Something went wrong while letting you out',
+        life: 5000,
+      });
+  }
+}
 </script>

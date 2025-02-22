@@ -1,0 +1,1 @@
+export { ProfileRoute } from './router';

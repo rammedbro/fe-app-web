@@ -1,12 +1,11 @@
 import { getApplication } from '@imolater/fe-app-client';
-import qs from 'query-string';
 import { createApp } from 'vue';
 import '@/app/providers/style';
 import { pinia } from '@/app/providers/pinia';
 import { primevue } from '@/app/providers/primevue';
 import { router } from '@/app/providers/router';
+import { api } from '@/app/providers/api';
 import App from '@/app/ui/App.vue';
-import api from '@/shared/api';
 import { configInjectionKey, emitterInjectionKey, loggerInjectionKey } from '@/shared/model/symbols';
 
 async function init() {
@@ -14,6 +13,7 @@ async function init() {
   const app = createApp(App)
     .use(pinia)
     .use(router)
+    .use(api, { url: config.get('api.url') as string })
     .use(primevue)
     .provide(configInjectionKey, config)
     .provide(emitterInjectionKey, emitter)
@@ -26,13 +26,6 @@ async function init() {
     env: import.meta.env,
   });
   app.config.performance = true;
-
-  // Api
-  api.setConfig({
-    baseURL: config.get('api.url') as string,
-    throwOnError: true,
-    paramsSerializer: (params) => qs.stringify(params),
-  });
 
   // Emitter
   emitter.addEventListener('update', (evt) => {

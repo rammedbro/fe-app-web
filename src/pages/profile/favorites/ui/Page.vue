@@ -21,16 +21,14 @@
 <script setup lang="ts">
 import { useAsync } from '@/shared/lib/async.ts';
 import Button from 'primevue/button';
-import { useUserStore } from '@/entities/user';
 import { getFavoriteList } from '@/shared/api';
 import { CarCard, CarCardSkeleton } from '@/entities/car';
 import { useToast } from 'primevue/usetoast';
 
 const toast = useToast();
-const { user } = useUserStore();
 const favoritesAsync = useAsync(
   async () => {
-    const { data } = await getFavoriteList<true>({ path: { id: user!.id } });
+    const { data } = await getFavoriteList<true>({ withCredentials: true });
     return data;
   },
   [],

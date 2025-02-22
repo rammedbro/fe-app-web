@@ -98,33 +98,26 @@ import Button from 'primevue/button';
 import Divider from 'primevue/divider';
 import Spinner from 'primevue/progressspinner';
 import { PickupDropoffForm } from '@/widgets/pickup-dropoff';
-import { useUserStore } from '@/entities/user';
 import { getOrderList } from '@/shared/api';
 import type { Order } from '@/shared/model/models.ts';
 import { useToast } from 'primevue/usetoast';
 
 const toast = useToast();
-const { user } = useUserStore();
-const currentOrder = ref<Order | undefined>();
+const currentOrder = ref<Order>();
 const recentOrdersAsync = useAsync(
   async () => {
-    if (!user) {
-      throw new Error('User is not defined');
-    }
-
     const { data } = await getOrderList<true>({
-      path: { id: user.id },
       query: {
         sortBy: ['createdAt'],
         sortDir: 'desc',
       },
+      withCredentials: true,
     });
-    currentOrder.value = data[0];
-
     return data;
   },
   [],
   {
+    immediate: false,
     onError(e) {
       console.error(e?.message);
       toast.add({
@@ -136,4 +129,12 @@ const recentOrdersAsync = useAsync(
     },
   }
 );
+
+onMounted(async () => {
+  const orders = await recentOrdersAsync.execute();
+
+  if (orders.length) {
+    currentOrder.value = orders[0];
+  }
+});
 </script>

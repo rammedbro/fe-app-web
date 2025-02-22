@@ -2,28 +2,34 @@
   <div class="container py-8 lg:py-16 mx-auto">
     <div class="bg-white rounded-lg max-w-sm p-8 mx-auto">
       <h2 class="text-2xl font-bold mb-6">Sign in</h2>
-      <form class="flex flex-col" @submit.prevent="submit">
-        <IftaLabel>
-          <label for="login">Login</label>
-          <InputText id="login" v-model="login" name="login" title="Login" fluid class="mb-6" />
-        </IftaLabel>
-        <IftaLabel>
-          <label for="password">Password</label>
-          <InputText
-            id="password"
-            v-model="password"
-            type="password"
-            name="password"
-            title="Password"
-            fluid
-            class="mb-6"
-          />
-        </IftaLabel>
+      <form @submit="submit">
+        <div class="mb-4">
+          <IftaLabel class="mb-2">
+            <label for="username">Login</label>
+            <InputText id="username" v-model="username" name="username" autocomplete="username" title="Login" fluid />
+          </IftaLabel>
+          <div v-if="errors.username" class="text-sm text-error">{{ errors.username }}</div>
+        </div>
+
+        <div class="mb-4">
+          <IftaLabel class="mb-2">
+            <label for="password">Password</label>
+            <InputText
+              id="password"
+              v-model="password"
+              type="password"
+              name="password"
+              autocomplete="password"
+              title="Password"
+              fluid
+            />
+          </IftaLabel>
+          <div v-if="errors.password" class="text-sm text-error">{{ errors.password }}</div>
+        </div>
 
         <div class="grid gap-2">
-          <Button type="submit" label="Sign in" :loading="isLoading" />
+          <Button type="submit" label="Sign in" :loading="isSubmitting" />
           <Button as="router-link" :to="{ name: SignUpRouteName }" label="Sign up" link />
-          <Message v-if="error" severity="error" variant="simple">{{ error }}</Message>
         </div>
       </form>
     </div>
@@ -31,55 +37,55 @@
 </template>
 
 <script setup lang="ts">
+import { SignInValidationSchema } from '@/pages/sign-in/model/validation.ts';
+import { toTypedSchema } from '@vee-validate/zod';
 import Button from 'primevue/button';
 import IftaLabel from 'primevue/iftalabel';
 import InputText from 'primevue/inputtext';
-import Message from 'primevue/message';
+import { useToast } from 'primevue/usetoast';
+import { useField, useForm } from 'vee-validate';
 import { useRouter } from 'vue-router';
-import { useUserStore } from '@/entities/user';
-import { getUser, signIn } from '@/shared/api';
 import { ProfileDashboardRouteName, SignUpRouteName } from '@/shared/router/routes';
+import { useAuthStore } from '@/entities/auth';
 
 const router = useRouter();
-const { setUser } = useUserStore();
-const login = ref<string | null>(null);
-const password = ref<string | null>(null);
-const isLoading = ref(false);
-const error = ref<string | null>(null);
+const toast = useToast();
+const { login } = useAuthStore();
+const { handleSubmit, isSubmitting, errors } = useForm({
+  validationSchema: toTypedSchema(SignInValidationSchema),
+});
+const { value: username } = useField<string>('username');
+const { value: password } = useField<string>('password');
 
-function validate() {
-  if (!login.value) {
-    error.value = 'Please provide login';
-    return false;
+const submit = handleSubmit(async (values) => {
+  const { error, status } = await login(values.username, values.password);
+
+  switch (status) {
+    case 200:
+      await router.push({ name: ProfileDashboardRouteName });
+      toast.add({
+        severity: 'success',
+        summary: 'Login successful',
+        detail: 'Lets go to the dashboard',
+        life: 5000,
+      });
+      break;
+    case 401:
+      toast.add({
+        severity: 'error',
+        summary: 'Login failed',
+        detail: 'Invalid login or password',
+        life: 5000,
+      });
+      break;
+    default:
+      console.error(error);
+      toast.add({
+        severity: 'error',
+        summary: 'Login failed',
+        detail: 'Something went wrong while letting you in',
+        life: 5000,
+      });
   }
-
-  if (!password.value) {
-    error.value = 'Please provide password';
-    return false;
-  }
-
-  return true;
-}
-
-async function submit() {
-  try {
-    error.value = null;
-    if (!validate()) return;
-
-    isLoading.value = true;
-    await signIn(login.value!, password.value!);
-    const { data } = await getUser<true>({ path: { id: 1 } });
-
-    setUser(data);
-
-    await router.push({ name: ProfileDashboardRouteName });
-  } catch (e) {
-    if (e instanceof Error) {
-      console.error(e.message);
-    }
-    error.value = 'Something went wrong! Its probably our fault, we are already working on it.';
-  } finally {
-    isLoading.value = false;
-  }
-}
+});
 </script>

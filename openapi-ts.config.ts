@@ -9,7 +9,7 @@ const config = getConfig(configJson as Parameters<typeof getConfig>[0]);
  */
 export default defineConfig({
   client: '@hey-api/client-axios',
-  input: `${config.get('api.url')}/docs/?json=1`,
+  input: config.get('api.json'),
   output: 'src/shared/api/openapi',
   plugins: [
     '@hey-api/sdk',
