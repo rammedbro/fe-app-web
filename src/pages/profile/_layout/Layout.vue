@@ -35,7 +35,7 @@
         </section>
 
         <section class="mt-auto">
-          <Button icon="pi pi-sign-out" text label="Sign Out" size="large" :loading="isLoading" @click="submit" />
+          <Button icon="pi pi-sign-out" text label="Sign Out" size="large" :loading="isLoading" @click="logout" />
         </section>
       </div>
     </Drawer>
@@ -70,7 +70,7 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const toast = useToast();
-const { logout } = useAuthStore();
+const authStore = useAuthStore();
 const menus = {
   main: [
     { route: ProfileDashboardRouteName, text: 'Dashboard', icon: 'pi-home' },
@@ -86,10 +86,10 @@ const menus = {
 const isDrawerVisible = ref(false);
 const isLoading = ref(false);
 
-async function submit() {
+async function logout() {
   isLoading.value = true;
 
-  const { error, status } = await logout();
+  const { error, status } = await authStore.logout();
 
   isLoading.value = false;
 

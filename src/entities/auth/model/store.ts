@@ -17,7 +17,9 @@ export const useAuthStore = defineStore('auth', () => {
       session.value = data.session;
     }
 
-    isLoaded.value = true;
+    if (!error) {
+      isLoaded.value = true;
+    }
 
     return { error, status };
   }
@@ -32,7 +34,9 @@ export const useAuthStore = defineStore('auth', () => {
       session.value = data.session;
     }
 
-    isLoaded.value = true;
+    if (!error) {
+      isLoaded.value = true;
+    }
 
     return { error, status };
   }
@@ -44,7 +48,9 @@ export const useAuthStore = defineStore('auth', () => {
       session.value = data.session;
     }
 
-    isLoaded.value = true;
+    if (!error) {
+      isLoaded.value = true;
+    }
 
     return { error, status };
   }
