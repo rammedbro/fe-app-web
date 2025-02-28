@@ -1,3 +1,9 @@
+## [1.3.0](https://gitlab.com/imolater/fe-app-web/compare/v1.2.0...v1.3.0) (2025-02-28)
+
+### Features
+
+- **[FAW-65](https://imolater.atlassian.net/browse/FAW-65):** Add session regeneration ([368f8e0](https://gitlab.com/imolater/fe-app-web/commit/368f8e0c15259a8351d379ea952dac8e9157d871))
+
 ## [1.2.0](https://gitlab.com/imolater/fe-app-web/compare/v1.1.0...v1.2.0) (2025-02-22)
 
 ### Features
