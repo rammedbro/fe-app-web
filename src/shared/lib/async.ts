@@ -1,4 +1,4 @@
-import { shallowRef, ref, type Ref, type ShallowRef } from 'vue';
+import { ref, shallowRef, type Ref, type ShallowRef } from 'vue';
 
 interface UseAsyncStateReturn<Data, Args> {
   state: ShallowRef<Data>;

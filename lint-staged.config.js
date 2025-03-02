@@ -5,6 +5,6 @@
 export default {
   '*': 'prettier --write --ignore-unknown',
   '*.{js,jsx,ts,tsx,vue}': 'eslint --fix',
-  '*.{ts,tsx,vue}': 'fe-app-scripts lint-types',
+  '*.{ts,tsx,vue}': () => 'vue-tsc --project tsconfig.app.json',
   '*.{css,scss}': 'stylelint --fix',
 };

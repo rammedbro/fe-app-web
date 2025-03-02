@@ -1,6 +1,6 @@
-import { useToast } from 'primevue/usetoast';
 import { useCarStore } from '@/entities/car';
 import { useProgressBarStore } from '@/widgets/progress-bar';
+import { useToast } from 'primevue/usetoast';
 import type { NavigationGuard } from 'vue-router';
 
 export const beforeEnter: NavigationGuard = async (to, _, next) => {

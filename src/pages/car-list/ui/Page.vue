@@ -2,14 +2,14 @@
   <div class="flex">
     <CarListAside v-model:visible="isDrawerVisible" v-model:filter="options" />
 
-    <div class="flex-1 px-4 xl:px-8 py-8">
+    <div class="flex-1 px-4 py-8 xl:px-8">
       <div class="md:flex md:justify-center">
         <PickupDropoffDesktop v-if="breakpoints.md.value" class="mb-6" />
         <PickupDropoffMobile v-else />
       </div>
 
       <div class="flex justify-end">
-        <Toolbar class="rounded-full mb-6">
+        <Toolbar class="mb-6 rounded-full">
           <template #center>
             <Button
               v-if="!breakpoints.xl.value"
@@ -32,7 +32,7 @@
         </Toolbar>
       </div>
 
-      <div ref="itemsRef" class="flex flex-wrap justify-center xl:justify-start gap-4 mb-6">
+      <div ref="itemsRef" class="mb-6 flex flex-wrap justify-center gap-4 xl:justify-start">
         <template v-if="carsAsync.isReady.value">
           <CarCard v-for="car in carsAsync.state.value" :key="car.id" v-bind="car" class="lg:max-w-[340px]" />
         </template>
@@ -62,6 +62,13 @@
 </template>
 
 <script setup lang="ts">
+import { CarCard, CarCardSkeleton, type GetCarListOptions } from '@/entities/car';
+import { getCarList } from '@/shared/api';
+import { useAsync } from '@/shared/lib/async';
+import { ensureArray } from '@/shared/lib/objects';
+import { useRouteQuery } from '@/shared/lib/router';
+import type { SortDirection } from '@/shared/model/models';
+import { PickupDropoffDesktop, PickupDropoffMobile } from '@/widgets/pickup-dropoff';
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 import Button from 'primevue/button';
 import ListBox from 'primevue/listbox';
@@ -69,15 +76,8 @@ import Paginator, { type PageState } from 'primevue/paginator';
 import Popover, { type PopoverMethods } from 'primevue/popover';
 import Toolbar from 'primevue/toolbar';
 import { useToast } from 'primevue/usetoast';
-import { useRouter, useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import CarListAside from './Aside.vue';
-import { PickupDropoffDesktop, PickupDropoffMobile } from '@/widgets/pickup-dropoff';
-import { getCarList } from '@/shared/api';
-import { useAsync } from '@/shared/lib/async';
-import { useRouteQuery } from '@/shared/lib/router';
-import { ensureArray } from '@/shared/lib/objects';
-import type { SortDirection } from '@/shared/model/models';
-import { CarCard, CarCardSkeleton, type GetCarListOptions } from '@/entities/car';
 
 const router = useRouter();
 const route = useRoute();
@@ -122,7 +122,7 @@ const isDrawerVisible = ref(false);
 
 watch(options, async (value) => {
   await carsAsync.execute(value);
-  itemsRef.value?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  itemsRef.value?.scrollIntoView({ behavior: 'smooth' });
 });
 
 function onUpdatePaginatorState(state: PageState) {

@@ -4,4 +4,7 @@
  */
 export default {
   extends: ['stylelint-config-recommended', 'stylelint-config-tailwindcss'],
+  rules: {
+    'no-descending-specificity': null,
+  },
 };

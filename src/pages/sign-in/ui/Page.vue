@@ -1,7 +1,7 @@
 <template>
-  <div class="container py-8 lg:py-16 mx-auto">
-    <div class="bg-white rounded-lg max-w-sm p-8 mx-auto">
-      <h2 class="text-2xl font-bold mb-6">Sign in</h2>
+  <div class="container mx-auto py-8 lg:py-16">
+    <div class="mx-auto max-w-sm rounded-lg bg-white p-8">
+      <h2 class="mb-6 text-2xl font-bold">Sign in</h2>
       <form @submit="submit">
         <div class="mb-4">
           <IftaLabel class="mb-2">
@@ -37,7 +37,9 @@
 </template>
 
 <script setup lang="ts">
+import { useAuthStore } from '@/entities/auth';
 import { SignInValidationSchema } from '@/pages/sign-in/model/validation.ts';
+import { ProfileDashboardRouteName, SignUpRouteName } from '@/shared/router/routes';
 import { toTypedSchema } from '@vee-validate/zod';
 import Button from 'primevue/button';
 import IftaLabel from 'primevue/iftalabel';
@@ -45,8 +47,6 @@ import InputText from 'primevue/inputtext';
 import { useToast } from 'primevue/usetoast';
 import { useField, useForm } from 'vee-validate';
 import { useRouter } from 'vue-router';
-import { ProfileDashboardRouteName, SignUpRouteName } from '@/shared/router/routes';
-import { useAuthStore } from '@/entities/auth';
 
 const router = useRouter();
 const toast = useToast();

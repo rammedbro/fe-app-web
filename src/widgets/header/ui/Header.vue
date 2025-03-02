@@ -1,11 +1,11 @@
 <template>
-  <header class="bg-white py-6 lg:py-10">
-    <div class="container flex flex-wrap lg:items-center gap-4 mx-auto">
+  <header class="bg-white">
+    <div class="container mx-auto flex flex-wrap gap-4 py-6 lg:items-center lg:py-10">
       <RouterLink :to="{ name: HomeRouteName }" class="text-3xl font-bold text-primary uppercase">Morent</RouterLink>
 
-      <HeaderProfile class="lg:order-3 ml-auto" />
+      <HeaderProfile class="ml-auto lg:order-3" />
 
-      <IconField class="w-full lg:max-w-[500px] lg:order-2 lg:ml-16">
+      <IconField class="w-full lg:order-2 lg:ml-16 lg:max-w-[500px]">
         <InputIcon class="pi pi-search" />
         <InputText
           v-model="searchInput"

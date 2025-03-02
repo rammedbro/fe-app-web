@@ -1,7 +1,7 @@
 <template>
-  <div class="container py-8 mx-auto">
+  <div class="container mx-auto py-8">
     <template v-if="car">
-      <section class="flex flex-col lg:flex-row gap-4 md:gap-8 mb-4 md:mb-8">
+      <section class="mb-4 flex flex-col gap-4 md:mb-8 md:gap-8 lg:flex-row">
         <Galleria
           :value="car.images"
           :show-item-navigators="!breakpoints.md.value"
@@ -11,7 +11,7 @@
           container-class="lg:w-1/2"
         >
           <template #item="{ item }">
-            <img :src="item" :alt="title" class="rounded-lg w-full h-[400px]" />
+            <img :src="item" :alt="title" class="h-[400px] w-full rounded-lg" />
           </template>
           <template #thumbnail="{ item }">
             <div class="px-4">
@@ -20,42 +20,42 @@
           </template>
         </Galleria>
 
-        <div class="flex flex-col lg:w-1/2 bg-white drop-shadow-md rounded-lg p-6">
+        <div class="flex flex-col rounded-lg bg-white p-6 drop-shadow-md lg:w-1/2">
           <div class="flex items-start justify-between gap-4">
             <div>
-              <div class="text-xl md:text-4xl font-bold mb-2">{{ title }}</div>
-              <div class="flex items-center gap-2 mb-8">
+              <div class="mb-2 text-xl font-bold md:text-4xl">{{ title }}</div>
+              <div class="mb-8 flex items-center gap-2">
                 <Rating :model-value="4" readonly />
-                <div class="text-sm text-content-400">{{ car.views }} Views</div>
+                <div class="text-sm text-surface-500">{{ car.views }} Views</div>
               </div>
             </div>
 
             <Button icon="pi pi-heart" variant="text" rounded />
           </div>
 
-          <p class="text-lg mb-8">{{ car.description }}</p>
+          <p class="mb-8 text-lg">{{ car.description }}</p>
 
-          <div class="grid grid-cols-4 justify-between gap-4 mb-8">
-            <div class="text-lg text-content-300">Type</div>
+          <div class="mb-8 grid grid-cols-4 justify-between gap-4">
+            <div class="text-lg text-surface-400">Type</div>
             <div class="text-lg font-semibold">{{ car.type }}</div>
 
-            <div class="text-lg text-content-300">Capacity</div>
+            <div class="text-lg text-surface-400">Capacity</div>
             <div class="text-lg font-semibold text-nowrap">{{ car.capacity }} Person</div>
 
-            <div class="text-lg text-content-300">Steering</div>
+            <div class="text-lg text-surface-400">Steering</div>
             <div class="text-lg font-semibold">{{ car.steering }}</div>
 
-            <div class="text-lg text-content-300">Gasoline</div>
+            <div class="text-lg text-surface-400">Gasoline</div>
             <div class="text-lg font-semibold">{{ car.gasoline }}L</div>
           </div>
 
-          <div class="flex items-center justify-between gap-4 mt-auto">
+          <div class="mt-auto flex items-center justify-between gap-4">
             <div>
               <div class="text-xl font-bold">
                 ${{ ((Number(car.price) * (100 - car.discount)) / 100).toFixed(2) }} /
-                <span class="font-semibold text-content-300">a day</span>
+                <span class="font-semibold text-surface-400">a day</span>
               </div>
-              <div class="font-semibold text-content-300 line-through">${{ car.price }}</div>
+              <div class="font-semibold text-surface-400 line-through">${{ car.price }}</div>
             </div>
 
             <Button as="router-link" :to="{ name: PaymentRouteName }" label="Rent Now" />
@@ -63,24 +63,24 @@
         </div>
       </section>
 
-      <section class="bg-white drop-shadow-md rounded-lg p-6 mb-4 md:mb-8">
-        <div class="flex items-center gap-4 mb-6">
+      <section class="mb-4 rounded-lg bg-white p-6 drop-shadow-md md:mb-8">
+        <div class="mb-6 flex items-center gap-4">
           <div class="text-lg font-semibold">Reviews</div>
           <Badge :value="car.reviews.length" />
         </div>
 
-        <div v-for="review in car.reviews" :key="review.id" class="flex gap-4 mb-6">
+        <div v-for="review in car.reviews" :key="review.id" class="mb-6 flex gap-4">
           <Avatar :image="review.user.avatar ?? undefined" circle size="large" />
 
           <div class="flex-1">
-            <div class="flex items-center justify-between mb-3">
+            <div class="mb-3 flex items-center justify-between">
               <div>
-                <div class="text-xl font-bold mb-2">{{ review.title }}</div>
-                <div class="text-sm text-content-300">{{ review.user.name }} {{ review.user.lastname }}</div>
+                <div class="mb-2 text-xl font-bold">{{ review.title }}</div>
+                <div class="text-sm text-surface-400">{{ review.user.name }} {{ review.user.lastname }}</div>
               </div>
 
               <div>
-                <div class="text-sm text-content-300 text-right mb-2">
+                <div class="mb-2 text-right text-sm text-surface-400">
                   {{ new Date(review.createdAt).toLocaleDateString() }}
                 </div>
                 <Rating :model-value="review.rating" readonly />
@@ -112,6 +112,9 @@
 
 <script setup lang="ts">
 import { useCarStore } from '@/entities/car';
+import { beforeEnter } from '@/pages/car-detail/router/guards';
+import { PaymentRouteName } from '@/shared/router/routes';
+import { CarCarouselBlock } from '@/widgets/car-carousel-block';
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
 import Avatar from 'primevue/avatar';
@@ -119,10 +122,7 @@ import Badge from 'primevue/badge';
 import Button from 'primevue/button';
 import Galleria from 'primevue/galleria';
 import Rating from 'primevue/rating';
-import { PaymentRouteName } from '@/shared/router/routes';
-import { CarCarouselBlock } from '@/widgets/car-carousel-block';
 import { onBeforeRouteUpdate } from 'vue-router';
-import { beforeEnter } from '@/pages/car-detail/router/guards';
 
 const breakpoints = useBreakpoints(breakpointsTailwind);
 const { car } = storeToRefs(useCarStore());

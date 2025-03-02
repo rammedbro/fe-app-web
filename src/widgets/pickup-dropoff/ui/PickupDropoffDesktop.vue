@@ -1,10 +1,10 @@
 <template>
-  <div class="flex flex-col xl:flex-row items-center gap-4 xl:gap-8">
+  <div class="flex flex-col items-center gap-4 xl:flex-row xl:gap-8">
     <Form>
       <template #title>
-        <div class="flex items-center gap-4 mb-4">
-          <div class="flex items-center justify-center bg-primary/30 w-4 h-4 rounded-full">
-            <div class="bg-primary w-2 h-2 rounded-full" />
+        <div class="mb-4 flex items-center gap-4">
+          <div class="flex h-4 w-4 items-center justify-center rounded-full bg-primary/30">
+            <div class="h-2 w-2 rounded-full bg-primary" />
           </div>
 
           <div class="font-semibold">Pick - Up</div>
@@ -12,15 +12,15 @@
       </template>
     </Form>
 
-    <Button class="w-16 h-16 drop-shadow-xl -my-8 -mx-12">
-      <i class="pi pi-arrow-right-arrow-left text-2xl rotate-90" />
+    <Button class="-mx-12 -my-8 h-16 w-16 drop-shadow-xl">
+      <i class="pi pi-arrow-right-arrow-left rotate-90 text-2xl" />
     </Button>
 
     <Form>
       <template #title>
-        <div class="flex items-center gap-4 mb-4">
-          <div class="flex items-center justify-center bg-primary/30 w-4 h-4 rounded-full">
-            <div class="bg-primary w-2 h-2 rounded-full" />
+        <div class="mb-4 flex items-center gap-4">
+          <div class="flex h-4 w-4 items-center justify-center rounded-full bg-primary/30">
+            <div class="h-2 w-2 rounded-full bg-primary" />
           </div>
 
           <div class="font-semibold">Drop - Off</div>

@@ -23,6 +23,7 @@ module.exports = {
   settings: {
     'import/resolver': {
       typescript: {
+        project: './tsconfig.app.json',
         alwaysTryTypes: true,
       },
     },

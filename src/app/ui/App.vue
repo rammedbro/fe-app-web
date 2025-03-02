@@ -9,8 +9,8 @@
 </template>
 
 <script lang="ts" setup>
-import { Header } from '@/widgets/header';
 import { Footer } from '@/widgets/footer';
-import Toast from 'primevue/toast';
+import { Header } from '@/widgets/header';
 import { ProgressBar } from '@/widgets/progress-bar';
+import Toast from 'primevue/toast';
 </script>

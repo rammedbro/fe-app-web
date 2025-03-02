@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white rounded-lg p-8">
+  <div class="rounded-lg bg-white p-8">
     <div class="flex justify-between">
       <label>Dark Mode</label>
       <ToggleSwitch v-model="darkMode">

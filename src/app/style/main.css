@@ -1,13 +1,26 @@
-@layer _base, primevue, _components, _utilities;
+@import 'tailwindcss';
+@import 'tailwindcss-primeui';
+@import './primevue' layer(components);
 
-@layer _base {
-  @tailwind base;
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-gray: #f6f7f9;
+  --color-error: var(--color-red-600);
+  --color-warning: var(--color-yellow-500);
+
+  --font-logo: 'Titillium Web', 'sans-serif';
+  --font-body: 'Plus Jakarta Sans', 'serif';
+
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
 }
 
-@layer _components {
-  @tailwind components;
-}
-
-@layer _utilities {
-  @tailwind utilities;
+@layer utilities {
+  .container {
+    @apply px-4 xl:px-0;
+  }
 }

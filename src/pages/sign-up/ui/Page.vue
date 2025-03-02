@@ -1,14 +1,14 @@
 <template>
-  <div class="container py-8 lg:py-16 mx-auto">
-    <div class="bg-white rounded-lg max-w-sm p-8 mx-auto">
-      <h2 class="text-2xl font-bold mb-6">Sign up</h2>
+  <div class="container mx-auto py-8 lg:py-16">
+    <div class="mx-auto max-w-sm rounded-lg bg-white p-8">
+      <h2 class="mb-6 text-2xl font-bold">Sign up</h2>
       <form @submit="submit">
         <div class="mb-4">
           <IftaLabel>
             <label for="email">Email</label>
             <InputText id="email" v-model="email" name="email" title="Email" fluid />
           </IftaLabel>
-          <ul v-if="errorBag.email" class="grid gap-1 mt-2 ml-3">
+          <ul v-if="errorBag.email" class="mt-2 ml-3 grid gap-1">
             <li v-for="error in errorBag.email" :key="error" class="text-sm text-error">{{ error }}</li>
           </ul>
         </div>
@@ -18,7 +18,7 @@
             <label for="password">Password</label>
             <InputText id="password" v-model="password" type="password" title="Password" fluid />
           </IftaLabel>
-          <ul v-if="errorBag.password" class="grid gap-1 mt-2 ml-3">
+          <ul v-if="errorBag.password" class="mt-2 ml-3 grid gap-1">
             <li v-for="error in errorBag.password" :key="error" class="text-sm text-error">{{ error }}</li>
           </ul>
         </div>
@@ -28,7 +28,7 @@
             <label for="confirm">Confirm</label>
             <InputText id="confirm" v-model="confirm" type="password" title="Confirm" fluid />
           </IftaLabel>
-          <ul v-if="errorBag.confirm" class="grid gap-1 mt-2 ml-3">
+          <ul v-if="errorBag.confirm" class="mt-2 ml-3 grid gap-1">
             <li v-for="error in errorBag.confirm" :key="error" class="text-sm text-error">{{ error }}</li>
           </ul>
         </div>
@@ -43,16 +43,16 @@
 </template>
 
 <script setup lang="ts">
+import { SignUpValidationSchema } from '@/pages/sign-up/model/validation';
+import { signUp } from '@/shared/api';
+import { ProfileDashboardRouteName, SignInRouteName } from '@/shared/router/routes';
+import { toTypedSchema } from '@vee-validate/zod';
 import Button from 'primevue/button';
 import IftaLabel from 'primevue/iftalabel';
 import InputText from 'primevue/inputtext';
 import { useToast } from 'primevue/usetoast';
-import { useRouter } from 'vue-router';
-import { ProfileDashboardRouteName, SignInRouteName } from '@/shared/router/routes';
-import { signUp } from '@/shared/api';
-import { SignUpValidationSchema } from '@/pages/sign-up/model/validation';
 import { useField, useForm } from 'vee-validate';
-import { toTypedSchema } from '@vee-validate/zod';
+import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const toast = useToast();

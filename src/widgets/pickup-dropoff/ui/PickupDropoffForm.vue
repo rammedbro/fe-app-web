@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white rounded-lg p-4 xl:px-12 xl:py-6">
+  <div class="rounded-lg bg-white p-4 xl:px-12 xl:py-6">
     <slot name="title" />
 
     <div

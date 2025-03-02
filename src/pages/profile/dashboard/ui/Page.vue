@@ -1,6 +1,6 @@
 <template>
-  <div class="container mx-auto flex flex-wrap gap-8">
-    <section class="flex flex-col bg-white rounded-lg p-6 gap-8">
+  <div class="container mx-auto flex flex-col gap-8 md:flex-row">
+    <section class="flex flex-1 flex-col gap-8 rounded-lg bg-white p-6">
       <div class="text-xl font-bold">Current rent</div>
 
       <Spinner v-if="recentOrdersAsync.isLoading.value" />
@@ -9,41 +9,43 @@
           <img :src="currentOrder.car.images[0]" :alt="currentOrder.car.brand" class="w-[130px] rounded-lg" />
           <div>
             <div class="font-bold">{{ currentOrder.car.brand }} {{ currentOrder.car.model }}</div>
-            <div class="text-content-300">{{ currentOrder.car.type }}</div>
+            <div class="text-surface-400">{{ currentOrder.car.type }}</div>
           </div>
           <div class="ml-auto">#{{ currentOrder.id }}</div>
         </div>
 
-        <PickupDropoffForm>
-          <template #title>
-            <div class="flex items-center gap-4 mb-4">
-              <div class="flex items-center justify-center bg-primary/30 w-4 h-4 rounded-full">
-                <div class="bg-primary w-2 h-2 rounded-full" />
+        <template v-if="breakpoints.lg.value">
+          <PickupDropoffForm>
+            <template #title>
+              <div class="mb-4 flex items-center gap-4">
+                <div class="flex h-4 w-4 items-center justify-center rounded-full bg-primary/30">
+                  <div class="h-2 w-2 rounded-full bg-primary" />
+                </div>
+
+                <div class="font-semibold">Pick - Up</div>
               </div>
+            </template>
+          </PickupDropoffForm>
 
-              <div class="font-semibold">Pick - Up</div>
-            </div>
-          </template>
-        </PickupDropoffForm>
+          <PickupDropoffForm>
+            <template #title>
+              <div class="mb-4 flex items-center gap-4">
+                <div class="flex h-4 w-4 items-center justify-center rounded-full bg-primary/30">
+                  <div class="h-2 w-2 rounded-full bg-primary" />
+                </div>
 
-        <PickupDropoffForm>
-          <template #title>
-            <div class="flex items-center gap-4 mb-4">
-              <div class="flex items-center justify-center bg-primary/30 w-4 h-4 rounded-full">
-                <div class="bg-primary w-2 h-2 rounded-full" />
+                <div class="font-semibold">Drop - Off</div>
               </div>
-
-              <div class="font-semibold">Drop - Off</div>
-            </div>
-          </template>
-        </PickupDropoffForm>
+            </template>
+          </PickupDropoffForm>
+        </template>
 
         <Divider />
 
         <div class="flex items-center justify-between gap-4">
           <div>
             <div class="text-xl font-bold">Total Rental Price</div>
-            <div class="text-sm text-content-300">Overall price and includes rental discount</div>
+            <div class="text-sm text-surface-400">Overall price and includes rental discount</div>
           </div>
 
           <div class="text-4xl font-bold">${{ currentOrder.price }}</div>
@@ -59,22 +61,22 @@
       </template>
     </section>
 
-    <section class="flex-1 bg-white rounded-lg p-6">
-      <div class="text-xl font-bold mb-8">Recent transactions</div>
+    <section class="rounded-lg bg-white p-6">
+      <div class="mb-8 text-xl font-bold">Recent transactions</div>
 
       <template v-if="recentOrdersAsync.isReady.value">
         <template v-for="(order, index) in recentOrdersAsync.state.value" :key="order.id">
           <Divider v-if="index > 0" class="my-4" />
 
+          <img :src="order.car.images[0]" :alt="order.car.brand" class="mb-4 h-30 w-full rounded-lg" />
           <div class="flex items-center gap-4">
-            <img :src="order.car.images[0]" :alt="order.car.brand" class="w-[130px] rounded-lg" />
             <div>
               <div class="font-bold">{{ order.car.brand }} {{ order.car.model }}</div>
-              <div class="text-content-300">{{ order.car.type }}</div>
+              <div class="text-surface-400">{{ order.car.type }}</div>
             </div>
             <div class="ml-auto">
-              <div class="text-content-300">{{ new Date(order.createdAt).toLocaleDateString() }}</div>
-              <div class="font-bold text-right">{{ order.price }}</div>
+              <div class="text-surface-400">{{ new Date(order.createdAt).toLocaleDateString() }}</div>
+              <div class="text-right font-bold">${{ order.price }}</div>
             </div>
           </div>
         </template>
@@ -86,22 +88,24 @@
         </p>
         <Button label="Retry" @click="() => recentOrdersAsync.execute()" />
       </div>
-      <Spinner v-else class="block mx-auto" />
+      <Spinner v-else class="mx-auto block" />
     </section>
   </div>
 </template>
 
 <script setup lang="ts">
+import { getOrderList } from '@/shared/api';
 import { useAsync } from '@/shared/lib/async.ts';
+import type { Order } from '@/shared/model/models.ts';
 import { CarListRouteName } from '@/shared/router/routes.ts';
+import { PickupDropoffForm } from '@/widgets/pickup-dropoff';
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 import Button from 'primevue/button';
 import Divider from 'primevue/divider';
 import Spinner from 'primevue/progressspinner';
-import { PickupDropoffForm } from '@/widgets/pickup-dropoff';
-import { getOrderList } from '@/shared/api';
-import type { Order } from '@/shared/model/models.ts';
 import { useToast } from 'primevue/usetoast';
 
+const breakpoints = useBreakpoints(breakpointsTailwind);
 const toast = useToast();
 const currentOrder = ref<Order>();
 const recentOrdersAsync = useAsync(

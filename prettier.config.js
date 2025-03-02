@@ -8,4 +8,6 @@ export default {
   semi: true,
   singleQuote: true,
   printWidth: 120,
+  plugins: ['prettier-plugin-organize-imports', 'prettier-plugin-tailwindcss'],
+  tailwindStylesheet: './src/app/style/main.css',
 };

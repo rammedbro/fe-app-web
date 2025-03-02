@@ -1,5 +1,5 @@
-import { defineStore } from 'pinia';
 import { getUser } from '@/shared/api';
+import { defineStore } from 'pinia';
 import type { User } from './types';
 
 export const useUserStore = defineStore('user', () => {

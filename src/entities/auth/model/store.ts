@@ -1,6 +1,6 @@
-import type { Session } from './types';
-import { defineStore } from 'pinia';
 import { getSession, signIn, signOut } from '@/shared/api';
+import { defineStore } from 'pinia';
+import type { Session } from './types';
 
 export const useAuthStore = defineStore('auth', () => {
   const session = ref<Session | null>(null);
@@ -42,7 +42,7 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   async function logout() {
-    const { data, error, status } = await signOut<false>({ throwOnError: false });
+    const { data, error, status } = await signOut<false>({ withCredentials: true, throwOnError: false });
 
     if (data) {
       session.value = data.session;

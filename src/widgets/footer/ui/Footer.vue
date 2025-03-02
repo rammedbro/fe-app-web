@@ -3,18 +3,18 @@
     <div class="container mx-auto">
       <div class="flex flex-wrap justify-between gap-8">
         <div class="max-w-72">
-          <RouterLink :to="{ name: HomeRouteName }" class="block text-3xl font-bold text-primary uppercase mb-4">
+          <RouterLink :to="{ name: HomeRouteName }" class="mb-4 block text-3xl font-bold text-primary uppercase">
             Morent
           </RouterLink>
-          <p class="text-[#131313] text-opacity-60 font-medium">
+          <p class="font-medium text-black/60">
             Our vision is to provide convenience and help increase your sales business.
           </p>
         </div>
 
         <div class="flex flex-wrap gap-8 lg:gap-28">
           <div v-for="[title, items] in menus" :key="title">
-            <div class="text-lg font-semibold mb-6">{{ title }}</div>
-            <ul class="text-[#131313] text-opacity-60 font-medium">
+            <div class="mb-6 text-lg font-semibold">{{ title }}</div>
+            <ul class="font-medium text-black/60">
               <li v-for="item in items" :key="item" class="mb-4">
                 <RouterLink to="#">{{ item }}</RouterLink>
               </li>
@@ -25,10 +25,10 @@
 
       <Divider class="my-8" />
 
-      <div class="flex flex-col-reverse md:flex-row md:items-center gap-8">
+      <div class="flex flex-col-reverse gap-8 md:flex-row md:items-center">
         <div>{{ new Date().getFullYear() }} MORENT. All rights reserved</div>
 
-        <div class="flex justify-between gap-4 md:gap-8 md:ml-auto">
+        <div class="flex justify-between gap-4 md:ml-auto md:gap-8">
           <RouterLink :to="{ name: PrivacyPolicyRouteName }">Privacy & Policy</RouterLink>
           <RouterLink :to="{ name: TermsOfServiceRouteName }">Terms & Conditions</RouterLink>
         </div>
@@ -38,8 +38,8 @@
 </template>
 
 <script setup lang="ts">
-import Divider from 'primevue/divider';
 import { HomeRouteName, PrivacyPolicyRouteName, TermsOfServiceRouteName } from '@/shared/router/routes';
+import Divider from 'primevue/divider';
 
 const menus: [string, string[]][] = [
   ['About', ['How it works', 'Featured', 'Partnership', 'Business Relation']],

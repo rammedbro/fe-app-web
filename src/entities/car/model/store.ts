@@ -1,6 +1,6 @@
 import { getCar as getCarFromApi } from '@/shared/api';
-import type { GetCarReturn } from './types';
 import { defineStore } from 'pinia';
+import type { GetCarReturn } from './types';
 
 export const useCarStore = defineStore('carStore', () => {
   const car = ref<GetCarReturn | null>(null);

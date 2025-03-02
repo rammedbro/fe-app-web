@@ -1,6 +1,6 @@
 <template>
-  <div class="block bg-white rounded-lg w-full max-w-[340px] p-3 md:p-6">
-    <div class="flex items-start justify-between gap-4 mb-4">
+  <div class="block w-full max-w-[340px] rounded-lg bg-white p-3 md:p-6">
+    <div class="mb-4 flex items-start justify-between gap-4">
       <div class="w-full">
         <Skeleton height="18px" class="mb-2" />
         <Skeleton height="12px" />
@@ -9,12 +9,12 @@
       <Skeleton size="40px" />
     </div>
     <Skeleton height="160px" class="mb-4" />
-    <div class="grid grid-cols-3 gap-2 mb-6">
+    <div class="mb-6 grid grid-cols-3 gap-2">
       <Skeleton height="20px" />
       <Skeleton height="20px" />
       <Skeleton height="20px" />
     </div>
-    <div class="flex items-center justify-between gap-4 mt-auto">
+    <div class="mt-auto flex items-center justify-between gap-4">
       <Skeleton width="60%" height="30px" />
       <Skeleton width="40%" height="44px" />
     </div>

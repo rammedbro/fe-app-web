@@ -1,6 +1,6 @@
+import { client } from '@/shared/api';
 import qs from 'query-string';
 import type { Plugin } from 'vue';
-import { client } from '@/shared/api';
 
 interface Options {
   url: string;

@@ -2,7 +2,7 @@
   <div class="flex flex-col">
     <Form layout="vertical" class="pb-12">
       <template #title>
-        <div class="flex justify-between gap-4 mb-6">
+        <div class="mb-6 flex justify-between gap-4">
           <label class="flex items-center font-semibold">
             <RadioButton v-model="currentForm" value="pick-up" class="mr-2" />
             Pick - Up
@@ -16,8 +16,8 @@
       </template>
     </Form>
 
-    <Button class="w-16 h-16 drop-shadow-xl self-center -mt-10">
-      <i class="pi pi-arrow-right-arrow-left text-2xl rotate-90" />
+    <Button class="-mt-10 h-16 w-16 self-center drop-shadow-xl">
+      <i class="pi pi-arrow-right-arrow-left rotate-90 text-2xl" />
     </Button>
   </div>
 </template>

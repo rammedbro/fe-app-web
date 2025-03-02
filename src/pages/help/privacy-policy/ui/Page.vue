@@ -1,8 +1,8 @@
 <template>
   <div class="container mx-auto py-8">
-    <div class="bg-white rounded-lg p-8">
-      <section class="text-center mb-10">
-        <h1 class="text-4xl font-bold mb-2">Privacy Policy (But Not Really)</h1>
+    <div class="rounded-lg bg-white p-8">
+      <section class="mb-10 text-center">
+        <h1 class="mb-2 text-4xl font-bold">Privacy Policy (But Not Really)</h1>
         <p class="text-sm"><span class="font-semibold">Last Updated:</span> [07.02.2025]</p>
       </section>
 
@@ -12,7 +12,7 @@
           We collect and store the data that you provide on this website. But don’t worry! This data is used
           <strong>only</strong> for feature demonstration purposes. That means:
         </p>
-        <ul class="list-disc pl-6 mt-2">
+        <ul class="mt-2 list-disc pl-6">
           <li>Your input helps showcase how our platform would work in a real-world scenario.</li>
           <li>The data lives only in our database and goes absolutely nowhere else.</li>
           <li>No actual car rentals happen here. Sorry!</li>
@@ -25,7 +25,7 @@
           The information you provide is stored so you can experience the full functionality of this demo website.
           However:
         </p>
-        <ul class="list-disc pl-6 mt-2">
+        <ul class="mt-2 list-disc pl-6">
           <li>We don’t sell, rent, or share your information with anyone.</li>
           <li>We don’t process payments (because, again, this is not a real service).</li>
           <li>Your data stays on this website and is not used for anything beyond making this project look awesome.</li>

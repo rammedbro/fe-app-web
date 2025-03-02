@@ -1,6 +1,6 @@
-import { ensureArray } from './objects';
 import { useIntersectionObserver, type UseIntersectionObserverOptions } from '@vueuse/core';
 import type { ObjectDirective } from 'vue';
+import { ensureArray } from './objects';
 
 type BindingValueFunction = IntersectionObserverCallback;
 type BindingValueArray = [BindingValueFunction, UseIntersectionObserverOptions];

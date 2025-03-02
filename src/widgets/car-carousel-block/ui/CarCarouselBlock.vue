@@ -1,6 +1,6 @@
 <template>
   <section v-intersection-observer.once="([e]: IntersectionObserverEntry[]) => e.isIntersecting && cars.execute()">
-    <div class="flex items-center justify-between mb-4">
+    <div class="mb-4 flex items-center justify-between">
       <div class="text-content-300">
         <slot name="title">{{ props.title }}</slot>
       </div>
@@ -14,6 +14,7 @@
       :value="cars.state.value"
       :show-navigators="false"
       content-class="-mx-2"
+      container-class="overflow-hidden"
     >
       <template #item="{ data }">
         <CarCard v-bind="data as Car" class="mx-2" />
@@ -26,7 +27,7 @@
       </p>
       <Button label="Retry" @click="() => cars.execute()" />
     </div>
-    <Spinner v-else class="block mx-auto" />
+    <Spinner v-else class="mx-auto block" />
   </section>
 </template>
 
@@ -34,14 +35,14 @@
 import { CarCard, type Car } from '@/entities/car';
 import { getCarList } from '@/shared/api/openapi';
 import { useAsync } from '@/shared/lib/async.ts';
+import { vIntersectionObserver } from '@/shared/lib/dom';
 import { defaultCarouselResponsiveOptions } from '@/shared/model/breakpoints.ts';
 import { CarListRouteName } from '@/shared/router/routes.ts';
+import type { CarCarouselBlockProps } from '@/widgets/car-carousel-block/model/types';
 import Button from 'primevue/button';
 import Carousel from 'primevue/carousel';
 import Spinner from 'primevue/progressspinner';
-import { vIntersectionObserver } from '@/shared/lib/dom';
 import { useToast } from 'primevue/usetoast';
-import type { CarCarouselBlockProps } from '@/widgets/car-carousel-block/model/types';
 
 const props = withDefaults(defineProps<CarCarouselBlockProps>(), {
   carousel: () => ({

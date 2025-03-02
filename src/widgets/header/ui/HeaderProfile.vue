@@ -9,17 +9,17 @@
     />
     <Button icon="pi pi-bell" rounded variant="outlined" @click="notificationPopover?.toggle" />
     <Popover ref="notificationPopover" class="w-[320px]">
-      <div class="flex items-center justify-between mb-4">
+      <div class="mb-4 flex items-center justify-between">
         <div class="font-bold">Notifications</div>
         <label class="flex items-center">
-          <span class="text-sm mr-2">Unseen</span>
+          <span class="mr-2 text-sm">Unseen</span>
           <ToggleSwitch v-model="onlyUnseen" />
         </label>
       </div>
 
-      <Spinner v-if="notificationsAsync.isLoading.value" class="block h-10 mx-auto" />
-      <ul v-else-if="filteredNotifications.length > 0" class="grid gap-4 h-[320px] overflow-scroll">
-        <li v-for="item in filteredNotifications" :key="item.id" class="flex gap-4 pb-4 border-b-gray border-b-2">
+      <Spinner v-if="notificationsAsync.isLoading.value" class="mx-auto block h-10" />
+      <ul v-else-if="filteredNotifications.length > 0" class="grid h-[320px] gap-4 overflow-scroll">
+        <li v-for="item in filteredNotifications" :key="item.id" class="flex gap-4 border-b-2 border-b-gray pb-4">
           <span>{{ item.text }}</span>
           <Checkbox v-model="seenIds" :value="item.id" />
         </li>
@@ -34,20 +34,20 @@
 
 <script setup lang="ts">
 import { useAuthStore } from '@/entities/auth';
+import { getNotificationList } from '@/shared/api';
+import { useAsync } from '@/shared/lib/async';
 import {
   ProfileDashboardRouteName,
   ProfileFavoritesRouteName,
   ProfileSettingsRouteName,
   SignInRouteName,
 } from '@/shared/router/routes.ts';
-import { useAsync } from '@/shared/lib/async';
 import { storeToRefs } from 'pinia';
 import Button from 'primevue/button';
 import Checkbox from 'primevue/checkbox';
 import Popover, { type PopoverMethods } from 'primevue/popover';
 import Spinner from 'primevue/progressspinner';
 import ToggleSwitch from 'primevue/toggleswitch';
-import { getNotificationList } from '@/shared/api';
 import { useToast } from 'primevue/usetoast';
 
 const toast = useToast();

@@ -1,15 +1,15 @@
 <template>
   <div>
     <Drawer v-model:visible="isDrawerVisible" :show-close-icon="false" :modal="false">
-      <div class="flex flex-col h-full">
+      <div class="flex h-full flex-col">
         <section class="mb-12">
-          <div class="font-semibold uppercase text-content-300 ml-4 mb-6">Main menu</div>
+          <div class="mb-6 ml-4 font-semibold text-surface-400 uppercase">Main menu</div>
           <ul class="grid gap-2">
             <li v-for="item in menus.main" :key="item.route">
               <RouterLink
                 :to="{ name: item.route }"
                 exact-active-class="bg-primary text-white"
-                class="flex gap-4 p-4 rounded-lg [&:not(.router-link-active)]:hover:bg-primary/5"
+                class="flex gap-4 rounded-lg p-4 [&:not(.router-link-active)]:hover:bg-primary/5"
               >
                 <i class="pi text-2xl" :class="item.icon" />
                 <span class="text-lg">{{ item.text }}</span>
@@ -19,13 +19,13 @@
         </section>
 
         <section>
-          <div class="font-semibold uppercase text-content-300 ml-4 mb-6">Preferences</div>
+          <div class="mb-6 ml-4 font-semibold text-surface-400 uppercase">Preferences</div>
           <ul class="grid gap-2">
             <li v-for="item in menus.preferences" :key="item.route">
               <RouterLink
                 :to="{ name: item.route }"
                 exact-active-class="bg-primary text-white"
-                class="flex gap-4 p-4 rounded-lg [&:not(.router-link-active)]:hover:bg-primary/5"
+                class="flex gap-4 rounded-lg p-4 [&:not(.router-link-active)]:hover:bg-primary/5"
               >
                 <i class="pi text-2xl" :class="item.icon" />
                 <span class="text-lg">{{ item.text }}</span>
@@ -40,9 +40,9 @@
       </div>
     </Drawer>
 
-    <div class="px-4 xl:px-8 py-8">
+    <div class="px-4 py-8 xl:px-8">
       <div class="flex justify-end">
-        <Toolbar class="rounded-full mb-6">
+        <Toolbar class="mb-6 rounded-full">
           <template #center>
             <Button icon="pi pi-bars" severity="secondary" text @click="isDrawerVisible = true" />
           </template>
@@ -55,6 +55,7 @@
 </template>
 
 <script setup lang="ts">
+import { useAuthStore } from '@/entities/auth';
 import {
   ProfileDashboardRouteName,
   ProfileFavoritesRouteName,
@@ -64,7 +65,6 @@ import {
 import Button from 'primevue/button';
 import Drawer from 'primevue/drawer';
 import Toolbar from 'primevue/toolbar';
-import { useAuthStore } from '@/entities/auth';
 import { useToast } from 'primevue/usetoast';
 import { useRouter } from 'vue-router';
 

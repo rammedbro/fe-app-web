@@ -19,10 +19,10 @@
 </template>
 
 <script setup lang="ts">
+import { CarCard, CarCardSkeleton } from '@/entities/car';
+import { getFavoriteList } from '@/shared/api';
 import { useAsync } from '@/shared/lib/async.ts';
 import Button from 'primevue/button';
-import { getFavoriteList } from '@/shared/api';
-import { CarCard, CarCardSkeleton } from '@/entities/car';
 import { useToast } from 'primevue/usetoast';
 
 const toast = useToast();
