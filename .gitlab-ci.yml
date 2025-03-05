@@ -32,41 +32,34 @@ default:
     - pnpm install --prefer-offline
     - echo -e "\e[0Ksection_end:`date +%s`:npm_install\r\e[0K"
 
-secure-files:
-  stage: install
-  variables:
-    SECURE_FILES_DOWNLOAD_PATH: './'
-  script:
-    - curl --silent "https://gitlab.com/gitlab-org/incubation-engineering/mobile-devops/download-secure-files/-/raw/main/installer" | sh
-  artifacts:
-    paths:
-      - config.json
-
 install:
   stage: install
   extends:
     - .node-modules-cache
-  needs:
-    - secure-files
   cache:
     policy: pull-push
   script:
-    - pnpm build:api
-  artifacts:
-    paths:
-      - src/shared/api/openapi
+    - echo "This is a stub message"
 
-build:
+build:app:
   stage: build
   extends:
     - .node-modules-cache
-  needs:
-    - secure-files
   script:
     - pnpm build
   artifacts:
     paths:
       - build
+
+build:api:
+  stage: build
+  extends:
+    - .node-modules-cache
+  script:
+    - pnpm build:api
+  artifacts:
+    paths:
+      - src/shared/api/openapi
 
 lint:
   stage: check
@@ -75,8 +68,7 @@ lint:
   extends:
     - .node-modules-cache
   needs:
-    - install
-    - secure-files
+    - build:api
   script:
     - pnpm lint
 
@@ -88,7 +80,7 @@ release:
   extends:
     - .node-modules-cache
   needs:
-    - build
+    - build:app
   variables:
     GIT_AUTHOR_NAME: $GITLAB_USER_NAME
     GIT_AUTHOR_EMAIL: $GITLAB_USER_EMAIL

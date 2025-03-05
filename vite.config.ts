@@ -1,58 +1,90 @@
-import { getConfig } from '@imolater/fe-app-config';
+import dotenv from '@dotenvx/dotenvx';
 import tailwindcss from '@tailwindcss/vite';
 import vue from '@vitejs/plugin-vue';
 import jsx from '@vitejs/plugin-vue-jsx';
 import browserslist from 'browserslist';
 import browserslistToEsbuild from 'browserslist-to-esbuild';
 import { browserslistToTargets } from 'lightningcss';
-import { createHash } from 'node:crypto';
-import { defineConfig, type CSSModulesOptions } from 'vite';
+import * as mime from 'mime-types';
+import path from 'node:path';
+import unimport from 'unimport/unplugin';
+import { defineConfig, type UserConfig } from 'vite';
 import svg from 'vite-svg-loader';
-import configJson from './config.json';
+import tsconfigPaths from 'vite-tsconfig-paths';
 import pkg from './package.json';
 
-const config = getConfig(configJson as Parameters<typeof getConfig>[0]);
-const generateScopedName: CSSModulesOptions['generateScopedName'] = (name, filename) => {
-  const hash = createHash('md5').update(filename).digest('hex').slice(0, 5);
-  const file = filename.slice(filename.lastIndexOf('/') + 1, filename.indexOf('.'));
-
-  return `${file}__${name}__${hash}`;
+const assetPath = (filename: string, type?: string) => {
+  return path.join('assets', type || mime.lookup(filename) || '', filename);
 };
 
 /**
- * @see https://vite.dev/config/
+ * @see https://vite.dev/dotenv/
  */
-export default defineConfig(({ mode }) => ({
-  define: {
-    __APP_VERSION__: JSON.stringify(pkg.version),
-  },
-  build: {
-    target: browserslistToEsbuild(),
-    cssMinify: 'lightningcss',
-  },
-  css: {
-    devSourcemap: true,
-    transformer: 'lightningcss',
-    lightningcss: {
-      targets: browserslistToTargets(browserslist()),
+export default defineConfig(() => {
+  const config: UserConfig = {
+    define: {
+      'import.meta.env.APP_VERSION': JSON.stringify(pkg.version),
+      'import.meta.env.API_URL': JSON.stringify(dotenv.get('API_URL')),
     },
-    modules: {
-      scopeBehaviour: 'local',
-      generateScopedName: mode === 'production' ? '[hash:base64:5]' : generateScopedName,
-      localsConvention: 'camelCaseOnly',
-    },
-  },
-  plugins: [vue(), jsx(), svg(), tailwindcss()],
-  server: {
-    proxy: config.dev()
-      ? {
-          [config.get('api.url')]: {
-            target: config.get('api.proxy'),
-            changeOrigin: true,
-            rewrite: (path) => path.replace(/^\/api/, ''),
-            timeout: 10e3,
+    build: {
+      outDir: 'build',
+      target: browserslistToEsbuild(),
+      sourcemap: 'hidden',
+      cssMinify: 'lightningcss',
+      rollupOptions: {
+        output: {
+          assetFileNames: (assetInfo) => {
+            if (assetInfo.source === '/* vite internal call, ignore */') return '';
+
+            const assetName = assetInfo.names[0];
+            return assetPath('[hash:12].[ext]', mime.lookup(assetName) || '');
           },
-        }
-      : undefined,
-  },
-}));
+          entryFileNames: assetPath('[hash:12].js'),
+          chunkFileNames: assetPath('[hash:12].js'),
+        },
+      },
+    },
+    resolve: {
+      alias: {
+        '@': path.resolve('./src'),
+      },
+    },
+    css: {
+      devSourcemap: true,
+      transformer: 'lightningcss',
+      lightningcss: {
+        targets: browserslistToTargets(browserslist()),
+      },
+    },
+    plugins: [
+      tsconfigPaths({ projects: ['tsconfig.app.json'] }),
+      vue(),
+      jsx(),
+      svg(),
+      unimport.vite({
+        presets: ['vue'],
+        addons: {
+          vueTemplate: true,
+        },
+        dts: './src/app/ambient/auto-imports.d.ts',
+      }),
+      tailwindcss(),
+    ],
+  };
+
+  const API_PROXY = dotenv.get('API_PROXY', { ignore: ['MISSING_KEY'] });
+  if (API_PROXY) {
+    config.server = {
+      proxy: {
+        [dotenv.get('API_URL')]: {
+          target: API_PROXY,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, ''),
+          timeout: 10e3,
+        },
+      },
+    };
+  }
+
+  return config;
+});
