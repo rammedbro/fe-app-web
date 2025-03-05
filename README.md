@@ -1,35 +1,101 @@
-# fe-app-web
+# fe-app-web (Frontend)
 
-## About
+This repository contains the frontend of fe-app project, a production-grade car rental service. The project showcases
+modern JavaScript development practices with a focus on scalability, maintainability, and performance. It follows
+a loosely implemented Feature Sliced Design (FSD) architecture.
 
-This is a frontend application written in Vue 3 with Typescript and scaffolded with my pet project app called
-[fe-app](https://github.com/rammedbro/fe-app.git)
-that uses Vite for bundling and Express for serving.
+- [Overview](#overview)
+- [Tech Stack](#tech-stack)
+- [Code Structure](#code-structure)
+- [API Integration](#api-integration)
+- [Deployment](#deployment)
+- [Running Locally](#running-locally)
+- [Roadmap](./docs/Roadmap.md)
+- [Changelog](./CHANGELOG.md)
 
-It is also a polygon of some sort where I try different web technologies.
-The file will include more content in the future.
+## Overview
 
-## Project structure and architecture
+**fe-app** is a full-featured and production-ready car rental service, designed to showcase modern JavaScript
+development across the backend, frontend, and platform infrastructure. The project integrates the latest
+technologies, architectures, and best practices to deliver a scalable, maintainable, and high-performance solution.
 
-The project uses FSD hence it has particular folder structure consisting of:
+It's not just a car rental service — it serves as a comprehensive reference for modern JavaScript development,
+demonstrating:
 
-- app - application settings, ui and providers
-- assets - styles, images, fonts, etc.
-- entities - variety of data object types used by application
-- features - small pieces of business logic
-- pages - web pages registered in router
-- shared - third party modules
-- types - types (as name suggest)
-- widgets - assembling of entities and features into complex blocks
-- main.ts - application's entry point. It's a main file where we assemble and mount our app, listen to events, catch
-  errors. All in all, doing global things.
+- Best practices in full-stack development
+- Seamless frontend-backend integration
+- Scalable and maintainable architecture patterns
+- Optimized developer experience with modern tooling
 
-## Noteworthy
+## Tech Stack
 
-- All tooling packages, like eslint, stylelint, lintstaged, etc., and its config files installed via
-  [fe-app-codegen](https://github.com/rammedbro/fe-app/tree/master/packages/codegen/) module.
-- The fe-app package uses several config files for various purposes:
-  - `fe-app.config.ts` - main setup file for bundling and serving
-  - `client.config.ts` - client config handling file
-  - `server.config.ts` - server response mocking file
-  - `vite.config.ts` - vite setup file
+- **Runtime:** [Browser](./.browserslistrc)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Framework:** [Vue 3](https://vuejs.org/)
+- **Routing:** [Vue-Router](https://router.vuejs.org/)
+- **State Management:** [Pinia](https://pinia.vuejs.org/)
+- **API Client:** [Axios](https://axios-http.com/)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **UI Library:** [PrimeVue](https://www.primevue.org/)
+- **Form Validation:** [Vee-Validate](https://vee-validate.logaretm.com/) with [Zod](https://zod.dev/)
+- **Build Tool:** [Vite](https://vitejs.dev/)
+- **Deployment:** [Render](https://render.com/)
+
+## Code Structure
+
+The frontend follows a loosely implemented **Feature Sliced Design (FSD)** approach:
+
+```
+📦 fe-app-web
+ ┣ 📂 src
+ ┃ ┣ 📂 app          # App's related code (styles, providers, routing, etc.)
+ ┃ ┣ 📂 pages        # Route-based components
+ ┃ ┣ 📂 widgets      # Self-contained chunks of functionality or UI, usually delivering an entire use case
+ ┃ ┣ 📂 features     # Reused implementations of entire product features
+ ┃ ┣ 📂 entities     # Domain models and API interactions
+ ┃ ┣ 📂 shared       # Reusable UI components, utilities, helpers
+ ┃ ┣ 📜 main.ts      # App setup and entry point
+ ┣ 📜 package.json
+ ┣ 📜 tsconfig.json
+ ┗ 📜 README.md
+```
+
+## API Integration
+
+- API client is generated via [`@hey-api/openapi-ts`](https://heyapi.dev/), ensuring type safety and automatic updates
+  when backend specifications change.
+- Requests are made using **Axios**, with interceptors for authentication and error handling.
+
+## Deployment
+
+The frontend is deployed via **Render** which automatically builds and deploys the app from the repository.
+
+## Running Locally
+
+### Prerequisites:
+
+- [Node.js](https://nodejs.org/) & [pnpm](https://pnpm.io/)
+
+### Steps:
+
+1. **Install dependencies:**
+   ```sh
+   pnpm install
+   ```
+2. **Set up environment variables:** (create a `.env` file)
+   ```env
+   API_URL=https://fe-app-api.com
+   API_JSON=https://fe-app-api.com/docs/?json=1
+   ```
+3. **Build API:**
+   ```sh
+   pnpm run build:api
+   ```
+4. **Start the development server:**
+   ```sh
+   pnpm run dev
+   ```
+
+---
+
+fe-app-web © 2025 by Ramil Sharipov is licensed under CC BY-NC-ND 4.0.
