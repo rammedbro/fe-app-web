@@ -23,8 +23,7 @@
       </template>
     </Carousel>
 
-    <PickupDropoffDesktop v-if="breakpoints.md.value" class="mb-8" />
-    <PickupDropoffMobile v-else />
+    <PickupDropoff v-if="breakpoints.md.value" class="mb-8" />
 
     <CarCarouselBlock title="Popular cars" :query="{ sortBy: ['rating'], limit: 10 }" />
 
@@ -36,7 +35,7 @@
 import { banner1ImgUrl, banner2ImgUrl } from '@/shared/assets/images';
 import { CarListRouteName } from '@/shared/router/routes';
 import { CarCarouselBlock } from '@/widgets/car-carousel-block';
-import { PickupDropoffDesktop, PickupDropoffMobile } from '@/widgets/pickup-dropoff';
+import { PickupDropoff } from '@/widgets/pickup-dropoff';
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 import Button from 'primevue/button';
 import Carousel from 'primevue/carousel';

@@ -2,11 +2,13 @@
 @import './common.css';
 
 /* Form */
+@import './autocomplete.css';
 @import './checkbox.css';
 @import './datepicker.css';
 @import './iconfield.css';
 @import './iftalabel.css';
 @import './inputtext.css';
+@import './inputgroup.css';
 @import './floatlabel.css';
 @import './password.css';
 @import './radiobutton.css';
@@ -31,6 +33,8 @@
 
 /* Panel */
 @import './divider.css';
+@import './panel.css';
+@import './stepper.css';
 @import './toolbar.css';
 
 /* File */
@@ -46,6 +50,7 @@
 /* Misc */
 @import './avatar.css';
 @import './badge.css';
+@import './chip.css';
 @import './overlaybadge.css';
 @import './progressbar.css';
 @import './progressspinner.css';

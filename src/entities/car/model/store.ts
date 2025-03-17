@@ -1,17 +1,24 @@
-import { getCar as getCarFromApi } from '@/shared/api';
+import { getCar } from '@/shared/api';
 import { defineStore } from 'pinia';
 import type { GetCarReturn } from './types';
 
-export const useCarStore = defineStore('carStore', () => {
-  const car = ref<GetCarReturn | null>(null);
+export const useCarStore = defineStore('car', () => {
+  const car = ref<GetCarReturn>();
 
-  async function getCar(id: number) {
-    const { data } = await getCarFromApi<true>({ path: { id } });
+  async function fetchCar(id: number) {
+    if (car.value?.id === id) return;
+
+    const { data } = await getCar<true>({ path: { id } });
     car.value = data;
+  }
+
+  function calcTotalPrice(price: string, discount: number) {
+    return ((Number(price) * (100 - discount)) / 100).toFixed(2);
   }
 
   return {
     car,
-    getCar,
+    calcTotalPrice,
+    fetchCar,
   };
 });

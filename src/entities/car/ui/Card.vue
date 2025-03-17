@@ -9,7 +9,7 @@
       <Button icon="pi pi-heart" variant="text" rounded />
     </div>
 
-    <RouterLink :to="{ name: CarDetailRouteName, params: { id } }">
+    <RouterLink :to="{ name: CarDetailsRouteName, params: { id } }">
       <img :src="images[0]" :alt="`${brand} ${model}`" class="mb-6 h-[240px] w-full rounded-lg" />
     </RouterLink>
 
@@ -39,18 +39,20 @@
         <div class="text-sm font-medium text-surface-400 line-through">${{ Number(price).toFixed(2) }}</div>
       </div>
 
-      <Button as="router-link" :to="{ name: PaymentRouteName, params: { id } }" type="submit" label="Rent Now" />
+      <Button as="router-link" :to="{ name: CarPaymentRouteName, params: { id } }" type="submit" label="Rent Now" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useCarStore } from '@/entities/car';
 import type { Car } from '@/entities/car/model/types';
-import { CarDetailRouteName, PaymentRouteName } from '@/shared/router/routes.ts';
+import { CarDetailsRouteName, CarPaymentRouteName } from '@/shared/router/routes.ts';
 import { GasStationIcon, Profile2UserIcon, SteeringWheelIcon } from '@/shared/ui/icons';
 import Button from 'primevue/button';
 
 const { price, discount } = defineProps<Car>();
 
-const totalPrice = computed(() => ((Number(price) * (100 - discount)) / 100).toFixed(2));
+const { calcTotalPrice } = useCarStore();
+const totalPrice = computed(() => calcTotalPrice(price, discount));
 </script>

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-export const useProgressBarStore = defineStore('progressBarStore', () => {
+export const useProgressBarStore = defineStore('progressBar', () => {
   const isVisible = ref(false);
 
   function show() {

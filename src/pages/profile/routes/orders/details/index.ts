@@ -1,0 +1,1 @@
+export { ProfileOrderDetailsRoute } from './router';

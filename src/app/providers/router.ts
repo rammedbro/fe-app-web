@@ -1,15 +1,14 @@
 import { useAuthStore } from '@/entities/auth';
-import { CarDetailRoute } from '@/pages/car-detail';
-import { CarListRoute } from '@/pages/car-list';
+import { CarsRoute } from '@/pages/cars';
 import { ErrorRoute } from '@/pages/error';
 import { PrivacyPolicyRoute } from '@/pages/help/privacy-policy';
 import { TermsOfServiceRoute } from '@/pages/help/terms-of-service';
 import { HomeRoute } from '@/pages/home';
-import { PaymentRoute } from '@/pages/payment';
 import { ProfileRoute } from '@/pages/profile';
 import { SignInRoute } from '@/pages/sign-in';
 import { SignUpRoute } from '@/pages/sign-up';
-import { ErrorRouteName, ProfileDashboardRouteName, SignInRouteName } from '@/shared/router/routes.ts';
+import { ProfileDashboardRouteName, SignInRouteName } from '@/shared/router/routes.ts';
+import { useProgressBarStore } from '@/widgets/progress-bar';
 import { storeToRefs } from 'pinia';
 import { createRouter, createWebHistory } from 'vue-router';
 
@@ -20,9 +19,7 @@ const router = createRouter({
     ErrorRoute,
     SignUpRoute,
     SignInRoute,
-    CarListRoute,
-    CarDetailRoute,
-    PaymentRoute,
+    CarsRoute,
     ProfileRoute,
     PrivacyPolicyRoute,
     TermsOfServiceRoute,
@@ -45,15 +42,14 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, _, next) => {
+  const progressBarStore = useProgressBarStore();
   const authStore = useAuthStore();
   const { isAuthenticated } = storeToRefs(authStore);
 
-  if (!authStore.isLoaded) {
-    const { error, status } = await authStore.fetchSession();
+  progressBarStore.show();
 
-    if (status !== 200) {
-      return next({ name: ErrorRouteName, query: { error } });
-    }
+  if (!authStore.isLoaded) {
+    await authStore.fetchSession();
   }
 
   if (to.meta.requiresAuth === true && !isAuthenticated.value) {
@@ -63,6 +59,12 @@ router.beforeEach(async (to, _, next) => {
   } else {
     next();
   }
+});
+
+router.afterEach(() => {
+  const progressBarStore = useProgressBarStore();
+
+  progressBarStore.hide();
 });
 
 export { router };

@@ -46,9 +46,10 @@ import IftaLabel from 'primevue/iftalabel';
 import InputText from 'primevue/inputtext';
 import { useToast } from 'primevue/usetoast';
 import { useField, useForm } from 'vee-validate';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 const router = useRouter();
+const route = useRoute();
 const toast = useToast();
 const { login } = useAuthStore();
 const { handleSubmit, isSubmitting, errors } = useForm({
@@ -62,13 +63,13 @@ const submit = handleSubmit(async (values) => {
 
   switch (status) {
     case 200:
-      await router.push({ name: ProfileDashboardRouteName });
       toast.add({
         severity: 'success',
         summary: 'Login successful',
         detail: 'Lets go to the dashboard',
         life: 5000,
       });
+      await router.push(route.redirectedFrom || { name: ProfileDashboardRouteName });
       break;
     case 401:
       toast.add({

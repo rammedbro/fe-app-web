@@ -1,0 +1,1 @@
+export { CarPaymentRoute } from './router';

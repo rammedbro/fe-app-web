@@ -1,13 +1,12 @@
-import { ProfileDashboardRoute } from '@/pages/profile/dashboard';
-import { ProfileFavoritesRoute } from '@/pages/profile/favorites';
-import { ProfileSettingsRoute } from '@/pages/profile/settings';
-import { ProfileRouteName } from '@/shared/router/routes.ts';
 import type { RouteRecordRaw } from 'vue-router';
+import { ProfileDashboardRoute } from './routes/dashboard';
+import { ProfileFavoritesRoute } from './routes/favorites';
+import { ProfileOrdersRoute } from './routes/orders';
+import { ProfileSettingsRoute } from './routes/settings';
 
 export const ProfileRoute = {
   path: '/profile',
-  name: ProfileRouteName,
   meta: { requiresAuth: true },
-  component: () => import('./_layout/Layout.vue'),
-  children: [ProfileDashboardRoute, ProfileFavoritesRoute, ProfileSettingsRoute],
+  component: () => import('./ui/Layout.vue'),
+  children: [ProfileDashboardRoute, ProfileFavoritesRoute, ProfileOrdersRoute, ProfileSettingsRoute],
 } as RouteRecordRaw;
