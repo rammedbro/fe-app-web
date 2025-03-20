@@ -1,3 +1,11 @@
+## [1.4.0](https://gitlab.com/imolater/fe-app-web/compare/v1.3.0...v1.4.0) (2025-03-20)
+
+### Features
+
+- **[FAW-51](https://imolater.atlassian.net/browse/FAW-51):** Add order creation feature ([ab2eef3](https://gitlab.com/imolater/fe-app-web/commit/ab2eef3c06b8edf247c8bc08181f2b9733086866))
+- **[FAW-63](https://imolater.atlassian.net/browse/FAW-63):** Rewrite primevue components in tailwind ([d66b531](https://gitlab.com/imolater/fe-app-web/commit/d66b531b4d0685c358f55038b57a499326ed775e))
+- **[FAW-66](https://imolater.atlassian.net/browse/FAW-66):** Drop fe-app ([916f56d](https://gitlab.com/imolater/fe-app-web/commit/916f56dd2f03e98565feaec99e45dcdbbdb4a7dd))
+
 ## [1.3.0](https://gitlab.com/imolater/fe-app-web/compare/v1.2.0...v1.3.0) (2025-02-28)
 
 ### Features
