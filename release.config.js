@@ -4,6 +4,7 @@
  */
 export default {
   preset: 'conventionalcommits',
+  repositoryUrl: 'https://gitlab.com/imolater/fe-app-web.git',
   branches: ['master', 'next'],
   plugins: [
     '@semantic-release/commit-analyzer',
