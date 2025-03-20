@@ -37,6 +37,7 @@ demonstrating:
 - **API Client:** [Axios](https://axios-http.com/)
 - **Styling:** [Tailwind CSS](https://tailwindcss.com/)
 - **UI Library:** [PrimeVue](https://www.primevue.org/)
+- **Maps API:** [OSM](https://www.openstreetmap.org/) with [Leaflet](https://leafletjs.com/)
 - **Form Validation:** [Vee-Validate](https://vee-validate.logaretm.com/) with [Zod](https://zod.dev/)
 - **Build Tool:** [Vite](https://vitejs.dev/)
 - **Deployment:** [Render](https://render.com/)
@@ -68,7 +69,21 @@ The frontend follows a loosely implemented **Feature Sliced Design (FSD)** appro
 
 ## Deployment
 
-The frontend is deployed via **Render** which automatically builds and deploys the app from the repository.
+The frontend is containerized and deployed via **Render**.
+
+### Build & Deployment Steps:
+
+1. **Build Docker Image:**
+   ```sh
+   docker build -t fe-app-web .
+   ```
+2. **Run Locally with Docker:**
+   ```sh
+   docker run -p 3000:3000 --env-file .env fe-app-web
+   ```
+3. **Deploy to Render:**
+   - Render automatically builds and deploys the image from the repository.
+   - Uses a **proxy** to handle incoming requests.
 
 ## Running Locally
 
@@ -84,8 +99,9 @@ The frontend is deployed via **Render** which automatically builds and deploys t
    ```
 2. **Set up environment variables:** (create a `.env` file)
    ```env
-   API_URL=https://fe-app-api.com
-   API_JSON=https://fe-app-api.com/docs/?json=1
+   API_URL=/api
+   API_PROXY=http://localhost:4000
+   API_JSON=http://localhost:4000/docs/?json=1
    ```
 3. **Build API:**
    ```sh

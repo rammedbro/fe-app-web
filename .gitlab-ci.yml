@@ -1,5 +1,5 @@
 variables:
-  NODE_IMAGE: ${CI_REGISTRY_IMAGE}/node-20:latest
+  NODE_IMAGE: $CI_REGISTRY_IMAGE/node-20:latest
 
 stages:
   - install
@@ -16,7 +16,7 @@ workflow:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
 default:
-  image: ${NODE_IMAGE}
+  image: $NODE_IMAGE
 
 .node-modules-cache:
   cache:
@@ -60,6 +60,22 @@ build:api:
   artifacts:
     paths:
       - src/shared/api/openapi
+
+build:image:
+  stage: build
+  rules:
+    - if: $CI_COMMIT_TAG
+  image: docker:20.10.16
+  tags:
+    - dind
+  services:
+    - docker:20.10.16-dind
+  needs:
+    - build:app
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $CI_REGISTRY_IMAGE:latest .
+    - docker push $CI_REGISTRY_IMAGE:latest
 
 lint:
   stage: check

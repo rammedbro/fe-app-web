@@ -21,6 +21,7 @@ const assetPath = (filename: string, type?: string) => {
  * @see https://vite.dev/dotenv/
  */
 export default defineConfig(() => {
+  const API_URL = dotenv.get('API_URL');
   const config: UserConfig = {
     define: {
       'import.meta.env.APP_VERSION': JSON.stringify(pkg.version),
@@ -70,21 +71,17 @@ export default defineConfig(() => {
       }),
       tailwindcss(),
     ],
-  };
-
-  const API_PROXY = dotenv.get('API_PROXY', { ignore: ['MISSING_KEY'] });
-  if (API_PROXY) {
-    config.server = {
+    server: {
       proxy: {
-        [dotenv.get('API_URL')]: {
-          target: API_PROXY,
+        [API_URL]: {
+          target: dotenv.get('API_PROXY'),
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ''),
+          rewrite: (path) => path.replace(new RegExp(`^${API_URL}`), ''),
           timeout: 10e3,
         },
       },
-    };
-  }
+    },
+  };
 
   return config;
 });
