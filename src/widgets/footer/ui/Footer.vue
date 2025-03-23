@@ -1,12 +1,12 @@
 <template>
-  <footer class="bg-white py-8 lg:py-16">
+  <footer class="bg-white py-8 lg:py-16 dark:bg-surface-800 dark:text-surface-0">
     <div class="container mx-auto">
       <div class="flex flex-wrap justify-between gap-8">
         <div class="max-w-72">
           <RouterLink :to="{ name: HomeRouteName }" class="mb-4 block text-3xl font-bold text-primary uppercase">
             Morent
           </RouterLink>
-          <p class="font-medium text-black/60">
+          <p class="font-medium text-black/60 dark:text-white/60">
             Our vision is to provide convenience and help increase your sales business.
           </p>
         </div>
@@ -14,7 +14,7 @@
         <div class="flex flex-wrap gap-8 lg:gap-28">
           <div v-for="[title, items] in menus" :key="title">
             <div class="mb-6 text-lg font-semibold">{{ title }}</div>
-            <ul class="font-medium text-black/60">
+            <ul class="font-medium text-black/60 dark:text-white/60">
               <li v-for="item in items" :key="item" class="mb-4">
                 <RouterLink to="#">{{ item }}</RouterLink>
               </li>

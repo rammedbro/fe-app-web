@@ -3,7 +3,7 @@
 @import './iconfield.css';
 
 .p-select {
-  @apply relative inline-flex cursor-pointer rounded-md border border-surface-300 bg-surface-0 shadow-[0_1px_2px_0_rgba(18,18,23,0.05)] transition-colors duration-200 select-none dark:border-surface-700 dark:bg-surface-950;
+  @apply relative inline-flex cursor-pointer rounded-lg border border-surface-300 bg-surface-0 shadow-[0_1px_2px_0_rgba(18,18,23,0.05)] transition-colors duration-200 select-none dark:border-surface-700 dark:bg-surface-950;
 }
 
 .p-select:not(.p-disabled):hover {
@@ -63,7 +63,7 @@ input.p-select-label {
 }
 
 .p-select-overlay {
-  @apply absolute top-0 left-0 rounded-md border border-surface-200 bg-surface-0 text-surface-700 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1),0_2px_4px_-2px_rgba(0,0,0,0.1)] dark:border-surface-700 dark:bg-surface-900 dark:text-surface-0;
+  @apply absolute top-0 left-0 rounded-lg border border-surface-200 bg-surface-0 text-surface-700 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1),0_2px_4px_-2px_rgba(0,0,0,0.1)] dark:border-surface-700 dark:bg-surface-900 dark:text-surface-0;
 }
 
 .p-select-header {

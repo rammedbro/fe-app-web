@@ -18,7 +18,7 @@
                 :alt="title"
                 :preview="breakpoints.md.value"
                 class="w-full"
-                image-class="h-[400px] w-full rounded-lg bg-white object-contain"
+                image-class="h-[400px] w-full rounded-lg bg-white dark:bg-surface-800 object-contain"
                 :class="{ 'p-skeleton': isLoading }"
               />
             </UseImage>
@@ -29,7 +29,7 @@
                 <img
                   :src="error ? noImgUrl : item"
                   :alt="title"
-                  class="h-[85px] w-full rounded-lg bg-surface-200 object-contain"
+                  class="h-[85px] w-full rounded-lg bg-surface-200 object-contain dark:bg-surface-800"
                   :class="{ 'p-skeleton': isLoading }"
                 />
               </UseImage>
@@ -37,7 +37,7 @@
           </template>
         </Galleria>
 
-        <div class="flex flex-col rounded-lg bg-white p-6 lg:w-1/2">
+        <div class="p-card flex flex-col p-6 lg:w-1/2">
           <div class="flex items-start justify-between gap-4">
             <div>
               <div class="mb-2 text-xl font-bold md:text-4xl">{{ title }}</div>
@@ -82,7 +82,7 @@
         </div>
       </section>
 
-      <section class="mb-4 rounded-lg bg-white p-6 md:mb-8">
+      <section class="p-card mb-4 p-6 md:mb-8">
         <div class="mb-6 flex items-center gap-4">
           <div class="text-lg font-semibold">Reviews</div>
           <Badge :value="car.reviews.length" />
@@ -120,11 +120,8 @@
       <CarCarouselBlock title="Recommended cars" :query="{ sortBy: ['rating'], limit: 10 }" />
     </template>
     <div v-else class="text-center">
-      <p class="mb-4">
-        Something went wrong while fetching a car :(<br />
-        Try to push button bellow and see what happens!
-      </p>
-      <Button label="Reload" @click="reload" />
+      <p class="mb-4">Something went wrong while fetching a car :(</p>
+      <Button label="Reload" size="large" class="w-full" @click="reload" />
     </div>
   </div>
 </template>

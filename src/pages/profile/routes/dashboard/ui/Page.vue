@@ -1,6 +1,6 @@
 <template>
   <div class="mx-auto flex flex-col gap-4 lg:container lg:flex-row lg:gap-8">
-    <section class="flex flex-1 flex-col gap-4 rounded-lg bg-white p-4 md:gap-8 xl:p-8">
+    <section class="p-card flex flex-1 flex-col gap-4 p-4 md:gap-8 xl:p-8">
       <div class="text-xl font-bold">Current rent</div>
 
       <template v-if="recentOrdersAsync.isLoading.value">
@@ -52,7 +52,7 @@
       </div>
     </section>
 
-    <section class="rounded-lg bg-white p-4 lg:w-[340px] xl:p-8">
+    <section class="p-card p-4 lg:w-[340px] xl:p-8">
       <div class="mb-8 text-xl font-bold">Recent transactions</div>
 
       <template v-if="recentOrdersAsync.isReady.value">

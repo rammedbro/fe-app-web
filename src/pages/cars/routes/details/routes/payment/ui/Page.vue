@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto flex flex-col-reverse gap-4 py-8 lg:flex-row lg:items-start">
     <form class="lg:w-2/3" @submit="submit">
-      <section class="mb-6 rounded-lg bg-white p-6">
+      <section class="p-card mb-6 p-6">
         <div class="relative mb-6">
           <div class="mb-1 text-xl font-bold">Billing Info</div>
           <div class="text-sm text-surface-400">Please enter your billing info</div>
@@ -10,7 +10,7 @@
         </div>
 
         <div class="grid gap-6 sm:grid-cols-2">
-          <div class="grid gap-2">
+          <div class="grid auto-rows-min gap-2">
             <div class="font-semibold">Name</div>
             <InputText
               v-model="order.name.value"
@@ -22,7 +22,7 @@
             <div v-if="order.errors.value.name" class="text-sm text-error">{{ order.errors.value.name }}</div>
           </div>
 
-          <div class="grid gap-2">
+          <div class="grid auto-rows-min gap-2">
             <div class="font-semibold">Phone</div>
             <InputMask
               v-model="order.phone.value"
@@ -35,7 +35,7 @@
             <div v-if="order.errors.value.phone" class="text-sm text-error">{{ order.errors.value.phone }}</div>
           </div>
 
-          <div class="grid gap-2">
+          <div class="grid auto-rows-min gap-2">
             <div class="font-semibold">Address</div>
             <InputText
               v-model="order.address.value"
@@ -47,7 +47,7 @@
             <div v-if="order.errors.value.address" class="text-sm text-error">{{ order.errors.value.address }}</div>
           </div>
 
-          <div class="grid gap-2">
+          <div class="grid auto-rows-min gap-2">
             <div class="font-semibold">City</div>
             <InputText
               v-model="order.city.value"
@@ -61,7 +61,7 @@
         </div>
       </section>
 
-      <section class="mb-6 rounded-lg bg-white p-6">
+      <section class="p-card mb-6 p-6">
         <div class="relative mb-6">
           <div class="mb-1 text-xl font-bold">Rental Info</div>
           <div class="text-sm text-surface-400">Please select your rental date</div>
@@ -75,7 +75,7 @@
             <Step value="2">Drop Off</Step>
           </StepList>
           <StepPanels>
-            <StepPanel value="1">
+            <StepPanel value="1" class="p-4">
               <div class="mb-4 grid gap-2">
                 <div class="font-semibold">Location</div>
                 <Map v-model="order.pickupLocation.value" search class="h-60 lg:h-80" />
@@ -116,7 +116,7 @@
                 </div>
               </div>
             </StepPanel>
-            <StepPanel value="2">
+            <StepPanel value="2" class="p-4">
               <div class="mb-4 grid gap-2">
                 <div class="font-semibold">Location</div>
                 <Map v-model="order.dropoffLocation.value" search class="h-60 lg:h-80" />
@@ -161,7 +161,7 @@
         </Stepper>
       </section>
 
-      <section class="mb-6 rounded-lg bg-white p-6">
+      <section class="p-card mb-6 p-6">
         <div class="relative mb-6">
           <div class="mb-1 text-xl font-bold">Payment Method</div>
           <div class="text-sm text-surface-400">Please enter your payment method</div>
@@ -169,7 +169,9 @@
           <div class="absolute top-0 right-0 text-sm text-surface-400">Step 3 of 4</div>
         </div>
 
-        <label class="mb-4 flex cursor-pointer items-center gap-4 rounded-lg bg-gray px-6 py-4">
+        <label
+          class="mb-4 flex cursor-pointer items-center gap-4 rounded-lg bg-surface-200 px-6 py-4 dark:bg-surface-700"
+        >
           <RadioButton v-model="order.paymentMethod.value" name="payment.method" value="credit-card" />
           <span>Credit Card</span>
           <img :src="visaImgUrl" alt="visa" class="ml-auto h-4" />
@@ -177,7 +179,7 @@
         </label>
 
         <div v-if="order.paymentMethod.value === 'credit-card'" class="p-panel mb-4 grid gap-6 p-4 sm:grid-cols-2">
-          <div class="grid gap-2">
+          <div class="grid auto-rows-min gap-2">
             <div class="font-semibold">Card Number</div>
             <InputMask
               v-model="order.cardNumber.value"
@@ -193,7 +195,7 @@
             </div>
           </div>
 
-          <div class="grid gap-2">
+          <div class="grid auto-rows-min gap-2">
             <div class="font-semibold">Card Expires</div>
             <InputMask
               v-model="order.cardExpires.value"
@@ -208,7 +210,7 @@
             </div>
           </div>
 
-          <div class="grid gap-2">
+          <div class="grid auto-rows-min gap-2">
             <div class="font-semibold">CVC</div>
             <InputMask
               v-model="order.cardCvc.value"
@@ -224,20 +226,24 @@
           </div>
         </div>
 
-        <label class="mb-4 flex cursor-pointer items-center gap-4 rounded-lg bg-gray px-6 py-4">
+        <label
+          class="mb-4 flex cursor-pointer items-center gap-4 rounded-lg bg-surface-200 px-6 py-4 dark:bg-surface-700"
+        >
           <RadioButton v-model="order.paymentMethod.value" name="payment.method" value="paypal" />
           <span>PayPal</span>
           <img :src="paypalImgUrl" alt="paypal" class="ml-auto h-4" />
         </label>
 
-        <label class="mb-4 flex cursor-pointer items-center gap-4 rounded-lg bg-gray px-6 py-4">
+        <label
+          class="mb-4 flex cursor-pointer items-center gap-4 rounded-lg bg-surface-200 px-6 py-4 dark:bg-surface-700"
+        >
           <RadioButton v-model="order.paymentMethod.value" name="payment.method" value="bitcoin" />
           <span>Bitcoin</span>
           <img :src="bitcoinImgUrl" alt="bitcoin" class="ml-auto h-4" />
         </label>
       </section>
 
-      <section class="rounded-lg bg-white p-6">
+      <section class="p-card p-6">
         <div class="relative mb-6">
           <div class="mb-1 text-xl font-bold">Confirmation</div>
           <div class="text-sm text-surface-400">
@@ -248,14 +254,14 @@
         </div>
 
         <div class="mb-4">
-          <div class="flex items-center rounded-lg bg-gray px-6 py-4">
+          <div class="flex items-center rounded-lg bg-surface-200 px-6 py-4 dark:bg-surface-700">
             <Checkbox v-model="order.newsletterConfirmation.value" name="confirmation.newsletter" binary class="mr-4" />
             <div>I agree with sending marketing and newsletter emails</div>
           </div>
         </div>
 
         <div class="mb-8 grid gap-2">
-          <div class="flex items-center rounded-lg bg-gray px-6 py-4">
+          <div class="flex items-center rounded-lg bg-surface-200 px-6 py-4 dark:bg-surface-700">
             <Checkbox v-model="order.policiesConfirmation.value" name="confirmation.policies" binary class="mr-4" />
             <div>
               I agree with our
@@ -271,7 +277,7 @@
 
         <Button type="submit" label="Rent Now" :loading="order.isSubmitting.value" size="large" class="mb-8 w-full" />
 
-        <div class="mb-2 flex items-center gap-2">
+        <div class="mb-2 flex items-center gap-4">
           <img :src="securitySafetyImgUrl" alt="security-safety" class="w-10" />
           <div>
             <div class="font-semibold">All your data are safe</div>
@@ -283,7 +289,7 @@
       </section>
     </form>
 
-    <aside class="rounded-lg bg-white p-6 lg:w-1/3">
+    <aside class="p-card p-6 lg:w-1/3">
       <template v-if="car">
         <div class="mb-8">
           <div class="mb-1 text-xl font-bold">Rental Summary</div>

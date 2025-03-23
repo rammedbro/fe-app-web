@@ -1,5 +1,5 @@
 <template>
-  <header class="bg-white">
+  <header class="bg-white dark:bg-surface-800 dark:text-surface-200">
     <div class="container mx-auto flex flex-wrap gap-4 py-6 lg:items-center lg:py-10">
       <RouterLink :to="{ name: HomeRouteName }" class="text-3xl font-bold text-primary uppercase">Morent</RouterLink>
 

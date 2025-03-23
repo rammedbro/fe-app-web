@@ -1,5 +1,5 @@
 <template>
-  <div class="rounded-lg bg-white p-3 md:p-6">
+  <div class="p-card p-3 md:p-6">
     <div class="mb-4 flex items-start justify-between gap-4">
       <div>
         <div class="text-lg font-bold">{{ brand }} {{ model }}</div>

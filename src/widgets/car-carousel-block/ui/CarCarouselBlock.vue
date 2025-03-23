@@ -1,11 +1,11 @@
 <template>
   <section v-intersection-observer.once="([e]: IntersectionObserverEntry[]) => e.isIntersecting && cars.execute()">
     <div class="mb-4 flex items-center justify-between">
-      <div class="text-content-300">
+      <div class="text-surface-600 dark:text-surface-200">
         <slot name="title">{{ props.title }}</slot>
       </div>
 
-      <Button as="router-link" :to="{ name: CarListRouteName, query: props.query }" text label="View all" />
+      <Button as="router-link" :to="{ name: CarListRouteName, query: props.query }" text label="View all" class="" />
     </div>
 
     <Carousel

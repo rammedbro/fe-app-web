@@ -32,6 +32,7 @@
 @import './listbox.css';
 
 /* Panel */
+@import './card.css';
 @import './divider.css';
 @import './panel.css';
 @import './stepper.css';

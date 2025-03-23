@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto py-8 lg:py-16">
-    <div class="mx-auto max-w-sm rounded-lg bg-white p-8">
+    <div class="p-card mx-auto max-w-sm p-8">
       <h2 class="mb-6 text-2xl font-bold">Sign up</h2>
       <form @submit="submit">
         <div class="mb-4">
@@ -16,7 +16,14 @@
         <div class="mb-4">
           <IftaLabel>
             <label for="password">Password</label>
-            <InputText id="password" v-model="password" type="password" title="Password" fluid />
+            <InputText
+              id="password"
+              v-model="password"
+              type="password"
+              autocomplete="new-password"
+              title="Password"
+              fluid
+            />
           </IftaLabel>
           <ul v-if="errorBag.password" class="mt-2 ml-3 grid gap-1">
             <li v-for="error in errorBag.password" :key="error" class="text-sm text-error">{{ error }}</li>
@@ -26,7 +33,14 @@
         <div class="mb-12">
           <IftaLabel>
             <label for="confirm">Confirm</label>
-            <InputText id="confirm" v-model="confirm" type="password" title="Confirm" fluid />
+            <InputText
+              id="confirm"
+              v-model="confirm"
+              type="password"
+              autocomplete="new-password"
+              title="Confirm"
+              fluid
+            />
           </IftaLabel>
           <ul v-if="errorBag.confirm" class="mt-2 ml-3 grid gap-1">
             <li v-for="error in errorBag.confirm" :key="error" class="text-sm text-error">{{ error }}</li>

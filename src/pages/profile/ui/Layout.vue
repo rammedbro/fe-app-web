@@ -8,7 +8,7 @@
             <li v-for="item in menus.main" :key="item.route">
               <RouterLink
                 :to="{ name: item.route }"
-                exact-active-class="bg-primary text-white"
+                exact-active-class="bg-primary text-surface-200"
                 class="flex gap-4 rounded-lg p-4 [&:not(.router-link-active)]:hover:bg-primary/5"
               >
                 <i class="pi text-2xl" :class="item.icon" />
@@ -24,7 +24,7 @@
             <li v-for="item in menus.preferences" :key="item.route">
               <RouterLink
                 :to="{ name: item.route }"
-                exact-active-class="bg-primary text-white"
+                exact-active-class="bg-primary text-surface-200"
                 class="flex gap-4 rounded-lg p-4 [&:not(.router-link-active)]:hover:bg-primary/5"
               >
                 <i class="pi text-2xl" :class="item.icon" />

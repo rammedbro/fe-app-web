@@ -5,8 +5,8 @@
       <ul>
         <li v-for="item in Object.values(CarType)" :key="item" class="mb-4 flex items-center">
           <Checkbox v-model="type" :value="item" :input-id="`type-${item}`" class="mr-3" />
-          <label :for="`type-${item}`" class="text-lg font-semibold">
-            <span class="mr-2 text-surface-500">{{ item }}</span>
+          <label :for="`type-${item}`" class="text-md font-semibold">
+            <span class="mr-2">{{ item }}</span>
           </label>
         </li>
       </ul>
@@ -17,8 +17,8 @@
       <ul>
         <li v-for="item in Object.values(CarSteering)" :key="item" class="mb-4 flex items-center">
           <Checkbox v-model="steering" :value="item" :input-id="`steering-${item}`" class="mr-3" />
-          <label :for="`steering-${item}`" class="text-lg font-semibold">
-            <span class="mr-2 text-surface-500">{{ item }}</span>
+          <label :for="`steering-${item}`" class="text-md font-semibold">
+            <span class="mr-2">{{ item }}</span>
           </label>
         </li>
       </ul>
@@ -29,8 +29,8 @@
       <ul>
         <li v-for="item in [2, 4, 6, 8]" :key="item" class="mb-4 flex items-center">
           <Checkbox v-model="capacity" :value="item" :input-id="`capacity-${item}`" class="mr-3" />
-          <label :for="`capacity-${item}`" class="text-lg font-semibold">
-            <span class="mr-2 text-surface-500">{{ item }} Person</span>
+          <label :for="`capacity-${item}`" class="text-md font-semibold">
+            <span class="mr-2">{{ item }} Person</span>
           </label>
         </li>
       </ul>
@@ -41,10 +41,10 @@
 
       <div>
         <Slider v-model.lazy="gasoline" :min="0" :max="100" class="mb-4" />
-        <div class="flex items-center justify-between">
-          <div class="text-sm text-surface-400">0</div>
-          <div class="text-sm text-surface-400">{{ gasoline }}</div>
-          <div class="text-sm text-surface-400">100</div>
+        <div class="flex items-center justify-between text-sm">
+          <span>0</span>
+          <span>{{ gasoline }}</span>
+          <span>100</span>
         </div>
       </div>
     </section>
@@ -54,10 +54,10 @@
 
       <div>
         <Slider v-model.lazy="price" :min="0" :max="500" class="mb-4" />
-        <div class="flex items-center justify-between">
-          <div class="text-sm text-surface-400">0</div>
-          <div class="text-sm text-surface-400">{{ price }}</div>
-          <div class="text-sm text-surface-400">500</div>
+        <div class="flex items-center justify-between text-sm">
+          <span>0</span>
+          <span>{{ price }}</span>
+          <span>500</span>
         </div>
       </div>
     </section>
@@ -88,7 +88,12 @@ const route = useRoute();
 const breakpoints = useBreakpoints(breakpointsTailwind);
 const responsiveAsideComponent = computed(() => (breakpoints.xl.value ? 'aside' : Drawer));
 const responsiveAsideComponentProps = computed(() =>
-  breakpoints.xl.value ? { class: 'bg-white border-t-2 border-t-gray min-w-[320px] p-8' } : { header: 'Filters' }
+  breakpoints.xl.value
+    ? {
+        class:
+          'bg-white text-surface-700 dark:bg-surface-800 dark:text-surface-300 border-t-2 border-t-surface-100 dark:border-t-surface-600 min-w-[320px] p-8',
+      }
+    : { header: 'Filters' }
 );
 
 const type = useRouteQuery<CarType[]>('type', [], { transform: ensureArray });

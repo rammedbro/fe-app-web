@@ -2,7 +2,7 @@
 @import './iconfield.css';
 
 .p-listbox {
-  @apply rounded-md border border-surface-300 bg-surface-0 text-surface-700 shadow-[0_1px_2px_0_rgba(18,18,23,0.05)] transition-colors duration-200 dark:border-surface-700 dark:bg-surface-950 dark:text-surface-0;
+  @apply rounded-lg border border-surface-300 bg-surface-0 text-surface-700 shadow-[0_1px_2px_0_rgba(18,18,23,0.05)] transition-colors duration-200 dark:border-surface-700 dark:bg-surface-950 dark:text-surface-0;
 }
 
 .p-listbox.p-focus {

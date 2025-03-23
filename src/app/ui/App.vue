@@ -9,8 +9,11 @@
 </template>
 
 <script lang="ts" setup>
+import { useSettingsStore } from '@/entities/settings';
 import { Footer } from '@/widgets/footer';
 import { Header } from '@/widgets/header';
 import { ProgressBar } from '@/widgets/progress-bar';
 import Toast from 'primevue/toast';
+
+useSettingsStore();
 </script>

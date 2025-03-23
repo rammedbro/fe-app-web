@@ -1,5 +1,5 @@
 .p-avatar {
-  @apply inline-flex h-8 w-8 items-center justify-center rounded-md bg-surface-200 text-base dark:bg-surface-700;
+  @apply inline-flex h-8 w-8 items-center justify-center rounded-lg bg-surface-200 text-base dark:bg-surface-700;
 }
 
 .p-avatar-image {

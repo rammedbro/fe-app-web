@@ -2,13 +2,9 @@
   <div v-on-click-outside="() => popoverRef?.hide()" class="location-picker">
     <div class="p-iconfield" @click="popoverRef?.show">
       <AutoComplete
+        v-bind="props"
         v-model="input"
-        :suggestions="suggestions"
         option-label="label"
-        size="small"
-        fluid
-        input-class="pl-0 border-0 shadow-none"
-        placeholder="Select your city"
         append-to="self"
         @complete="search($event.query)"
         @option-select="onOptionSelect($event.value)"
@@ -28,9 +24,11 @@ import type { LocationPoint } from '@/shared/ui/map/model/types';
 import { vOnClickOutside } from '@vueuse/components';
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import type { SearchResult } from 'leaflet-geosearch/dist/providers/provider.d.ts';
-import AutoComplete from 'primevue/autocomplete';
+import AutoComplete, { type AutoCompleteProps } from 'primevue/autocomplete';
 import Popover, { type PopoverMethods } from 'primevue/popover';
 
+type Props = Pick<AutoCompleteProps, 'size' | 'fluid' | 'inputClass' | 'placeholder'>;
+const props = defineProps<Props>();
 const provider = new OpenStreetMapProvider();
 const model = defineModel<LocationPoint>();
 const input = ref(model.value?.label);

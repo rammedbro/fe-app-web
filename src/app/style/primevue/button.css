@@ -1,7 +1,7 @@
 @import './badge.css';
 
 .p-button {
-  @apply relative inline-flex cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-md border border-primary bg-primary px-3 py-2 text-primary-contrast transition-colors duration-200 select-none focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-primary enabled:hover:border-primary-emphasis enabled:hover:bg-primary-emphasis enabled:active:border-primary-emphasis-alt enabled:active:bg-primary-emphasis-alt disabled:cursor-default;
+  @apply relative inline-flex cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg border border-primary bg-primary px-3 py-2 text-primary-contrast transition-colors duration-200 select-none focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-primary enabled:hover:border-primary-emphasis enabled:hover:bg-primary-emphasis enabled:active:border-primary-emphasis-alt enabled:active:bg-primary-emphasis-alt disabled:cursor-default;
 }
 
 .p-button-icon-right {

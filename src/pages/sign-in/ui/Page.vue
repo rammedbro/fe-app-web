@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto py-8 lg:py-16">
-    <div class="mx-auto max-w-sm rounded-lg bg-white p-8">
+    <div class="p-card mx-auto max-w-sm p-8">
       <h2 class="mb-6 text-2xl font-bold">Sign in</h2>
       <form @submit="submit">
         <div class="mb-4">
@@ -19,7 +19,7 @@
               v-model="password"
               type="password"
               name="password"
-              autocomplete="password"
+              autocomplete="current-password"
               title="Password"
               fluid
             />

@@ -13,7 +13,7 @@
       class="mb-8"
     >
       <template #item="{ data, index }">
-        <div class="relative mx-4 rounded-lg">
+        <div class="relative mx-4 overflow-hidden rounded-xl">
           <img :src="data.img" :alt="`benner-${index}`" />
           <div class="absolute inset-y-0 right-0 left-0 p-4 text-white md:p-6">
             <template v-if="breakpoints.xl.value">
@@ -52,7 +52,7 @@ import Carousel from 'primevue/carousel';
 const breakpoints = useBreakpoints(breakpointsTailwind);
 const banners = [
   {
-    title: 'The Best Platform for Car Rental',
+    title: 'The Best Platform For Car Rental',
     desc: 'Ease of doing a car rental safely and reliably. Of course at a low price.',
     route: CarListRouteName,
     img: banner1ImgUrl,

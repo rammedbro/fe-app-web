@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-center gap-4 xl:flex-row xl:gap-8">
-    <div class="rounded-lg bg-white p-4 xl:px-12 xl:py-6">
+    <div class="p-card p-4 xl:px-12 xl:py-6">
       <div class="mb-4 flex items-center gap-4">
         <div class="flex h-4 w-4 items-center justify-center rounded-full bg-primary/30">
           <div class="h-2 w-2 rounded-full bg-primary" />
@@ -12,7 +12,13 @@
       <div class="flex flex-row gap-4">
         <div>
           <div class="mb-2 font-semibold">Location</div>
-          <LocationPicker v-model="order.pickupLocation.value" />
+          <LocationPicker
+            v-model="order.pickupLocation.value"
+            size="small"
+            fluid
+            placeholder="Select your city"
+            input-class="!dark:pl-0 border-0 shadow-none"
+          />
         </div>
 
         <div class="p-divider-vertical" />
@@ -26,7 +32,7 @@
             show-icon
             icon-display="input"
             placeholder="Select your date"
-            input-class="pl-0 border-0 shadow-none"
+            input-class="-ml-2 border-0 shadow-none"
           />
         </div>
 
@@ -42,7 +48,7 @@
             icon-display="input"
             placeholder="Select your time"
             time-only
-            input-class="pl-0 border-0 shadow-none"
+            input-class="-ml-2 border-0 shadow-none"
           >
             <template #inputicon="{ clickCallback }">
               <i class="pi pi-clock" @click="clickCallback" />
@@ -56,7 +62,7 @@
       <i class="pi pi-arrow-right-arrow-left rotate-90 text-2xl" />
     </Button>
 
-    <div class="rounded-lg bg-white p-4 xl:px-12 xl:py-6">
+    <div class="p-card p-4 xl:px-12 xl:py-6">
       <div class="mb-4 flex items-center gap-4">
         <div class="flex h-4 w-4 items-center justify-center rounded-full bg-primary/30">
           <div class="h-2 w-2 rounded-full bg-primary" />
@@ -68,7 +74,13 @@
       <div class="flex flex-row gap-4">
         <div>
           <div class="mb-2 font-semibold">Location</div>
-          <LocationPicker v-model="order.dropoffLocation.value" />
+          <LocationPicker
+            v-model="order.dropoffLocation.value"
+            size="small"
+            fluid
+            placeholder="Select your city"
+            input-class="!dark:pl-0 border-0 shadow-none"
+          />
         </div>
 
         <div class="p-divider-vertical" />
@@ -82,7 +94,7 @@
             show-icon
             icon-display="input"
             placeholder="Select your date"
-            input-class="pl-0 border-0 shadow-none"
+            input-class="border-0 shadow-none"
           />
         </div>
 
@@ -98,7 +110,7 @@
             icon-display="input"
             placeholder="Select your time"
             time-only
-            input-class="pl-0 border-0 shadow-none"
+            input-class="border-0 shadow-none"
           >
             <template #inputicon="{ clickCallback }">
               <i class="pi pi-clock" @click="clickCallback" />

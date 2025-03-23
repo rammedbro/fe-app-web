@@ -18,10 +18,13 @@
       </div>
 
       <Spinner v-if="notificationsAsync.isLoading.value" class="mx-auto block h-10" />
-      <ul v-else-if="filteredNotifications.length > 0" class="grid h-[320px] gap-4 overflow-scroll">
-        <li v-for="item in filteredNotifications" :key="item.id" class="flex gap-4 border-b-2 border-b-gray pb-4">
-          <span>{{ item.text }}</span>
-          <Checkbox v-model="seenIds" :value="item.id" />
+      <ul v-else-if="filteredNotifications.length > 0" class="grid h-[320px] overflow-scroll">
+        <li v-for="(item, index) in filteredNotifications" :key="item.id">
+          <div v-if="index > 0" class="p-divider-horizontal" />
+          <div class="flex gap-4">
+            <span>{{ item.text }}</span>
+            <Checkbox v-model="seenIds" :value="item.id" />
+          </div>
         </li>
       </ul>
       <div v-else class="text-sm">You have no notifications to read. Good job!</div>

@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto py-8">
-    <div class="rounded-lg bg-white p-8">
+    <div class="p-card p-8">
       <section class="mb-10 text-center">
         <h1 class="mb-2 text-4xl font-bold">Privacy Policy (But Not Really)</h1>
         <p class="text-sm"><span class="font-semibold">Last Updated:</span> [07.02.2025]</p>

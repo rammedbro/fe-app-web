@@ -1,5 +1,5 @@
 .p-progressbar {
-  @apply relative h-5 overflow-hidden rounded-md bg-surface-200 dark:bg-surface-700;
+  @apply relative h-5 overflow-hidden rounded-lg bg-surface-200 dark:bg-surface-700;
 }
 
 .p-progressbar-value {
