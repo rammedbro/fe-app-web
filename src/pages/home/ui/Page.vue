@@ -9,15 +9,24 @@
       circular
       :responsive-options="[{ breakpoint: `${breakpointsTailwind.xl - 1}px`, numVisible: 1, numScroll: 1 }]"
       content-class="-mx-4"
+      container-class="overflow-hidden"
       class="mb-8"
     >
-      <template #item="{ data }">
+      <template #item="{ data, index }">
         <div class="relative mx-4 rounded-lg">
-          <img :src="data.img" alt="" />
-          <div class="absolute inset-y-0 left-0 p-4 text-white md:right-1/3 md:p-6">
-            <div class="mb-3 font-semibold md:text-4xl lg:text-5xl xl:text-3xl">{{ data.title }}</div>
-            <p class="mb-4 text-xs font-medium md:mb-8 md:text-xl lg:text-3xl xl:text-lg">{{ data.desc }}</p>
-            <Button as="router-link" :to="{ name: data.route }" label="Rental car" />
+          <img :src="data.img" :alt="`benner-${index}`" />
+          <div class="absolute inset-y-0 right-0 left-0 p-4 text-white md:p-6">
+            <template v-if="breakpoints.xl.value">
+              <div class="mb-4 text-3xl font-semibold">{{ data.title }}</div>
+              <p class="mb-8 w-3/4 text-xl font-medium">{{ data.desc }}</p>
+              <Button as="router-link" :to="{ name: data.route }" label="Rental car" size="large" class="w-2/4" />
+            </template>
+            <div
+              v-else
+              class="flex h-full w-full items-center justify-center text-lg font-semibold md:text-4xl lg:text-5xl"
+            >
+              {{ data.title }}
+            </div>
           </div>
         </div>
       </template>

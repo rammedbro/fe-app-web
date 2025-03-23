@@ -31,9 +31,9 @@
         </Toolbar>
       </div>
 
-      <div ref="itemsRef" class="mb-6 flex flex-wrap justify-center gap-4 xl:justify-start">
+      <div ref="itemsRef" class="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
         <template v-if="carsAsync.isReady.value">
-          <CarCard v-for="car in carsAsync.state.value" :key="car.id" v-bind="car" class="lg:max-w-[340px]" />
+          <CarCard v-for="car in carsAsync.state.value" :key="car.id" v-bind="car" />
         </template>
         <div v-else-if="carsAsync.error.value" class="w-full text-center">
           <p class="mb-4">

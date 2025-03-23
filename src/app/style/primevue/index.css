@@ -46,6 +46,7 @@
 /* Media */
 @import './carousel.css';
 @import './galleria.css';
+@import './image.css';
 
 /* Misc */
 @import './avatar.css';

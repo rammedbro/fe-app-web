@@ -1,26 +1,22 @@
 <template>
-  <div class="block w-full max-w-[340px] rounded-lg bg-white p-3 md:p-6">
+  <div class="rounded-lg bg-white p-3 md:p-6">
     <div class="mb-4 flex items-start justify-between gap-4">
       <div class="w-full">
-        <Skeleton height="18px" class="mb-2" />
-        <Skeleton height="12px" />
+        <div class="p-skeleton mb-2 h-4" />
+        <div class="p-skeleton h-3 w-1/3" />
       </div>
 
-      <Skeleton size="40px" />
+      <div class="p-skeleton size-10" />
     </div>
-    <Skeleton height="160px" class="mb-4" />
+    <div class="p-skeleton mb-4 h-60" />
     <div class="mb-6 grid grid-cols-3 gap-2">
-      <Skeleton height="20px" />
-      <Skeleton height="20px" />
-      <Skeleton height="20px" />
+      <div class="p-skeleton h-5" />
+      <div class="p-skeleton h-5" />
+      <div class="p-skeleton h-5" />
     </div>
     <div class="mt-auto flex items-center justify-between gap-4">
-      <Skeleton width="60%" height="30px" />
-      <Skeleton width="40%" height="44px" />
+      <div class="p-skeleton h-8 w-2/3" />
+      <div class="p-skeleton h-12 w-1/3" />
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import Skeleton from 'primevue/skeleton';
-</script>

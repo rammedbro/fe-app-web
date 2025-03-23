@@ -9,31 +9,32 @@
     </div>
 
     <Carousel
-      v-if="cars.isReady.value"
       v-bind="props.carousel"
       :value="cars.state.value"
       :show-navigators="false"
-      content-class="-mx-2"
+      content-class="-mx-2 mb-2"
       container-class="overflow-hidden"
     >
       <template #item="{ data }">
-        <CarCard v-bind="data as Car" class="mx-2" />
+        <CarCard v-if="cars.isReady.value" v-bind="data as Car" class="mx-2" />
+        <CarCardSkeleton v-else class="mx-2" />
+      </template>
+      <template #empty>
+        <div class="text-center">
+          <p class="mb-4">
+            Something went wrong while fetching cars :(<br />
+            Try to push button bellow and see what happens!
+          </p>
+          <Button label="Retry" class="w-60" @click="cars.execute()" />
+        </div>
       </template>
     </Carousel>
-    <div v-else-if="cars.error.value" class="text-center">
-      <p class="mb-4">
-        Something went wrong while fetching cars :(<br />
-        Try to push button bellow and see what happens!
-      </p>
-      <Button label="Retry" @click="() => cars.execute()" />
-    </div>
-    <Spinner v-else class="mx-auto block" />
   </section>
 </template>
 
 <script setup lang="ts">
-import { CarCard, type Car } from '@/entities/car';
-import { getCarList } from '@/shared/api/openapi';
+import { CarCard, CarCardSkeleton } from '@/entities/car';
+import { type Car, getCarList } from '@/shared/api/openapi';
 import { useAsync } from '@/shared/lib/async.ts';
 import { vIntersectionObserver } from '@/shared/lib/dom';
 import { defaultCarouselResponsiveOptions } from '@/shared/model/breakpoints.ts';
@@ -41,7 +42,6 @@ import { CarListRouteName } from '@/shared/router/routes.ts';
 import type { CarCarouselBlockProps } from '@/widgets/car-carousel-block/model/types';
 import Button from 'primevue/button';
 import Carousel from 'primevue/carousel';
-import Spinner from 'primevue/progressspinner';
 import { useToast } from 'primevue/usetoast';
 
 const props = withDefaults(defineProps<CarCarouselBlockProps>(), {
@@ -54,21 +54,23 @@ const props = withDefaults(defineProps<CarCarouselBlockProps>(), {
 const toast = useToast();
 const cars = useAsync(
   async () => {
-    const { data } = await getCarList<true>({ query: props.query });
-    return data;
-  },
-  [],
-  {
-    immediate: false,
-    onError(e) {
-      console.error(e?.message);
+    const { data, error } = await getCarList<false>({ query: props.query, throwOnError: false });
+
+    if (error) {
+      console.error(error);
       toast.add({
         severity: 'error',
         summary: 'Fetch error',
         detail: 'Something went wrong while fetching cars.',
         life: 5000,
       });
-    },
-  }
+
+      return [];
+    }
+
+    return data;
+  },
+  new Array(props.carousel.numVisible),
+  { immediate: false }
 );
 </script>

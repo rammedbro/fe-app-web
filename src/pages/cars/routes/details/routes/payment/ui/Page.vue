@@ -257,19 +257,28 @@
         <div class="mb-8 grid gap-2">
           <div class="flex items-center rounded-lg bg-gray px-6 py-4">
             <Checkbox v-model="order.policiesConfirmation.value" name="confirmation.policies" binary class="mr-4" />
-            <div>I agree with our terms and conditions and privacy policy</div>
+            <div>
+              I agree with our
+              <RouterLink :to="{ name: TermsOfServiceRouteName }" class="underline">Terms and Conditions</RouterLink>
+              and
+              <RouterLink :to="{ name: PrivacyPolicyRouteName }" class="underline">Privacy Policy</RouterLink>
+            </div>
           </div>
           <div v-if="order.errors.value['confirmation.policies']" class="text-sm text-error">
             {{ order.errors.value['confirmation.policies'] }}
           </div>
         </div>
 
-        <Button type="submit" label="Rent Now" :loading="order.isSubmitting.value" class="mb-8" />
+        <Button type="submit" label="Rent Now" :loading="order.isSubmitting.value" size="large" class="mb-8 w-full" />
 
-        <img :src="securitySafetyImgUrl" alt="security-safety" class="mb-2 w-8" />
-        <div class="mb-2 font-semibold">All your data are safe</div>
-        <div class="text-sm text-surface-400">
-          We are using the most advanced security to provide you the best experience ever.
+        <div class="mb-2 flex items-center gap-2">
+          <img :src="securitySafetyImgUrl" alt="security-safety" class="w-10" />
+          <div>
+            <div class="font-semibold">All your data are safe</div>
+            <div class="text-sm text-surface-400">
+              We are using the most advanced security to provide you the best experience ever.
+            </div>
+          </div>
         </div>
       </section>
     </form>
@@ -294,7 +303,7 @@
           </div>
         </div>
 
-        <Divider />
+        <div class="p-divider-horizontal" />
 
         <div class="mb-2 flex justify-between">
           <div class="text-surface-400">Subtotal</div>
@@ -331,13 +340,16 @@ import {
   securitySafetyImgUrl,
   visaImgUrl,
 } from '@/shared/assets/images';
-import { ProfileOrderDetailsRouteName } from '@/shared/router/routes.ts';
+import {
+  PrivacyPolicyRouteName,
+  ProfileOrderDetailsRouteName,
+  TermsOfServiceRouteName,
+} from '@/shared/router/routes.ts';
 import { Map } from '@/shared/ui/map';
 import { storeToRefs } from 'pinia';
 import Button from 'primevue/button';
 import Checkbox from 'primevue/checkbox';
 import DatePicker from 'primevue/datepicker';
-import Divider from 'primevue/divider';
 import InputMask from 'primevue/inputmask';
 import InputText from 'primevue/inputtext';
 import Spinner from 'primevue/progressspinner';

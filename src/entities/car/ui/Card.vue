@@ -1,5 +1,5 @@
 <template>
-  <div class="block rounded-lg bg-white p-3 md:p-6">
+  <div class="rounded-lg bg-white p-3 md:p-6">
     <div class="mb-4 flex items-start justify-between gap-4">
       <div>
         <div class="text-lg font-bold">{{ brand }} {{ model }}</div>
@@ -10,7 +10,14 @@
     </div>
 
     <RouterLink :to="{ name: CarDetailsRouteName, params: { id } }">
-      <img :src="images[0]" :alt="`${brand} ${model}`" class="mb-6 h-[240px] w-full rounded-lg" />
+      <UseImage v-slot="{ isLoading, error }" :src="images[0]">
+        <img
+          :src="error ? noImgUrl : images[0]"
+          :alt="`${brand} ${model}`"
+          class="mb-6 h-60 w-full rounded-lg object-contain"
+          :class="{ 'p-skeleton': isLoading }"
+        />
+      </UseImage>
     </RouterLink>
 
     <div class="mb-6 flex flex-wrap justify-between gap-2">
@@ -39,7 +46,13 @@
         <div class="text-sm font-medium text-surface-400 line-through">${{ Number(price).toFixed(2) }}</div>
       </div>
 
-      <Button as="router-link" :to="{ name: CarPaymentRouteName, params: { id } }" type="submit" label="Rent Now" />
+      <Button
+        as="router-link"
+        :to="{ name: CarPaymentRouteName, params: { id } }"
+        type="submit"
+        label="Rent Now"
+        class="w-1/2"
+      />
     </div>
   </div>
 </template>
@@ -47,8 +60,10 @@
 <script setup lang="ts">
 import { useCarStore } from '@/entities/car';
 import type { Car } from '@/entities/car/model/types';
+import { noImgUrl } from '@/shared/assets/images';
 import { CarDetailsRouteName, CarPaymentRouteName } from '@/shared/router/routes.ts';
 import { GasStationIcon, Profile2UserIcon, SteeringWheelIcon } from '@/shared/ui/icons';
+import { UseImage } from '@vueuse/components';
 import Button from 'primevue/button';
 
 const { price, discount } = defineProps<Car>();

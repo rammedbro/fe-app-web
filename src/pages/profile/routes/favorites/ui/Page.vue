@@ -1,8 +1,8 @@
 <template>
-  <div class="container mx-auto">
-    <div class="flex flex-wrap justify-center gap-4">
+  <div class="mx-auto lg:container">
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
       <template v-if="favoritesAsync.isReady.value">
-        <CarCard v-for="car in favoritesAsync.state.value" :key="car.id" v-bind="car" class="max-w-[340px]" />
+        <CarCard v-for="car in favoritesAsync.state.value" :key="car.id" v-bind="car" />
       </template>
       <div v-else-if="favoritesAsync.error.value" class="w-full text-center">
         <p class="mb-4">

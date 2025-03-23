@@ -1,12 +1,29 @@
 <template>
-  <div class="container mx-auto flex flex-col gap-8 md:flex-row">
-    <section class="flex flex-1 flex-col gap-8 rounded-lg bg-white p-6">
+  <div class="mx-auto flex flex-col gap-4 lg:container lg:flex-row lg:gap-8">
+    <section class="flex flex-1 flex-col gap-4 rounded-lg bg-white p-4 md:gap-8 xl:p-8">
       <div class="text-xl font-bold">Current rent</div>
 
-      <Spinner v-if="recentOrdersAsync.isLoading.value" />
+      <template v-if="recentOrdersAsync.isLoading.value">
+        <OrderCardSkeleton />
+        <div class="p-divider-horizontal" />
+        <div class="flex items-center justify-between">
+          <div class="w-2/4">
+            <div class="p-skeleton mb-2 h-4 w-2/3" />
+            <div class="p-skeleton h-4 w-full" />
+          </div>
+          <div class="p-skeleton h-12 w-1/4" />
+        </div>
+      </template>
       <template v-else-if="currentOrder">
         <div class="flex items-center gap-4">
-          <img :src="currentOrder.car.images[0]" :alt="currentOrder.car.brand" class="w-[130px] rounded-lg" />
+          <UseImage v-slot="{ isLoading, error }" :src="currentOrder.car.images[0]">
+            <img
+              :src="error ? noImgUrl : currentOrder.car.images[0]"
+              :alt="`${currentOrder.car.brand} ${currentOrder.car.model}`"
+              class="size-30 rounded-lg object-contain"
+              :class="{ 'p-skeleton': isLoading }"
+            />
+          </UseImage>
           <div>
             <div class="font-bold">{{ currentOrder.car.brand }} {{ currentOrder.car.model }}</div>
             <div class="text-surface-400">{{ currentOrder.car.type }}</div>
@@ -14,7 +31,7 @@
           <div class="ml-auto">#{{ currentOrder.id }}</div>
         </div>
 
-        <Divider />
+        <div class="p-divider-horizontal mt-0" />
 
         <div class="flex items-center justify-between gap-4">
           <div>
@@ -25,46 +42,48 @@
           <div class="text-4xl font-bold">${{ currentOrder.price }}</div>
         </div>
       </template>
-      <template v-else>
-        <p>
+      <div v-else>
+        <p class="mb-4">
           There is no current rent :(<br />
           Click the button below and chose your first drive!
         </p>
 
-        <Button as="router-link" :to="{ name: CarListRouteName }" label="Rent now" />
-      </template>
+        <Button as="router-link" :to="{ name: CarListRouteName }" label="Rent now" class="w-60" />
+      </div>
     </section>
 
-    <section class="rounded-lg bg-white p-6">
+    <section class="rounded-lg bg-white p-4 lg:w-[340px] xl:p-8">
       <div class="mb-8 text-xl font-bold">Recent transactions</div>
 
       <template v-if="recentOrdersAsync.isReady.value">
         <template v-for="(order, index) in recentOrdersAsync.state.value" :key="order.id">
-          <Divider v-if="index > 0" class="my-4" />
+          <div v-if="index > 0" class="p-divider-horizontal my-4" />
           <OrderCard v-bind="order" />
         </template>
       </template>
-      <div v-else-if="recentOrdersAsync.error.value" class="text-center">
-        <p class="mb-4">
-          Something went wrong while fetching your most recent rents :(<br />
-          Try to push button bellow and see what happens!
-        </p>
-        <Button label="Retry" @click="() => recentOrdersAsync.execute()" />
+      <div v-else-if="recentOrdersAsync.error.value">
+        <p class="mb-4">Something went wrong while fetching your most recent rents :(</p>
+        <Button label="Retry" class="w-full" @click="recentOrdersAsync.execute()" />
       </div>
-      <Spinner v-else class="mx-auto block" />
+      <template v-else>
+        <template v-for="n in 4" :key="n">
+          <div v-if="n > 1" class="p-divider-horizontal my-4" />
+          <OrderCardSkeleton />
+        </template>
+      </template>
     </section>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { Order } from '@/entities/order';
-import { OrderCard } from '@/entities/order';
+import { OrderCard, OrderCardSkeleton } from '@/entities/order';
 import { getOrderList } from '@/shared/api';
+import { noImgUrl } from '@/shared/assets/images';
 import { useAsync } from '@/shared/lib/async.ts';
 import { CarListRouteName } from '@/shared/router/routes.ts';
+import { UseImage } from '@vueuse/components';
 import Button from 'primevue/button';
-import Divider from 'primevue/divider';
-import Spinner from 'primevue/progressspinner';
 import { useToast } from 'primevue/usetoast';
 
 const toast = useToast();

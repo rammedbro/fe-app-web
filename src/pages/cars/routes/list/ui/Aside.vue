@@ -63,7 +63,7 @@
     </section>
 
     <section>
-      <Button label="Clear" size="large" @click="clearFilter" />
+      <Button label="Clear" size="large" class="w-full" @click="clearFilter" />
     </section>
   </component>
 </template>

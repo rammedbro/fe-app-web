@@ -41,7 +41,7 @@
     </Drawer>
 
     <div class="px-4 py-8 xl:px-8">
-      <div class="flex justify-end">
+      <div class="mx-auto flex justify-end lg:container">
         <Toolbar class="mb-6 rounded-full">
           <template #center>
             <Button icon="pi pi-bars" severity="secondary" text @click="isDrawerVisible = true" />
