@@ -1,5 +1,6 @@
 variables:
   NODE_IMAGE: $CI_REGISTRY_IMAGE/node-20:latest
+  HUSKY: 0
 
 stages:
   - install
