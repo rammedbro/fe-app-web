@@ -7,6 +7,7 @@
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
+    "allowSyntheticDefaultImports": true,
     "isolatedModules": true,
     "moduleDetection": "force",
     "noEmit": true,
@@ -16,5 +17,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["client.config.ts", "fe-app.config.ts", "openapi-ts.config.ts", "server.config.ts", "vite.config.ts"]
+  "include": ["openapi-ts.config.ts", "vite.config.ts", "vite.config.prod.ts"]
 }

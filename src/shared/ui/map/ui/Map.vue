@@ -1,5 +1,5 @@
 <template>
-  <div :id="id" v-element-visibility="onVisibilityChange"></div>
+  <div :id="id" v-element-visibility="onVisibilityChange" />
 </template>
 
 <script setup lang="ts">
