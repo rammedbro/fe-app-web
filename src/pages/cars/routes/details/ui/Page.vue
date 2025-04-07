@@ -47,7 +47,14 @@
               </div>
             </div>
 
-            <Button icon="pi pi-heart" variant="text" rounded />
+            <Button
+              icon="pi"
+              :icon-class="{ 'pi-heart': !isFavorite, 'pi-heart-fill': isFavorite }"
+              variant="text"
+              rounded
+              size="large"
+              @click="userStore.toggleFavorite(car.id)"
+            />
           </div>
 
           <p class="mb-8 text-lg">{{ car.description }}</p>
@@ -128,6 +135,7 @@
 
 <script setup lang="ts">
 import { useCarStore } from '@/entities/car';
+import { useUserStore } from '@/entities/user';
 import { noImgUrl } from '@/shared/assets/images';
 import { CarPaymentRouteName } from '@/shared/router/routes';
 import { CarCarouselBlock } from '@/widgets/car-carousel-block';
@@ -142,10 +150,15 @@ import Image from 'primevue/image';
 import Rating from 'primevue/rating';
 import { onBeforeRouteUpdate } from 'vue-router';
 
+const props = defineProps<{ id: number }>();
+
 const breakpoints = useBreakpoints(breakpointsTailwind);
 const carStore = useCarStore();
+const userStore = useUserStore();
+const user = storeToRefs(userStore);
 const { car } = storeToRefs(carStore);
 const title = computed(() => `${car.value?.brand} ${car.value?.model}`);
+const isFavorite = computed(() => user.favorites.value.has(props.id));
 
 onBeforeRouteUpdate((to) => carStore.fetchCar(Number(to.params.id)));
 

@@ -10,6 +10,7 @@ export const CarDetailsRoute: RouteRecordRaw = {
       path: '',
       name: CarDetailsRouteName,
       component: () => import('./ui/Page.vue'),
+      props: (route) => ({ id: Number(route.params.id as string) }),
     },
     CarPaymentRoute,
   ],

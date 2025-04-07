@@ -9,8 +9,10 @@ temp.*
 *.temp
 
 .idea
+.vscode
 .yalc
 .firebase
+.DS_Store
 
 yalc.lock
 package-lock.json

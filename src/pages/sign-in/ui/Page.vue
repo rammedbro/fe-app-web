@@ -61,32 +61,30 @@ const { value: password } = useField<string>('password');
 const submit = handleSubmit(async (values) => {
   const { error, status } = await login(values.username, values.password);
 
-  switch (status) {
-    case 200:
-      toast.add({
-        severity: 'success',
-        summary: 'Login successful',
-        detail: 'Lets go to the dashboard',
-        life: 5000,
-      });
-      await router.push(route.redirectedFrom || { name: ProfileDashboardRouteName });
-      break;
-    case 401:
-      toast.add({
-        severity: 'error',
-        summary: 'Login failed',
-        detail: 'Invalid login or password',
-        life: 5000,
-      });
-      break;
-    default:
-      console.error(error);
-      toast.add({
-        severity: 'error',
-        summary: 'Login failed',
-        detail: 'Something went wrong while letting you in',
-        life: 5000,
-      });
+  if (status === 200) {
+    toast.add({
+      severity: 'success',
+      summary: 'Login successful',
+      detail: 'Lets go to the dashboard',
+      life: 5000,
+    });
+    const redirect = typeof route.query.redirect === 'string' ? route.query.redirect : route.redirectedFrom;
+    await router.push(redirect || { name: ProfileDashboardRouteName });
+  } else if (status === 401) {
+    toast.add({
+      severity: 'error',
+      summary: 'Login failed',
+      detail: 'Invalid login or password',
+      life: 5000,
+    });
+  } else {
+    console.error(error);
+    toast.add({
+      severity: 'error',
+      summary: 'Login failed',
+      detail: 'Something went wrong while letting you in',
+      life: 5000,
+    });
   }
 });
 </script>

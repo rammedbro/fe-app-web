@@ -3,7 +3,11 @@
 }
 
 .p-rating-option {
-  @apply inline-flex cursor-pointer items-center rounded-full;
+  @apply inline-flex items-center rounded-full;
+}
+
+.p-rating:not(.p-readonly) .p-rating-option {
+  @apply cursor-pointer;
 }
 
 .p-rating-option.p-focus-visible {

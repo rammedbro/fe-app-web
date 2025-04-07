@@ -1,3 +1,3 @@
-import type { User } from '@/shared/model/models';
+import type { GetUserReturn } from '@/shared/model/models';
 
-export type { User };
+export type User = GetUserReturn;
