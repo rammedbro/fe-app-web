@@ -1,3 +1,12 @@
+## [1.5.0](https://gitlab.com/imolater/fe-app-web/compare/v1.4.0...v1.5.0) (2025-04-07)
+
+
+### Features
+
+* **[FAW-15](https://imolater.atlassian.net/browse/FAW-15):** Add light/dark themes ([c51f55d](https://gitlab.com/imolater/fe-app-web/commit/c51f55d77d15c6fb46a585e1dd5f877e97edb9b2))
+* **[FAW-41](https://imolater.atlassian.net/browse/FAW-41):** Add user favorite's status feature for car's cards ([6cc35cb](https://gitlab.com/imolater/fe-app-web/commit/6cc35cbfd7701e6103d291bf744f692a34f2c297))
+* **[FAW-67](https://imolater.atlassian.net/browse/FAW-67):** Refactoring and UX Improvements ([77fdd09](https://gitlab.com/imolater/fe-app-web/commit/77fdd09e1dba3ebbbc71213b62d2015c08766ab9))
+
 ## [1.4.0](https://gitlab.com/imolater/fe-app-web/compare/v1.3.0...v1.4.0) (2025-03-20)
 
 ### Features
