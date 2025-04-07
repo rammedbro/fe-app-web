@@ -3,6 +3,7 @@ import { defineStore } from 'pinia';
 
 export const useSettingsStore = defineStore('settings', () => {
   const darkMode = useLocalStorage('dark', false);
+  const stickyHeader = useLocalStorage('stickyHeader', true);
 
   watch(
     darkMode,
@@ -16,5 +17,5 @@ export const useSettingsStore = defineStore('settings', () => {
     { immediate: true }
   );
 
-  return { darkMode };
+  return { darkMode, stickyHeader };
 });

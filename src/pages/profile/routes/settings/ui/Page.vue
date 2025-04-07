@@ -1,12 +1,17 @@
 <template>
-  <div class="p-card mx-auto p-8 lg:container">
-    <div class="flex justify-between">
-      <label>Dark Mode</label>
+  <div class="p-card mx-auto grid gap-4 p-8 lg:container">
+    <div class="flex items-center justify-between">
+      <label class="text-lg">Dark Mode</label>
       <ToggleSwitch v-model="darkMode">
         <template #handle="{ checked }">
           <i class="pi text-sm" :class="{ 'pi-sun': !checked, 'pi-moon': checked }" />
         </template>
       </ToggleSwitch>
+    </div>
+
+    <div class="flex items-center justify-between">
+      <label class="text-lg">Sticky Header</label>
+      <ToggleSwitch v-model="stickyHeader" />
     </div>
   </div>
 </template>
@@ -16,5 +21,5 @@ import { useSettingsStore } from '@/entities/settings';
 import { storeToRefs } from 'pinia';
 import ToggleSwitch from 'primevue/toggleswitch';
 
-const { darkMode } = storeToRefs(useSettingsStore());
+const { darkMode, stickyHeader } = storeToRefs(useSettingsStore());
 </script>

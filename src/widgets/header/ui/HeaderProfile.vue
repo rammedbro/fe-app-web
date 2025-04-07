@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isAuthenticated" class="flex items-center gap-4">
+  <div v-if="isAuthenticated" class="flex items-center gap-2 lg:gap-4">
     <Button
       as="router-link"
       :to="{ name: ProfileFavoritesRouteName }"
