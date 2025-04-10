@@ -3,13 +3,11 @@ import Ripple from 'primevue/ripple';
 import ToastService from 'primevue/toastservice';
 import type { App, Plugin } from 'vue';
 
-export const primevue: Plugin = (app: App) => {
-  const config: PrimeVueConfiguration = {
-    theme: 'none',
-    ripple: true,
-  };
-
-  app.use(PrimeVue, config);
+export const primevue: Plugin<PrimeVueConfiguration> = (app: App, options) => {
+  app.use(PrimeVue, options);
   app.use(ToastService);
-  app.directive('ripple', Ripple);
+
+  if (options.ripple) {
+    app.directive('ripple', Ripple);
+  }
 };

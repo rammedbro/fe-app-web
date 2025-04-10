@@ -22,6 +22,7 @@ const assetPath = (filename: string, type?: string) => {
  */
 export default defineConfig(() => {
   const API_URL = dotenv.get('API_URL');
+  const API_PROXY = dotenv.get('API_PROXY');
   const config: UserConfig = {
     define: {
       'import.meta.env.APP_VERSION': JSON.stringify(pkg.version),
@@ -74,7 +75,7 @@ export default defineConfig(() => {
     server: {
       proxy: {
         [API_URL]: {
-          target: dotenv.get('API_PROXY'),
+          target: API_PROXY,
           changeOrigin: true,
           rewrite: (path) => path.replace(new RegExp(`^${API_URL}`), ''),
           timeout: 10e3,

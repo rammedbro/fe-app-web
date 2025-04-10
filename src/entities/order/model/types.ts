@@ -1,1 +1,1 @@
-export type { Order } from '@/shared/model/models';
+export type { Order } from '@/shared/model/types';

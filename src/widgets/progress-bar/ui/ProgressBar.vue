@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { useProgressBarStore } from '@/widgets/progress-bar/model/store';
+import { useProgressBarStore } from '@/widgets/progress-bar';
 import { storeToRefs } from 'pinia';
 import ProgressBar from 'primevue/progressbar';
 

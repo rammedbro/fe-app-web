@@ -1,4 +1,4 @@
-import { ProfileFavoritesRouteName } from '@/shared/router/routes.ts';
+import { ProfileFavoritesRouteName } from '@/shared/model/routes';
 import type { RouteRecordRaw } from 'vue-router';
 
 export const ProfileFavoritesRoute = {

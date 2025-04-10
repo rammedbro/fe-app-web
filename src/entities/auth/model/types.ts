@@ -1,3 +1,1 @@
-import type { Session } from '@/shared/api/openapi';
-
-export type { Session };
+export type { Session } from '@/shared/model/types';

@@ -9,6 +9,7 @@
 </template>
 
 <script lang="ts" setup>
+import '@/app/providers/style';
 import { useSettingsStore } from '@/entities/settings';
 import { Footer } from '@/widgets/footer';
 import { Header } from '@/widgets/header';

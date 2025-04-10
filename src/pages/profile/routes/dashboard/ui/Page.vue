@@ -76,12 +76,10 @@
 </template>
 
 <script setup lang="ts">
-import type { Order } from '@/entities/order';
-import { OrderCard, OrderCardSkeleton } from '@/entities/order';
-import { getOrderList } from '@/shared/api';
+import { getOrderList, OrderCard, OrderCardSkeleton, type Order } from '@/entities/order';
 import { noImgUrl } from '@/shared/assets/images';
-import { useAsync } from '@/shared/lib/async.ts';
-import { CarListRouteName } from '@/shared/router/routes.ts';
+import { useAsync } from '@/shared/lib/async';
+import { CarListRouteName } from '@/shared/model/routes';
 import { UseImage } from '@vueuse/components';
 import Button from 'primevue/button';
 import { useToast } from 'primevue/usetoast';

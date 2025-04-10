@@ -25,10 +25,10 @@
 
 <script setup lang="ts">
 import { CarCard, CarCardSkeleton } from '@/entities/car';
+import { getFavoriteList } from '@/entities/favorite';
 import { useUserStore } from '@/entities/user';
-import { getFavoriteList } from '@/shared/api';
-import { useAsync } from '@/shared/lib/async.ts';
-import { CarListRouteName } from '@/shared/router/routes';
+import { useAsync } from '@/shared/lib/async';
+import { CarListRouteName } from '@/shared/model/routes';
 import { watchDebounced } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
 import Button from 'primevue/button';
@@ -39,7 +39,13 @@ const userStore = useUserStore();
 const user = storeToRefs(userStore);
 const favoritesAsync = useAsync(
   async () => {
-    const { data } = await getFavoriteList<true>({ withCredentials: true });
+    const { data } = await getFavoriteList<true>({
+      query: {
+        sortBy: ['createdAt'],
+        sortDir: 'desc',
+      },
+      withCredentials: true,
+    });
     return data;
   },
   [],

@@ -1,4 +1,4 @@
-import { TermsOfServiceRouteName } from '@/shared/router/routes.ts';
+import { TermsOfServiceRouteName } from '@/shared/model/routes';
 import type { RouteRecordRaw } from 'vue-router';
 
 export const TermsOfServiceRoute = {

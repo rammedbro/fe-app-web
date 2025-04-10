@@ -33,7 +33,7 @@ import {
   ProfileFavoritesRouteName,
   ProfileSettingsRouteName,
   SignInRouteName,
-} from '@/shared/router/routes.ts';
+} from '@/shared/model/routes';
 import { storeToRefs } from 'pinia';
 import Button from 'primevue/button';
 import Popover, { type PopoverMethods } from 'primevue/popover';

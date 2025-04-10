@@ -1,4 +1,4 @@
-import { PrivacyPolicyRouteName } from '@/shared/router/routes';
+import { PrivacyPolicyRouteName } from '@/shared/model/routes';
 import type { RouteRecordRaw } from 'vue-router';
 
 export const PrivacyPolicyRoute = {

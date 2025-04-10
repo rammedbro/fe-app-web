@@ -1,6 +1,6 @@
 <template>
   <header
-    class="top-0 z-10 bg-white shadow-sm dark:bg-surface-800 dark:text-surface-200 dark:shadow-lg"
+    class="static top-0 z-(--z-sticky) bg-white shadow-sm dark:bg-surface-800 dark:text-surface-200 dark:shadow-lg"
     :class="{ sticky: stickyHeader }"
   >
     <div class="container mx-auto flex flex-wrap gap-4 py-6 lg:items-center lg:py-10">
@@ -36,7 +36,7 @@
 
 <script setup lang="ts">
 import { useSettingsStore } from '@/entities/settings';
-import { CarListRouteName, HomeRouteName } from '@/shared/router/routes';
+import { CarListRouteName, HomeRouteName } from '@/shared/model/routes';
 import { storeToRefs } from 'pinia';
 import Button from 'primevue/button';
 import IconField from 'primevue/iconfield';

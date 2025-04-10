@@ -27,6 +27,7 @@ export default tsEslint.config(
       'vue/singleline-html-element-content-newline': 'off',
       'vue/html-self-closing': 'off',
       'vue/no-use-v-if-with-v-for': 'off',
+      'vue/require-default-prop': 'off',
     },
   },
   {

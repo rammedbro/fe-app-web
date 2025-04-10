@@ -1,4 +1,4 @@
-import { HomeRouteName } from '@/shared/router/routes';
+import { HomeRouteName } from '@/shared/model/routes';
 import type { RouteRecordRaw } from 'vue-router';
 
 export const HomeRoute = {

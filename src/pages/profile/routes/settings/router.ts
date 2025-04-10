@@ -1,4 +1,4 @@
-import { ProfileSettingsRouteName } from '@/shared/router/routes.ts';
+import { ProfileSettingsRouteName } from '@/shared/model/routes';
 import type { RouteRecordRaw } from 'vue-router';
 
 export const ProfileSettingsRoute = {

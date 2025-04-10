@@ -1,4 +1,4 @@
-import { ProfileDashboardRouteName } from '@/shared/router/routes.ts';
+import { ProfileDashboardRouteName } from '@/shared/model/routes';
 import type { RouteRecordRaw } from 'vue-router';
 
 export const ProfileDashboardRoute = {

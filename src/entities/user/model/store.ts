@@ -1,9 +1,10 @@
 import { useAuthStore } from '@/entities/auth';
-import { addFavorite, delFavorite, getUser } from '@/shared/api';
-import { SignInRouteName } from '@/shared/router/routes';
+import { addFavorite, delFavorite } from '@/entities/favorite';
+import { getUser } from '@/entities/user/api';
+import type { User } from '@/entities/user/model/types';
+import { SignInRouteName } from '@/shared/model/routes';
 import { defineStore, storeToRefs } from 'pinia';
 import { useRoute, useRouter } from 'vue-router';
-import type { User } from './types';
 
 export const useUserStore = defineStore('user', () => {
   const user = ref<User>();

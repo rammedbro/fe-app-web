@@ -34,16 +34,16 @@
 
     <PickupDropoff v-if="breakpoints.md.value" class="mb-8" />
 
-    <CarCarouselBlock title="Popular cars" :query="{ sortBy: ['rating'], limit: 10 }" />
+    <CarCarousel title="Popular cars" :query="{ sortBy: ['rating'], limit: 10 }" />
 
-    <CarCarouselBlock title="Cheap cars" :query="{ sortBy: ['price'], limit: 10 }" />
+    <CarCarousel title="Cheap cars" :query="{ sortBy: ['price'], limit: 10 }" />
   </div>
 </template>
 
 <script setup lang="ts">
+import { CarCarousel } from '@/entities/car';
 import { banner1ImgUrl, banner2ImgUrl } from '@/shared/assets/images';
-import { CarListRouteName } from '@/shared/router/routes';
-import { CarCarouselBlock } from '@/widgets/car-carousel-block';
+import { CarListRouteName } from '@/shared/model/routes';
 import { PickupDropoff } from '@/widgets/pickup-dropoff';
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 import Button from 'primevue/button';

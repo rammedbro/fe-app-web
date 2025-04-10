@@ -1,6 +1,5 @@
 node_modules
 build
-config.json
 src/shared/api/openapi
 
 logs
@@ -11,7 +10,6 @@ temp.*
 .idea
 .vscode
 .yalc
-.firebase
 .DS_Store
 
 yalc.lock

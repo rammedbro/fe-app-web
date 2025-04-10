@@ -52,10 +52,10 @@ The frontend follows a loosely implemented **Feature Sliced Design (FSD)** appro
  ┃ ┣ 📂 app          # App's related code (styles, providers, routing, etc.)
  ┃ ┣ 📂 pages        # Route-based components
  ┃ ┣ 📂 widgets      # Self-contained chunks of functionality or UI, usually delivering an entire use case
- ┃ ┣ 📂 features     # Reused implementations of entire product features
  ┃ ┣ 📂 entities     # Domain models and API interactions
  ┃ ┣ 📂 shared       # Reusable UI components, utilities, helpers
- ┃ ┣ 📜 main.ts      # App setup and entry point
+ ┃ ┣ 📜 app.ts       # App setup
+ ┃ ┣ 📜 entry.ts     # Entry point
  ┣ 📜 package.json
  ┣ 📜 tsconfig.json
  ┗ 📜 README.md

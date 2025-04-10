@@ -62,7 +62,7 @@ import {
   ProfileOrderListRouteName,
   ProfileSettingsRouteName,
   SignInRouteName,
-} from '@/shared/router/routes.ts';
+} from '@/shared/model/routes';
 import Button from 'primevue/button';
 import Drawer from 'primevue/drawer';
 import Toolbar from 'primevue/toolbar';

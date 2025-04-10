@@ -1,6 +1,6 @@
-import { getSession, signIn, signOut } from '@/shared/api';
+import { getSession, signIn, signOut } from '@/entities/auth/api';
+import type { Session } from '@/entities/auth/model/types';
 import { defineStore } from 'pinia';
-import type { Session } from './types';
 
 export const useAuthStore = defineStore('auth', () => {
   const session = ref<Session | null>(null);

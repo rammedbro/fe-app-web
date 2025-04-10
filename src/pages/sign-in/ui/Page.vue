@@ -38,8 +38,8 @@
 
 <script setup lang="ts">
 import { useAuthStore } from '@/entities/auth';
-import { SignInValidationSchema } from '@/pages/sign-in/model/validation.ts';
-import { ProfileDashboardRouteName, SignUpRouteName } from '@/shared/router/routes';
+import { SignInValidationSchema } from '@/pages/sign-in/model/validation';
+import { ProfileDashboardRouteName, SignUpRouteName } from '@/shared/model/routes';
 import { toTypedSchema } from '@vee-validate/zod';
 import Button from 'primevue/button';
 import IftaLabel from 'primevue/iftalabel';

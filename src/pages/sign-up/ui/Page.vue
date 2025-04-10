@@ -57,9 +57,9 @@
 </template>
 
 <script setup lang="ts">
+import { signUp } from '@/entities/auth';
 import { SignUpValidationSchema } from '@/pages/sign-up/model/validation';
-import { signUp } from '@/shared/api';
-import { ProfileDashboardRouteName, SignInRouteName } from '@/shared/router/routes';
+import { ProfileDashboardRouteName, SignInRouteName } from '@/shared/model/routes';
 import { toTypedSchema } from '@vee-validate/zod';
 import Button from 'primevue/button';
 import IftaLabel from 'primevue/iftalabel';

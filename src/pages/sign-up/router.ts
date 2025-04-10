@@ -1,4 +1,4 @@
-import { SignUpRouteName } from '@/shared/router/routes.ts';
+import { SignUpRouteName } from '@/shared/model/routes';
 import type { RouteRecordRaw } from 'vue-router';
 
 export const SignUpRoute = {

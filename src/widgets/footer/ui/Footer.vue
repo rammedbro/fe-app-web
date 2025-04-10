@@ -23,7 +23,7 @@
         </div>
       </div>
 
-      <Divider class="my-8" />
+      <div class="p-divider-horizontal my-8" />
 
       <div class="flex flex-col-reverse gap-8 md:flex-row md:items-center">
         <div>{{ new Date().getFullYear() }} MORENT. All rights reserved</div>
@@ -38,8 +38,7 @@
 </template>
 
 <script setup lang="ts">
-import { HomeRouteName, PrivacyPolicyRouteName, TermsOfServiceRouteName } from '@/shared/router/routes';
-import Divider from 'primevue/divider';
+import { HomeRouteName, PrivacyPolicyRouteName, TermsOfServiceRouteName } from '@/shared/model/routes';
 
 const menus: [string, string[]][] = [
   ['About', ['How it works', 'Featured', 'Partnership', 'Business Relation']],
