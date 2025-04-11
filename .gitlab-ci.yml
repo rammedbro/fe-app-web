@@ -1,6 +1,6 @@
 variables:
-  NODE_IMAGE: $CI_REGISTRY_IMAGE/node-20:latest
-  HUSKY: 0
+  NODE_IMAGE: $CI_REGISTRY_IMAGE/node-20
+  APP_IMAGE: $CI_REGISTRY_IMAGE/image
 
 stages:
   - install
@@ -65,6 +65,7 @@ build:api:
 build:image:
   stage: build
   rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     - if: $CI_COMMIT_TAG
   image: docker:20.10.16
   tags:
@@ -75,8 +76,13 @@ build:image:
     - build:app
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker build -t $CI_REGISTRY_IMAGE:latest .
-    - docker push $CI_REGISTRY_IMAGE:latest
+    - >
+      if [[ -n "$CI_COMMIT_TAG" ]]; then
+        docker build --platform $IMAGE_PLATFORM -t $APP_IMAGE:${CI_COMMIT_TAG:1} -t $APP_IMAGE:latest .
+      else
+        docker build --platform $IMAGE_PLATFORM -t $APP_IMAGE:preview .
+      fi
+    - docker push -a $APP_IMAGE
 
 lint:
   stage: check
@@ -113,3 +119,18 @@ deploy:
   environment: production
   script:
     - curl $DEPLOY_HOOK
+
+deploy:preview:
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  environment: staging
+  when: manual
+  script:
+    - |
+      curl $DEPLOY_PREVIEW_HOOK \
+        --request POST \
+        --header 'accept: application/json' \
+        --header "authorization: Bearer $DEPLOYER_API_KEY" \
+        --header 'content-type: application/json' \
+        --data '{ "imagePath": "'"$APP_IMAGE"':preview" }'

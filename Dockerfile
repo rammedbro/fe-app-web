@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 node:20.6.1-alpine
+FROM node:20.6.1-alpine
 
 WORKDIR /var/www
 COPY vite.config.prod.ts package.json pnpm-lock.yaml .npmrc ./
