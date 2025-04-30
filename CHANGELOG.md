@@ -1,3 +1,12 @@
+## [1.6.0](https://gitlab.com/imolater/fe-app-web/compare/v1.5.0...v1.6.0) (2025-04-30)
+
+
+### Features
+
+* **[FAW-68](https://imolater.atlassian.net/browse/FAW-68):** Add order details page ([1a06b4e](https://gitlab.com/imolater/fe-app-web/commit/1a06b4e6b741fc50c16529c5f71ab26c45de17a1))
+* **[FAW-70](https://imolater.atlassian.net/browse/FAW-70):** Add sticky header ([371429a](https://gitlab.com/imolater/fe-app-web/commit/371429ad61f84134cfcb9d0735b3dd538a85ff7a))
+* **[FAW-71](https://imolater.atlassian.net/browse/FAW-71):** Further refactoring according to fsd ([eeafcc8](https://gitlab.com/imolater/fe-app-web/commit/eeafcc8fa067fce683146d07add74ffc0f77bd48))
+
 ## [1.5.0](https://gitlab.com/imolater/fe-app-web/compare/v1.4.0...v1.5.0) (2025-04-07)
 
 

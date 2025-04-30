@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "fe-app-web",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "license": "SEE LICENSE IN LICENSE.txt",
   "description": "The frontend of the fe-app showcase project, a car rental service, built with typescript, vue 3 and tailwind",
   "keywords": [
