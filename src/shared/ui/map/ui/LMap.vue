@@ -1,54 +1,46 @@
 <template>
-  <div :id="id" v-element-visibility="onVisibilityChange" class="z-0" />
+  <div :id="id" v-element-visibility="onVisibilityChange" class="z-0">
+    <slot />
+  </div>
 </template>
 
 <script setup lang="ts">
-import type { LocationPoint } from '@/shared/ui/map/model/types';
+import { MapInjectionKey } from '@/shared/ui/map/model/symbols';
+import type { GeosearchShowLocationEvent, LocationPoint, MapCallback, MapProps } from '@/shared/ui/map/model/types';
 import { vElementVisibility } from '@vueuse/components';
-import type { LatLngLiteral, LeafletEvent, Map } from 'leaflet';
+import type { LatLngLiteral, Map } from 'leaflet';
 import leaflet from 'leaflet';
 import { OpenStreetMapProvider, SearchControl } from 'leaflet-geosearch';
-import type { SearchResult } from 'leaflet-geosearch/dist/providers/provider.d.ts';
 import 'leaflet.fullscreen';
 import { LocateControl } from 'leaflet.locatecontrol';
 
-interface GeosearchShowLocationEvent extends LeafletEvent {
-  location: SearchResult;
-}
-
-const props = withDefaults(
-  defineProps<{
-    fullscreen?: boolean;
-    locate?: boolean;
-    search?: boolean;
-  }>(),
-  {
-    fullscreen: true,
-    locate: true,
-    search: false,
-  }
-);
+const props = withDefaults(defineProps<MapProps>(), {
+  center: () => [51.505, -0.09],
+  zoom: 13,
+  fullscreen: true,
+  locate: false,
+  search: false,
+});
 const emit = defineEmits<{
   (e: 'update:modelValue', payload: LocationPoint): void;
 }>();
 const model = defineModel<LocationPoint>();
 const id = useId();
 const map = ref<Map>();
-const marker = leaflet.marker([model.value?.lat || 0, model.value?.lng || 0]);
+const marker = leaflet.marker(model.value || [0, 0]);
+const nestedCallbacks = ref<MapCallback[]>([]);
+
+provide(MapInjectionKey, (cb) => nestedCallbacks.value.push(cb));
 
 watch(model, (value) => {
   if (!value) return;
 
-  const latlng: LatLngLiteral = {
-    lat: value.lat || 0,
-    lng: value.lng || 0,
-  };
-  map.value?.setView(latlng);
-  marker.setLatLng(latlng);
+  map.value?.setView(value);
+  marker.setLatLng(value);
 });
 
 onMounted(() => {
-  init();
+  initMap();
 });
 
 function onVisibilityChange(visible: boolean) {
@@ -59,10 +51,10 @@ function setLatLng(latlng: LatLngLiteral) {
   emit('update:modelValue', latlng);
 }
 
-function init() {
+function initMap() {
   map.value = leaflet.map(id, {
-    center: [model.value?.lat || 51.505, model.value?.lng || -0.09],
-    zoom: 13,
+    center: model.value || props.center,
+    zoom: props.zoom,
     layers: [
       leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
@@ -71,7 +63,11 @@ function init() {
       marker,
     ],
   });
-  map.value.on('click', (event) => setLatLng(event.latlng));
+  map.value.on('click', (event) => {
+    setLatLng(event.latlng);
+  });
+
+  initCallbacks(map.value);
 
   if (props.fullscreen) {
     map.value.addControl(
@@ -87,6 +83,7 @@ function init() {
     map.value.addControl(
       new LocateControl({
         setView: 'once',
+        initialZoomLevel: props.zoom,
         drawCircle: false,
         drawMarker: false,
         locateOptions: {
@@ -109,6 +106,13 @@ function init() {
       const { location } = event as GeosearchShowLocationEvent;
       setLatLng({ lat: location.y, lng: location.x });
     });
+  }
+}
+
+function initCallbacks(map: Map) {
+  while (nestedCallbacks.value.length) {
+    const [cb] = nestedCallbacks.value.splice(0, 1);
+    cb(map);
   }
 }
 </script>

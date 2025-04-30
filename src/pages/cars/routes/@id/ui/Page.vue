@@ -8,7 +8,7 @@
           :show-item-navigators="!breakpoints.md.value"
           show-item-navigators-on-hover
           :num-visible="4"
-          :responsive-options="[{ breakpoint: `${breakpointsTailwind.xl - 1}px`, numVisible: 3 }]"
+          :responsive-options="[{ breakpoint: `${defaultBreakpoints.xl - 1}px`, numVisible: 3 }]"
           container-class="lg:w-1/2"
         >
           <template #item="{ item }">
@@ -95,27 +95,7 @@
           <Badge :value="car.reviews.length" />
         </div>
 
-        <div v-for="review in car.reviews" :key="review.id" class="mb-6 flex gap-4">
-          <Avatar :image="review.user.avatar ?? undefined" circle size="large" />
-
-          <div class="flex-1">
-            <div class="mb-3 flex items-center justify-between">
-              <div>
-                <div class="mb-2 text-xl font-bold">{{ review.title }}</div>
-                <div class="text-sm text-surface-400">{{ review.user.name }} {{ review.user.lastname }}</div>
-              </div>
-
-              <div>
-                <div class="mb-2 text-right text-sm text-surface-400">
-                  {{ new Date(review.createdAt).toLocaleDateString() }}
-                </div>
-                <Rating :model-value="review.rating" readonly />
-              </div>
-            </div>
-
-            <p>{{ review.content }}</p>
-          </div>
-        </div>
+        <ReviewCard v-for="review in car.reviews" :key="review.id" v-bind="review" class="mb-6" />
 
         <div v-if="car.reviews.length > 5" class="flex justify-center">
           <Button text label="Show more" icon="pi pi-chevron-down" icon-pos="right" />
@@ -135,13 +115,14 @@
 
 <script setup lang="ts">
 import { CarCarousel, useCarStore } from '@/entities/car';
+import { ReviewCard } from '@/entities/review';
 import { useUserStore } from '@/entities/user';
 import { noImgUrl } from '@/shared/assets/images';
+import { defaultBreakpoints } from '@/shared/model/breakpoints';
 import { CarPaymentRouteName } from '@/shared/model/routes';
 import { UseImage } from '@vueuse/components';
-import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
+import { useBreakpoints } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
-import Avatar from 'primevue/avatar';
 import Badge from 'primevue/badge';
 import Button from 'primevue/button';
 import Galleria from 'primevue/galleria';
@@ -151,7 +132,7 @@ import { onBeforeRouteUpdate } from 'vue-router';
 
 const props = defineProps<{ id: number }>();
 
-const breakpoints = useBreakpoints(breakpointsTailwind);
+const breakpoints = useBreakpoints(defaultBreakpoints);
 const carStore = useCarStore();
 const userStore = useUserStore();
 const user = storeToRefs(userStore);

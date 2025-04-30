@@ -2,11 +2,7 @@
   <div class="p-card mx-auto grid gap-4 p-8 lg:container">
     <div class="flex items-center justify-between">
       <label class="text-lg">Dark Mode</label>
-      <ToggleSwitch v-model="darkMode">
-        <template #handle="{ checked }">
-          <i class="pi text-sm" :class="{ 'pi-sun': !checked, 'pi-moon': checked }" />
-        </template>
-      </ToggleSwitch>
+      <ToggleSwitch v-model="darkMode" />
     </div>
 
     <div class="flex items-center justify-between">

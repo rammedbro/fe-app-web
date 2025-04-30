@@ -65,9 +65,10 @@ import { CarCard, CarCardSkeleton, getCarList, type GetCarListOptions } from '@/
 import { useAsync } from '@/shared/lib/async';
 import { ensureArray } from '@/shared/lib/objects';
 import { useRouteQuery } from '@/shared/lib/router';
+import { defaultBreakpoints } from '@/shared/model/breakpoints';
 import type { SortDirection } from '@/shared/model/types';
 import { PickupDropoff } from '@/widgets/pickup-dropoff';
-import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
+import { useBreakpoints } from '@vueuse/core';
 import Button from 'primevue/button';
 import ListBox from 'primevue/listbox';
 import Paginator, { type PageState } from 'primevue/paginator';
@@ -115,7 +116,7 @@ const carsAsync = useAsync(
     },
   }
 );
-const breakpoints = useBreakpoints(breakpointsTailwind);
+const breakpoints = useBreakpoints(defaultBreakpoints);
 const isDrawerVisible = ref(false);
 
 watch(options, async (value) => {

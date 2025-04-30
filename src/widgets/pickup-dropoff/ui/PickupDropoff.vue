@@ -2,10 +2,7 @@
   <div class="flex flex-col items-center gap-4 xl:flex-row xl:gap-8">
     <div class="p-card p-4 xl:px-12 xl:py-6">
       <div class="mb-4 flex items-center gap-4">
-        <div class="flex h-4 w-4 items-center justify-center rounded-full bg-primary/30">
-          <div class="h-2 w-2 rounded-full bg-primary" />
-        </div>
-
+        <div class="pulse-dot" />
         <div class="font-semibold">Pick - Up</div>
       </div>
 
@@ -64,10 +61,7 @@
 
     <div class="p-card p-4 xl:px-12 xl:py-6">
       <div class="mb-4 flex items-center gap-4">
-        <div class="flex h-4 w-4 items-center justify-center rounded-full bg-primary/30">
-          <div class="h-2 w-2 rounded-full bg-primary" />
-        </div>
-
+        <div class="pulse-dot" />
         <div class="font-semibold">Drop - Off</div>
       </div>
 
@@ -124,7 +118,7 @@
 
 <script setup lang="ts">
 import { useAddOrderStore } from '@/entities/order';
-import { LocationPicker } from '@/shared/ui/map';
+import { LocationPicker } from '@/shared/ui/location-picker';
 import { storeToRefs } from 'pinia';
 import Button from 'primevue/button';
 import Datepicker from 'primevue/datepicker';

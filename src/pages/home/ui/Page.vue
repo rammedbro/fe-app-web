@@ -7,7 +7,7 @@
       :show-indicators="false"
       :autoplay-interval="0"
       circular
-      :responsive-options="[{ breakpoint: `${breakpointsTailwind.xl - 1}px`, numVisible: 1, numScroll: 1 }]"
+      :responsive-options="[{ breakpoint: `${defaultBreakpoints.xl - 1}px`, numVisible: 1, numScroll: 1 }]"
       content-class="-mx-4"
       container-class="overflow-hidden"
       class="mb-8"
@@ -43,13 +43,14 @@
 <script setup lang="ts">
 import { CarCarousel } from '@/entities/car';
 import { banner1ImgUrl, banner2ImgUrl } from '@/shared/assets/images';
+import { defaultBreakpoints } from '@/shared/model/breakpoints';
 import { CarListRouteName } from '@/shared/model/routes';
 import { PickupDropoff } from '@/widgets/pickup-dropoff';
-import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
+import { useBreakpoints } from '@vueuse/core';
 import Button from 'primevue/button';
 import Carousel from 'primevue/carousel';
 
-const breakpoints = useBreakpoints(breakpointsTailwind);
+const breakpoints = useBreakpoints(defaultBreakpoints);
 const banners = [
   {
     title: 'The Best Platform For Car Rental',

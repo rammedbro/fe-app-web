@@ -78,7 +78,7 @@
             <StepPanel value="1" class="p-4">
               <div class="mb-4 grid gap-2">
                 <div class="font-semibold">Location</div>
-                <Map v-model="order.pickupLocation.value" search class="h-60 lg:h-80" />
+                <Map v-model="order.pickupLocation.value" locate search class="h-60 lg:h-80" />
                 <div v-if="order.errors.value['pickup.location']" class="text-sm text-error">
                   {{ order.errors.value['pickup.location'] }}
                 </div>
@@ -119,7 +119,7 @@
             <StepPanel value="2" class="p-4">
               <div class="mb-4 grid gap-2">
                 <div class="font-semibold">Location</div>
-                <Map v-model="order.dropoffLocation.value" search class="h-60 lg:h-80" />
+                <Map v-model="order.dropoffLocation.value" locate search class="h-60 lg:h-80" />
                 <div v-if="order.errors.value['dropoff.location']" class="text-sm text-error">
                   {{ order.errors.value['dropoff.location'] }}
                 </div>

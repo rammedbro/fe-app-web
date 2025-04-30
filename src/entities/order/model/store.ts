@@ -1,3 +1,4 @@
+import type { LocationPoint } from '@/shared/ui/map';
 import { toTypedSchema } from '@vee-validate/zod';
 import { defineStore } from 'pinia';
 import { useForm } from 'vee-validate';
@@ -20,9 +21,29 @@ export const useAddOrderStore = defineStore('addOrder', () => {
   const [phone] = defineField('phone');
   const [address] = defineField('address');
   const [city] = defineField('city');
-  const [pickupLocation] = defineField('pickup.location');
+  const [_pickupLocation] = defineField('pickup.location');
+  const pickupLocation = computed({
+    get: () => {
+      return _pickupLocation.value?.lat && _pickupLocation.value?.lng
+        ? (_pickupLocation.value as LocationPoint)
+        : undefined;
+    },
+    set(value) {
+      _pickupLocation.value = value;
+    },
+  });
   const [pickupDate] = defineField('pickup.date');
-  const [dropoffLocation] = defineField('dropoff.location');
+  const [_dropoffLocation] = defineField('dropoff.location');
+  const dropoffLocation = computed({
+    get: () => {
+      return _dropoffLocation.value?.lat && _dropoffLocation.value?.lng
+        ? (_dropoffLocation.value as LocationPoint)
+        : undefined;
+    },
+    set(value) {
+      _dropoffLocation.value = value;
+    },
+  });
   const [dropoffDate] = defineField('dropoff.date');
   const [paymentMethod] = defineField('payment.method');
   const [cardNumber] = defineField('payment.data.number');

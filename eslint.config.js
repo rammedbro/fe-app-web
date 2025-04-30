@@ -28,6 +28,7 @@ export default tsEslint.config(
       'vue/html-self-closing': 'off',
       'vue/no-use-v-if-with-v-for': 'off',
       'vue/require-default-prop': 'off',
+      'vue/valid-template-root': 'off',
     },
   },
   {

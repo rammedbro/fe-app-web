@@ -1,1 +1,1 @@
-export { addOrder, getOrder, getOrderList } from '@/shared/api';
+export { addOrder, getCurrentOrder, getOrder, getOrderAggregation, getOrderList } from '@/shared/api';

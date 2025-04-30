@@ -7,7 +7,7 @@
 }
 
 .p-divider-vertical {
-  @apply relative mx-4 my-0 flex min-h-full justify-center px-0 py-2 before:absolute before:start-1/2 before:top-0 before:block before:h-full before:border-s before:border-surface-200 before:dark:border-surface-700;
+  @apply relative mx-4 my-0 flex min-h-full justify-center px-0 py-2 before:absolute before:start-1/2 before:top-0 before:block before:h-full before:border-s before:border-surface-200 dark:before:border-surface-700;
 }
 
 .p-divider.p-divider-vertical .p-divider-content {

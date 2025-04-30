@@ -37,7 +37,7 @@ import { getCarList, type GetCarListOptions } from '@/entities/car/api';
 import type { Car } from '@/entities/car/model/types';
 import { useAsync } from '@/shared/lib/async';
 import { vIntersectionObserver } from '@/shared/lib/dom';
-import { defaultCarouselResponsiveOptions } from '@/shared/model/breakpoints';
+import { defaultCarouselBreakpoints } from '@/shared/model/breakpoints';
 import { CarListRouteName } from '@/shared/model/routes';
 import Button from 'primevue/button';
 import Carousel, { type CarouselProps } from 'primevue/carousel';
@@ -55,7 +55,7 @@ const props = withDefaults(defineProps<CarCarouselProps>(), {
   carousel: () => ({
     numVisible: 4,
     numScroll: 1,
-    responsiveOptions: defaultCarouselResponsiveOptions,
+    responsiveOptions: defaultCarouselBreakpoints,
   }),
 });
 const toast = useToast();

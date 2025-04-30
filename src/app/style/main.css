@@ -29,6 +29,16 @@
   --z-max: 9999;
 }
 
+@layer components {
+  .pulse-dot {
+    @apply flex h-4 w-4 items-center justify-center rounded-full bg-primary/30;
+
+    &::before {
+      @apply h-2 w-2 rounded-full bg-primary content-[''];
+    }
+  }
+}
+
 @layer utilities {
   .container {
     @apply px-4 xl:px-0;

@@ -19,8 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { Map } from '@/shared/ui/map';
-import type { LocationPoint } from '@/shared/ui/map/model/types';
+import { Map, type LocationPoint } from '@/shared/ui/map';
 import { vOnClickOutside } from '@vueuse/components';
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import type { SearchResult } from 'leaflet-geosearch/dist/providers/provider.d.ts';

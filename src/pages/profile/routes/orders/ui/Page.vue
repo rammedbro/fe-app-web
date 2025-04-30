@@ -1,11 +1,12 @@
 <template>
-  <div class="p-card mx-auto rounded-lg p-4 lg:container">
-    <template v-if="ordersAsync.isReady.value">
-      <template v-for="(order, index) in ordersAsync.state.value" :key="order.id">
-        <div v-if="index > 0" class="p-divider-horizontal" />
-        <OrderCard v-bind="order" />
-      </template>
-    </template>
+  <div class="mx-auto grid gap-4 lg:max-w-200">
+    <OrderCard
+      v-for="order in ordersAsync.state.value"
+      v-if="ordersAsync.isReady.value"
+      :key="order.id"
+      v-bind="order"
+      class="p-card p-4"
+    />
     <div v-else-if="ordersAsync.error.value" class="text-center">
       <p class="mb-4">
         Something went wrong while fetching your most recent rents :(<br />

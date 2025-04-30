@@ -72,7 +72,8 @@
 import { CarSteering, CarType, type GetCarListOptions } from '@/entities/car';
 import { ensureArray } from '@/shared/lib/objects';
 import { useRouteQuery } from '@/shared/lib/router';
-import { breakpointsTailwind, useBreakpoints, watchDebounced } from '@vueuse/core';
+import { defaultBreakpoints } from '@/shared/model/breakpoints';
+import { useBreakpoints, watchDebounced } from '@vueuse/core';
 import isEqual from 'lodash/isEqual';
 import Button from 'primevue/button';
 import Checkbox from 'primevue/checkbox';
@@ -85,7 +86,7 @@ const filter = defineModel<GetCarListOptions>('filter', { default: () => ({}) })
 
 const router = useRouter();
 const route = useRoute();
-const breakpoints = useBreakpoints(breakpointsTailwind);
+const breakpoints = useBreakpoints(defaultBreakpoints);
 const responsiveAsideComponent = computed(() => (breakpoints.xl.value ? 'aside' : Drawer));
 const responsiveAsideComponentProps = computed(() =>
   breakpoints.xl.value
