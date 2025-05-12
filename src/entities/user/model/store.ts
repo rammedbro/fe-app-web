@@ -1,5 +1,6 @@
 import { useAuthStore } from '@/entities/auth';
 import { addFavorite, delFavorite } from '@/entities/favorite';
+import type { Notification } from '@/entities/notification';
 import { getUser } from '@/entities/user/api';
 import type { User } from '@/entities/user/model/types';
 import { SignInRouteName } from '@/shared/model/routes';
@@ -9,7 +10,7 @@ import { useRoute, useRouter } from 'vue-router';
 export const useUserStore = defineStore('user', () => {
   const user = ref<User>();
   const favorites = ref(new Set<number>());
-  const notifications = computed(() => user.value?.notifications || []);
+  const notifications = ref<Notification[]>([]);
   const { isAuthenticated } = storeToRefs(useAuthStore());
   const route = useRoute();
   const router = useRouter();
@@ -19,6 +20,7 @@ export const useUserStore = defineStore('user', () => {
 
     user.value = data;
     favorites.value = new Set(user.value.favorites.map((item) => item.carId));
+    notifications.value = user.value.notifications.concat();
   }
 
   async function toggleFavorite(carId: number) {
@@ -36,17 +38,11 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
-  function $reset() {
-    user.value = undefined;
-    favorites.value.clear();
-  }
-
   return {
     user,
     favorites,
     notifications,
     fetchUser,
     toggleFavorite,
-    $reset,
   };
 });

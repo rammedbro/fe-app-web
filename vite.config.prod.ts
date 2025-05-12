@@ -1,21 +1,31 @@
 import dotenv from '@dotenvx/dotenvx';
 import { defineConfig, type UserConfig } from 'vite';
 
+const API_PATH = dotenv.get('API_PATH');
+const API_PROXY = dotenv.get('API_PROXY');
+const SOCKET_PATH = dotenv.get('SOCKET_PATH');
+const SOCKET_PROXY = dotenv.get('SOCKET_PROXY');
+const VITE_ALLOWED_HOSTS = dotenv.get('VITE_ALLOWED_HOSTS');
+
 export default defineConfig(() => {
-  const API_URL = dotenv.get('API_URL');
-  const API_PROXY = dotenv.get('API_PROXY');
   const config: UserConfig = {
     build: {
       outDir: 'build',
     },
     preview: {
+      allowedHosts: VITE_ALLOWED_HOSTS?.split(','),
       proxy: {
-        [API_URL]: {
+        [API_PATH]: {
           target: API_PROXY,
           changeOrigin: true,
           toProxy: true,
-          rewrite: (path) => path.replace(new RegExp(`^${API_URL}`), ''),
           timeout: 10e3,
+        },
+        [SOCKET_PATH]: {
+          ws: true,
+          target: SOCKET_PROXY,
+          rewriteWsOrigin: true,
+          toProxy: true,
         },
       },
     },

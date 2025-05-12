@@ -27,7 +27,7 @@
     <section class="mb-10">
       <div class="mb-6 text-surface-400">Capacity</div>
       <ul>
-        <li v-for="item in [2, 4, 6, 8]" :key="item" class="mb-4 flex items-center">
+        <li v-for="item in Object.values(CarCapacity)" :key="item" class="mb-4 flex items-center">
           <Checkbox v-model="capacity" :value="item" :input-id="`capacity-${item}`" class="mr-3" />
           <label :for="`capacity-${item}`" class="text-md font-semibold">
             <span class="mr-2">{{ item }} Person</span>
@@ -69,7 +69,7 @@
 </template>
 
 <script setup lang="ts">
-import { CarSteering, CarType, type GetCarListOptions } from '@/entities/car';
+import { CarCapacity, CarSteering, CarType, type GetCarListOptions } from '@/entities/car';
 import { ensureArray } from '@/shared/lib/objects';
 import { useRouteQuery } from '@/shared/lib/router';
 import { defaultBreakpoints } from '@/shared/model/breakpoints';
@@ -99,7 +99,9 @@ const responsiveAsideComponentProps = computed(() =>
 
 const type = useRouteQuery<CarType[]>('type', [], { transform: ensureArray });
 const steering = useRouteQuery<CarSteering[]>('steering', [], { transform: ensureArray });
-const capacity = useRouteQuery<string[], number[]>('capacity', [], { transform: (v) => ensureArray(v).map(Number) });
+const capacity = useRouteQuery<CarCapacity[], number[]>('capacity', [], {
+  transform: (v) => ensureArray(v).map(Number),
+});
 const gasoline = useRouteQuery<number | undefined>('gasoline', undefined, { transform: (v) => Number(v) || undefined });
 const price = useRouteQuery<number | undefined>('price', undefined, { transform: (v) => Number(v) || undefined });
 

@@ -3,7 +3,7 @@
   "name": "fe-app-web",
   "version": "1.6.0",
   "license": "SEE LICENSE IN LICENSE.txt",
-  "description": "The frontend of the fe-app showcase project, a car rental service, built with typescript, vue 3 and tailwind",
+  "description": "Frontend of the fe-app showcase project - car rental service",
   "keywords": [
     "browser",
     "typescript",
@@ -17,7 +17,8 @@
     "tailwind",
     "primevue",
     "vite",
-    "fsd"
+    "fsd",
+    "asyncapi"
   ],
   "repository": {
     "type": "git",
@@ -41,7 +42,7 @@
     "build:api": "openapi-ts",
     "start": "vite preview --config vite.config.prod.ts",
     "lint": "run-p lint:*",
-    "lint:js": "eslint \"**/*.{js,jsx,ts,tsx,vue}\"",
+    "lint:js": "eslint \"**/*.{js,jsx,ts,tsx,vue}\" --quiet",
     "lint:types": "vue-tsc --project tsconfig.app.json",
     "lint:css": "stylelint \"**/*.{css,scss}\"",
     "release": "semantic-release"
@@ -63,6 +64,7 @@
     "primeicons": "^7.0.0",
     "primevue": "4.2.5",
     "query-string": "^9.1.1",
+    "socket.io-client": "^4.8.1",
     "tailwindcss": "^4.0.9",
     "tailwindcss-primeui": "^0.5.1",
     "vee-validate": "^4.15.0",

@@ -8,7 +8,7 @@ import { createApp } from 'vue';
 const app = createApp(App)
   .use(pinia)
   .use(router)
-  .use(api, { url: import.meta.env.API_URL })
+  .use(api, { url: import.meta.env.API_PATH })
   .use(primevue, {
     theme: 'none',
     ripple: true,

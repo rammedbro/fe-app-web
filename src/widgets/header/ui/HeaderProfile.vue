@@ -7,18 +7,7 @@
       rounded
       variant="outlined"
     />
-    <Button icon="pi pi-bell" rounded variant="outlined" @click="notificationPopover?.toggle" />
-    <Popover ref="notificationPopover" class="w-[320px]">
-      <div class="mb-4 font-bold">Notifications</div>
-
-      <ul v-if="notifications.length > 0" class="grid h-[320px] overflow-scroll pr-4">
-        <li v-for="(item, index) in notifications" :key="item.id">
-          <div v-if="index > 0" class="p-divider-horizontal" />
-          <div>{{ item.text }}</div>
-        </li>
-      </ul>
-      <div v-else class="text-sm">You have no notifications to read. Good job!</div>
-    </Popover>
+    <HeaderNotifications />
     <Button as="router-link" :to="{ name: ProfileSettingsRouteName }" icon="pi pi-cog" rounded variant="outlined" />
     <Button as="router-link" :to="{ name: ProfileDashboardRouteName }" icon="pi pi-user" rounded variant="outlined" />
   </div>
@@ -27,7 +16,7 @@
 
 <script setup lang="ts">
 import { useAuthStore } from '@/entities/auth';
-import { useUserStore } from '@/entities/user';
+import { userSocket, useUserStore } from '@/entities/user';
 import {
   ProfileDashboardRouteName,
   ProfileFavoritesRouteName,
@@ -36,19 +25,36 @@ import {
 } from '@/shared/model/routes';
 import { storeToRefs } from 'pinia';
 import Button from 'primevue/button';
-import Popover, { type PopoverMethods } from 'primevue/popover';
+import HeaderNotifications from './HeaderNotifications.vue';
 
 const authStore = useAuthStore();
 const userStore = useUserStore();
 const { isAuthenticated } = storeToRefs(authStore);
-const { notifications } = storeToRefs(userStore);
-const notificationPopover = ref<PopoverMethods | null>(null);
+
+userSocket.on('signOut', () => {
+  userSocket.disconnect();
+
+  if (isAuthenticated.value) {
+    window.location.reload();
+  }
+});
+
+onMounted(() => {
+  if (isAuthenticated.value) {
+    onUserAuthenticate();
+  }
+});
 
 watch(isAuthenticated, (value) => {
   if (value) {
-    userStore.fetchUser();
+    onUserAuthenticate();
   } else {
-    userStore.$reset();
+    window.location.reload();
   }
 });
+
+function onUserAuthenticate() {
+  userStore.fetchUser();
+  userSocket.connect();
+}
 </script>

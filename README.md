@@ -8,6 +8,7 @@ a loosely implemented Feature Sliced Design (FSD) architecture.
 - [Tech Stack](#tech-stack)
 - [Code Structure](#code-structure)
 - [API Integration](#api-integration)
+- [WebSocket Integration][(#websocket-integration)]
 - [Deployment](#deployment)
 - [Running Locally](#running-locally)
 - [Roadmap](./docs/Roadmap.md)
@@ -35,6 +36,7 @@ demonstrating:
 - **Routing:** [Vue-Router](https://router.vuejs.org/)
 - **State Management:** [Pinia](https://pinia.vuejs.org/)
 - **API Client:** [Axios](https://axios-http.com/)
+- **Websocket Client:** [Socket.io](https://socket.io/)
 - **Styling:** [Tailwind CSS](https://tailwindcss.com/)
 - **UI Library:** [PrimeVue](https://www.primevue.org/)
 - **Maps API:** [OSM](https://www.openstreetmap.org/) with [Leaflet](https://leafletjs.com/)
@@ -63,9 +65,13 @@ The frontend follows a loosely implemented **Feature Sliced Design (FSD)** appro
 
 ## API Integration
 
-- API client is generated via [`@hey-api/openapi-ts`](https://heyapi.dev/), ensuring type safety and automatic updates
-  when backend specifications change.
+- API client is generated via [`@hey-api/openapi-ts`](https://heyapi.dev/), ensuring type safety and automatic updates when backend specifications change.
 - Requests are made using **Axios**, with interceptors for authentication and error handling.
+
+## WebSocket Integration
+
+The frontend establishes real-time WebSocket connections with the backend using **Socket.IO**. These connections powers live features such as car status, booking changes or user session sync — without needing manual refreshes.
+This architecture allows low-latency communication between client and server, and is designed to scale using an Event-Driven Architecture (EDA) with the backend emitting events based on business logic triggers.
 
 ## Deployment
 
@@ -99,9 +105,11 @@ The frontend is containerized and deployed via **Render**.
    ```
 2. **Set up environment variables:** (create a `.env` file)
    ```env
-   API_URL=/api
+   API_PATH=/api
    API_PROXY=http://localhost:4000
    API_JSON=http://localhost:4000/docs/?json=1
+   SOCKET_PATH=/socket
+   SOCKET_PROXY=ws://localhost:4000
    ```
 3. **Build API:**
    ```sh

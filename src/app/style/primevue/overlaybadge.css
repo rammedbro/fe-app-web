@@ -5,7 +5,7 @@
 }
 
 .p-overlaybadge .p-badge {
-  @apply absolute end-0 top-0 m-0 origin-[100%_0] translate-x-[50%] translate-y-[-50%] outline outline-2 outline-surface-0 dark:outline-surface-900;
+  @apply absolute end-0 bottom-0 m-0 origin-[100%_0] translate-x-[50%] translate-y-[-50%] outline outline-2 outline-surface-0 dark:outline-surface-900;
 }
 
 .p-overlaybadge .p-badge:dir(rtl) {

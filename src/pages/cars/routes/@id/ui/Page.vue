@@ -114,7 +114,7 @@
 </template>
 
 <script setup lang="ts">
-import { CarCarousel, useCarStore } from '@/entities/car';
+import { CarCarousel, useCarSocket, useCarStore } from '@/entities/car';
 import { ReviewCard } from '@/entities/review';
 import { useUserStore } from '@/entities/user';
 import { noImgUrl } from '@/shared/assets/images';
@@ -128,10 +128,11 @@ import Button from 'primevue/button';
 import Galleria from 'primevue/galleria';
 import Image from 'primevue/image';
 import Rating from 'primevue/rating';
+import { useToast } from 'primevue/usetoast';
 import { onBeforeRouteUpdate } from 'vue-router';
 
 const props = defineProps<{ id: number }>();
-
+const toast = useToast();
 const breakpoints = useBreakpoints(defaultBreakpoints);
 const carStore = useCarStore();
 const userStore = useUserStore();
@@ -139,7 +140,17 @@ const user = storeToRefs(userStore);
 const { car } = storeToRefs(carStore);
 const title = computed(() => `${car.value?.brand} ${car.value?.model}`);
 const isFavorite = computed(() => user.favorites.value.has(props.id));
+const carSocket = useCarSocket(props.id);
 
+carSocket.on('addReview', (review) => {
+  car.value?.reviews.push(review);
+  toast.add({
+    severity: 'info',
+    summary: "We've got a new review",
+    detail: 'Looks like somebody said a few words about this car. Go check it bellow 👇',
+    life: 5000,
+  });
+});
 onBeforeRouteUpdate((to) => carStore.fetchCar(Number(to.params.id)));
 
 function reload() {

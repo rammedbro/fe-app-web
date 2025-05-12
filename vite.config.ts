@@ -7,11 +7,17 @@ import browserslistToEsbuild from 'browserslist-to-esbuild';
 import { browserslistToTargets } from 'lightningcss';
 import * as mime from 'mime-types';
 import path from 'node:path';
+import process from 'node:process';
 import unimport from 'unimport/unplugin';
 import { defineConfig, type UserConfig } from 'vite';
 import svg from 'vite-svg-loader';
 import tsconfigPaths from 'vite-tsconfig-paths';
-import pkg from './package.json';
+
+const { npm_package_name, npm_package_version } = process.env;
+const API_PATH = dotenv.get('API_PATH');
+const API_PROXY = dotenv.get('API_PROXY');
+const SOCKET_PATH = dotenv.get('SOCKET_PATH');
+const SOCKET_PROXY = dotenv.get('SOCKET_PROXY');
 
 const assetPath = (filename: string, type?: string) => {
   return path.join('assets', type || mime.lookup(filename) || '', filename);
@@ -21,12 +27,12 @@ const assetPath = (filename: string, type?: string) => {
  * @see https://vite.dev/dotenv/
  */
 export default defineConfig(() => {
-  const API_URL = dotenv.get('API_URL');
-  const API_PROXY = dotenv.get('API_PROXY');
   const config: UserConfig = {
     define: {
-      'import.meta.env.APP_VERSION': JSON.stringify(pkg.version),
-      'import.meta.env.API_URL': JSON.stringify(dotenv.get('API_URL')),
+      'import.meta.env.APP_NAME': JSON.stringify(npm_package_name),
+      'import.meta.env.APP_VERSION': JSON.stringify(npm_package_version),
+      'import.meta.env.API_PATH': JSON.stringify(API_PATH),
+      'import.meta.env.SOCKET_PATH': JSON.stringify(SOCKET_PATH),
     },
     build: {
       outDir: 'build',
@@ -74,10 +80,15 @@ export default defineConfig(() => {
     ],
     server: {
       proxy: {
-        [API_URL]: {
+        [API_PATH]: {
           target: API_PROXY,
           changeOrigin: true,
-          rewrite: (path) => path.replace(new RegExp(`^${API_URL}`), ''),
+          timeout: 10e3,
+        },
+        [SOCKET_PATH]: {
+          ws: true,
+          target: SOCKET_PROXY,
+          rewriteWsOrigin: true,
           timeout: 10e3,
         },
       },
