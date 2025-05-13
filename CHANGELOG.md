@@ -1,3 +1,10 @@
+## [1.7.0](https://gitlab.com/imolater/fe-app-web/compare/v1.6.0...v1.7.0) (2025-05-13)
+
+
+### Features
+
+* **[FAW-89](https://imolater.atlassian.net/browse/FAW-89):** Add server event listening via websocket ([a874c5a](https://gitlab.com/imolater/fe-app-web/commit/a874c5a62026f613d6523d407655e15e521c3864))
+
 ## [1.6.0](https://gitlab.com/imolater/fe-app-web/compare/v1.5.0...v1.6.0) (2025-04-30)
 
 
