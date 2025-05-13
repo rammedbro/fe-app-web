@@ -1,4 +1,5 @@
 import { useAuthStore } from '@/entities/auth';
+import { ErrorRoute } from '@/pages/_error';
 import { CarsRoute } from '@/pages/cars';
 import { PrivacyPolicyRoute } from '@/pages/help/privacy-policy';
 import { TermsOfServiceRoute } from '@/pages/help/terms-of-service';
@@ -6,6 +7,7 @@ import { HomeRoute } from '@/pages/home';
 import { ProfileRoute } from '@/pages/profile';
 import { SignInRoute } from '@/pages/sign-in';
 import { SignUpRoute } from '@/pages/sign-up';
+import { renderError } from '@/shared/lib/router/abort';
 import { ProfileDashboardRouteName, SignInRouteName } from '@/shared/model/routes';
 import { useProgressBarStore } from '@/widgets/progress-bar';
 import { storeToRefs } from 'pinia';
@@ -13,7 +15,16 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({
   history: createWebHistory(),
-  routes: [HomeRoute, SignUpRoute, SignInRoute, CarsRoute, ProfileRoute, PrivacyPolicyRoute, TermsOfServiceRoute],
+  routes: [
+    HomeRoute,
+    SignUpRoute,
+    SignInRoute,
+    CarsRoute,
+    ProfileRoute,
+    PrivacyPolicyRoute,
+    TermsOfServiceRoute,
+    ErrorRoute,
+  ],
   scrollBehavior(to, from, position) {
     if (position) {
       return position;
@@ -55,6 +66,11 @@ router.afterEach(() => {
   const progressBarStore = useProgressBarStore();
 
   progressBarStore.hide();
+});
+
+router.onError((err, to) => {
+  console.error(err);
+  router.replace(renderError(to, 500));
 });
 
 export { router };

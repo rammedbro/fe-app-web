@@ -143,6 +143,7 @@
 
 <script setup lang="ts">
 import { getReviewList, ReviewCard, ReviewForm } from '@/entities/review';
+import { beforeEnter } from '@/pages/profile/routes/orders/routes/@id/guards/beforeEnter';
 import { useOrderStore } from '@/pages/profile/routes/orders/routes/@id/model/store';
 import { noImgUrl } from '@/shared/assets/images';
 import { useAsync } from '@/shared/lib/async';
@@ -175,5 +176,5 @@ const reviewsAsync = useAsync(
   { immediate: false }
 );
 
-onBeforeRouteUpdate((to) => orderStore.fetchOrder(Number(to.params.id)));
+onBeforeRouteUpdate((...args) => beforeEnter(...args));
 </script>

@@ -5,11 +5,11 @@ export const useOrderStore = defineStore('order', () => {
   const order = ref<Order>();
 
   async function fetchOrder(id: number) {
-    if (order.value?.id === id) return;
-
-    const { data } = await getOrder<true>({ path: { id } });
+    const { data, status } = await getOrder<false>({ path: { id }, throwOnError: false });
 
     order.value = data;
+
+    return status;
   }
 
   return {

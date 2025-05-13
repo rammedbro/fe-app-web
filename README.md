@@ -8,7 +8,7 @@ a loosely implemented Feature Sliced Design (FSD) architecture.
 - [Tech Stack](#tech-stack)
 - [Code Structure](#code-structure)
 - [API Integration](#api-integration)
-- [WebSocket Integration][(#websocket-integration)]
+- [WebSocket Integration](#websocket-integration)
 - [Deployment](#deployment)
 - [Running Locally](#running-locally)
 - [Roadmap](./docs/Roadmap.md)

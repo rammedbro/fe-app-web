@@ -71,7 +71,7 @@
 <script setup lang="ts">
 import { CarCapacity, CarSteering, CarType, type GetCarListOptions } from '@/entities/car';
 import { ensureArray } from '@/shared/lib/objects';
-import { useRouteQuery } from '@/shared/lib/router';
+import { useRouteQuery } from '@/shared/lib/router/useRouteQuery';
 import { defaultBreakpoints } from '@/shared/model/breakpoints';
 import { useBreakpoints, watchDebounced } from '@vueuse/core';
 import isEqual from 'lodash/isEqual';

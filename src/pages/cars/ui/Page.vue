@@ -68,7 +68,7 @@
 import { CarCard, CarCardSkeleton, getCarList, type GetCarListOptions } from '@/entities/car';
 import { useAsync } from '@/shared/lib/async';
 import { ensureArray } from '@/shared/lib/objects';
-import { useRouteQuery } from '@/shared/lib/router';
+import { useRouteQuery } from '@/shared/lib/router/useRouteQuery';
 import { defaultBreakpoints } from '@/shared/model/breakpoints';
 import type { SortDirection } from '@/shared/model/types';
 import { PickupDropoff } from '@/widgets/pickup-dropoff';

@@ -6,10 +6,11 @@ export const useCarStore = defineStore('car', () => {
   const car = ref<GetCarReturn>();
 
   async function fetchCar(id: number) {
-    if (car.value?.id === id) return;
+    const { data, status } = await getCar<false>({ path: { id }, throwOnError: false });
 
-    const { data } = await getCar<true>({ path: { id } });
     car.value = data;
+
+    return status;
   }
 
   function calcTotalPrice(price: string, discount: number) {

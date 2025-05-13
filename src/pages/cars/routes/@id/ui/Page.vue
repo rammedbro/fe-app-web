@@ -117,6 +117,7 @@
 import { CarCarousel, useCarSocket, useCarStore } from '@/entities/car';
 import { ReviewCard } from '@/entities/review';
 import { useUserStore } from '@/entities/user';
+import { beforeEnter } from '@/pages/cars/routes/@id/guards/beforeEnter';
 import { noImgUrl } from '@/shared/assets/images';
 import { defaultBreakpoints } from '@/shared/model/breakpoints';
 import { CarPaymentRouteName } from '@/shared/model/routes';
@@ -151,7 +152,7 @@ carSocket.on('addReview', (review) => {
     life: 5000,
   });
 });
-onBeforeRouteUpdate((to) => carStore.fetchCar(Number(to.params.id)));
+onBeforeRouteUpdate((...args) => beforeEnter(...args));
 
 function reload() {
   window.location.reload();
