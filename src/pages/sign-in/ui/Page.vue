@@ -4,15 +4,15 @@
       <h2 class="mb-6 text-2xl font-bold">Sign in</h2>
       <form @submit="submit">
         <div class="mb-4">
-          <IftaLabel class="mb-2">
+          <div class="p-iftalabel mb-2">
             <label for="username">Login</label>
             <InputText id="username" v-model="username" name="username" autocomplete="username" title="Login" fluid />
-          </IftaLabel>
+          </div>
           <div v-if="errors.username" class="text-sm text-error">{{ errors.username }}</div>
         </div>
 
         <div class="mb-4">
-          <IftaLabel class="mb-2">
+          <div class="p-iftalabel mb-2">
             <label for="password">Password</label>
             <InputText
               id="password"
@@ -23,7 +23,7 @@
               title="Password"
               fluid
             />
-          </IftaLabel>
+          </div>
           <div v-if="errors.password" class="text-sm text-error">{{ errors.password }}</div>
         </div>
 
@@ -42,7 +42,6 @@ import { SignInValidationSchema } from '@/pages/sign-in/model/validation';
 import { ProfileDashboardRouteName, SignUpRouteName } from '@/shared/model/routes';
 import { toTypedSchema } from '@vee-validate/zod';
 import Button from 'primevue/button';
-import IftaLabel from 'primevue/iftalabel';
 import InputText from 'primevue/inputtext';
 import { useToast } from 'primevue/usetoast';
 import { useField, useForm } from 'vee-validate';

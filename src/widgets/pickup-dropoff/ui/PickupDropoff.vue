@@ -14,7 +14,7 @@
             size="small"
             fluid
             placeholder="Select your city"
-            input-class="!dark:pl-0 border-0 shadow-none"
+            input-class="border-0 shadow-none"
           />
         </div>
 
@@ -29,7 +29,7 @@
             show-icon
             icon-display="input"
             placeholder="Select your date"
-            input-class="-ml-2 border-0 shadow-none"
+            input-class="border-0 shadow-none"
           />
         </div>
 
@@ -45,7 +45,7 @@
             icon-display="input"
             placeholder="Select your time"
             time-only
-            input-class="-ml-2 border-0 shadow-none"
+            input-class="border-0 shadow-none"
           >
             <template #inputicon="{ clickCallback }">
               <i class="pi pi-clock" @click="clickCallback" />
@@ -55,7 +55,7 @@
       </div>
     </div>
 
-    <Button class="-mx-12 -my-8 h-16 w-16 drop-shadow-xl" @click="swap">
+    <Button class="-mx-12 -my-8 size-16 flex-none drop-shadow-xl" @click="swap">
       <i class="pi pi-arrow-right-arrow-left rotate-90 text-2xl" />
     </Button>
 
@@ -73,7 +73,7 @@
             size="small"
             fluid
             placeholder="Select your city"
-            input-class="!dark:pl-0 border-0 shadow-none"
+            input-class="border-0 shadow-none"
           />
         </div>
 

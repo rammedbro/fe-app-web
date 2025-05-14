@@ -38,27 +38,21 @@
 
     <section class="mb-10">
       <div class="mb-6 text-surface-400">Gasoline</div>
-
-      <div>
-        <Slider v-model.lazy="gasoline" :min="0" :max="100" class="mb-4" />
-        <div class="flex items-center justify-between text-sm">
-          <span>0</span>
-          <span>{{ gasoline }}</span>
-          <span>100</span>
-        </div>
+      <Slider v-model="gasoline" :min="0" :max="100" class="mb-4" />
+      <div class="flex items-center justify-between text-sm">
+        <span>0</span>
+        <span>{{ gasoline }}</span>
+        <span>100</span>
       </div>
     </section>
 
     <section class="mb-10">
       <div class="mb-6 text-surface-400">Price</div>
-
-      <div>
-        <Slider v-model.lazy="price" :min="0" :max="500" class="mb-4" />
-        <div class="flex items-center justify-between text-sm">
-          <span>0</span>
-          <span>{{ price }}</span>
-          <span>500</span>
-        </div>
+      <Slider v-model="price" :min="0" :max="500" class="mb-4" />
+      <div class="flex items-center justify-between text-sm">
+        <span>0</span>
+        <span>{{ price }}</span>
+        <span>500</span>
       </div>
     </section>
 

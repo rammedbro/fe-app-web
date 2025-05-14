@@ -4,17 +4,17 @@
       <h2 class="mb-6 text-2xl font-bold">Sign up</h2>
       <form @submit="submit">
         <div class="mb-4">
-          <IftaLabel>
+          <div class="p-iftalabel">
             <label for="email">Email</label>
             <InputText id="email" v-model="email" name="email" title="Email" fluid />
-          </IftaLabel>
+          </div>
           <ul v-if="errorBag.email" class="mt-2 ml-3 grid gap-1">
             <li v-for="error in errorBag.email" :key="error" class="text-sm text-error">{{ error }}</li>
           </ul>
         </div>
 
         <div class="mb-4">
-          <IftaLabel>
+          <div class="p-iftalabel">
             <label for="password">Password</label>
             <InputText
               id="password"
@@ -24,14 +24,14 @@
               title="Password"
               fluid
             />
-          </IftaLabel>
+          </div>
           <ul v-if="errorBag.password" class="mt-2 ml-3 grid gap-1">
             <li v-for="error in errorBag.password" :key="error" class="text-sm text-error">{{ error }}</li>
           </ul>
         </div>
 
         <div class="mb-12">
-          <IftaLabel>
+          <div class="p-iftalabel">
             <label for="confirm">Confirm</label>
             <InputText
               id="confirm"
@@ -41,7 +41,7 @@
               title="Confirm"
               fluid
             />
-          </IftaLabel>
+          </div>
           <ul v-if="errorBag.confirm" class="mt-2 ml-3 grid gap-1">
             <li v-for="error in errorBag.confirm" :key="error" class="text-sm text-error">{{ error }}</li>
           </ul>
@@ -62,7 +62,6 @@ import { SignUpValidationSchema } from '@/pages/sign-up/model/validation';
 import { ProfileDashboardRouteName, SignInRouteName } from '@/shared/model/routes';
 import { toTypedSchema } from '@vee-validate/zod';
 import Button from 'primevue/button';
-import IftaLabel from 'primevue/iftalabel';
 import InputText from 'primevue/inputtext';
 import { useToast } from 'primevue/usetoast';
 import { useField, useForm } from 'vee-validate';

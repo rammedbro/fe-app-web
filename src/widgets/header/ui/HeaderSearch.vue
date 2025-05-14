@@ -1,21 +1,19 @@
 <template>
-  <IconField>
-    <InputIcon class="pi pi-search" />
+  <div class="p-iconfield">
+    <span class="p-inputicon pi pi-search" />
     <InputText
       v-model="searchInput"
       placeholder="e.g. Audi A4 or BMW M5"
       class="w-full rounded-full"
       @keyup.enter="search"
     />
-    <InputIcon v-if="searchInput" class="pi pi-times cursor-pointer" @click="clear" />
-    <InputIcon v-else class="pi pi-sliders-h cursor-pointer" @click="search" />
-  </IconField>
+    <span v-if="searchInput" class="p-inputicon pi pi-times cursor-pointer" @click="clear" />
+    <span v-else class="p-inputicon pi pi-sliders-h cursor-pointer" @click="search" />
+  </div>
 </template>
 
 <script setup lang="ts">
 import { CarListRouteName } from '@/shared/model/routes';
-import IconField from 'primevue/iconfield';
-import InputIcon from 'primevue/inputicon';
 import InputText from 'primevue/inputtext';
 import { useRoute, useRouter } from 'vue-router';
 

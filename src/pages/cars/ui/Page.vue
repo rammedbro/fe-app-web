@@ -8,8 +8,8 @@
       </div>
 
       <div class="flex justify-end">
-        <Toolbar class="mb-6 rounded-full">
-          <template #center>
+        <div class="p-toolbar mb-6 rounded-full">
+          <div class="p-toolbar-center">
             <Button
               v-if="!breakpoints.xl.value"
               icon="pi pi-filter"
@@ -27,8 +27,8 @@
                 class="border-0 shadow-none"
               />
             </Popover>
-          </template>
-        </Toolbar>
+          </div>
+        </div>
       </div>
 
       <div ref="itemsRef" class="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
@@ -77,7 +77,6 @@ import Button from 'primevue/button';
 import ListBox from 'primevue/listbox';
 import Paginator, { type PageState } from 'primevue/paginator';
 import Popover, { type PopoverMethods } from 'primevue/popover';
-import Toolbar from 'primevue/toolbar';
 import { useToast } from 'primevue/usetoast';
 import { useRoute, useRouter } from 'vue-router';
 import CarListAside from './Aside.vue';

@@ -1,5 +1,5 @@
 .p-slider {
-  @apply relative rounded-sm bg-surface-200 dark:bg-surface-700;
+  @apply relative cursor-pointer rounded-sm bg-surface-200 dark:bg-surface-700;
 }
 
 .p-slider-handle {
@@ -11,7 +11,7 @@
 }
 
 .p-slider.p-slider-horizontal {
-  @apply h-[3px];
+  @apply h-[5px];
 }
 
 .p-slider-horizontal .p-slider-range {

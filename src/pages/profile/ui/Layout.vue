@@ -42,11 +42,11 @@
 
     <div class="px-4 py-8 xl:px-8">
       <div class="mx-auto flex justify-end lg:container">
-        <Toolbar class="mb-6 rounded-full">
-          <template #center>
+        <div class="p-toolbar mb-6 rounded-full">
+          <div class="p-toolbar-center">
             <Button icon="pi pi-bars" severity="secondary" text @click="isDrawerVisible = true" />
-          </template>
-        </Toolbar>
+          </div>
+        </div>
       </div>
 
       <RouterView />
@@ -65,7 +65,6 @@ import {
 } from '@/shared/model/routes';
 import Button from 'primevue/button';
 import Drawer from 'primevue/drawer';
-import Toolbar from 'primevue/toolbar';
 import { useToast } from 'primevue/usetoast';
 import { useRouter } from 'vue-router';
 
