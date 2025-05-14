@@ -6,14 +6,7 @@
         <div class="text-sm text-surface-400">{{ type }}</div>
       </div>
 
-      <Button
-        icon="pi"
-        :icon-class="{ 'pi-heart': !isFavorite, 'pi-heart-fill': isFavorite }"
-        variant="text"
-        rounded
-        size="large"
-        @click="userStore.toggleFavorite(id)"
-      />
+      <FavoriteButton :car-id="id" />
     </div>
 
     <RouterLink :to="{ name: CarDetailsRouteName, params: { id } }">
@@ -67,19 +60,15 @@
 <script setup lang="ts">
 import { useCarStore } from '@/entities/car/model/store';
 import type { Car } from '@/entities/car/model/types';
-import { useUserStore } from '@/entities/user';
+import { FavoriteButton } from '@/entities/favorite';
 import { noImgUrl } from '@/shared/assets/images';
 import { CarDetailsRouteName, CarPaymentRouteName } from '@/shared/model/routes';
 import { GasStationIcon, Profile2UserIcon, SteeringWheelIcon } from '@/shared/ui/icons';
 import { UseImage } from '@vueuse/components';
-import { storeToRefs } from 'pinia';
 import Button from 'primevue/button';
 
 const { id, price, discount } = defineProps<Car>();
 
 const carStore = useCarStore();
-const userStore = useUserStore();
-const user = storeToRefs(userStore);
 const totalPrice = computed(() => carStore.calcTotalPrice(price, discount));
-const isFavorite = computed(() => user.favorites.value.has(id));
 </script>

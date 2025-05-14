@@ -1,1 +1,2 @@
-export { addFavorite, delFavorite, getFavoriteList } from '@/shared/api';
+export { bulkFavorite, getFavoriteList } from '@/shared/api';
+export type { BulkFavoritePayload } from '@/shared/model/types';

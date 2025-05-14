@@ -28,6 +28,7 @@
 
 <script setup lang="ts">
 import { useAuthStore } from '@/entities/auth';
+import { useFavoriteStore } from '@/entities/favorite';
 import { useSettingsStore } from '@/entities/settings';
 import { userSocket, useUserStore } from '@/entities/user';
 import { defaultBreakpoints } from '@/shared/model/breakpoints';
@@ -45,6 +46,7 @@ import HeaderNotifications from './HeaderNotifications.vue';
 const breakpoints = useBreakpoints(defaultBreakpoints);
 const authStore = useAuthStore();
 const userStore = useUserStore();
+const favoriteStore = useFavoriteStore();
 const { isAuthenticated } = storeToRefs(authStore);
 const settingsStore = useSettingsStore();
 const { stickyHeader, darkMode } = storeToRefs(settingsStore);
@@ -73,6 +75,7 @@ watch(isAuthenticated, (value) => {
 
 function onUserAuthenticate() {
   userStore.fetchUser();
+  favoriteStore.fetchFavorites();
   userSocket.connect();
 }
 </script>

@@ -47,14 +47,7 @@
               </div>
             </div>
 
-            <Button
-              icon="pi"
-              :icon-class="{ 'pi-heart': !isFavorite, 'pi-heart-fill': isFavorite }"
-              variant="text"
-              rounded
-              size="large"
-              @click="userStore.toggleFavorite(car.id)"
-            />
+            <FavoriteButton :car-id="id" />
           </div>
 
           <p class="mb-8 text-lg">{{ car.description }}</p>
@@ -115,8 +108,8 @@
 
 <script setup lang="ts">
 import { CarCarousel, useCarSocket, useCarStore } from '@/entities/car';
+import { FavoriteButton } from '@/entities/favorite';
 import { ReviewCard } from '@/entities/review';
-import { useUserStore } from '@/entities/user';
 import { beforeEnter } from '@/pages/cars/routes/@id/guards/beforeEnter';
 import { noImgUrl } from '@/shared/assets/images';
 import { defaultBreakpoints } from '@/shared/model/breakpoints';
@@ -136,11 +129,8 @@ const props = defineProps<{ id: number }>();
 const toast = useToast();
 const breakpoints = useBreakpoints(defaultBreakpoints);
 const carStore = useCarStore();
-const userStore = useUserStore();
-const user = storeToRefs(userStore);
 const { car } = storeToRefs(carStore);
 const title = computed(() => `${car.value?.brand} ${car.value?.model}`);
-const isFavorite = computed(() => user.favorites.value.has(props.id));
 const carSocket = useCarSocket(props.id);
 
 carSocket.on('addReview', (review) => {
