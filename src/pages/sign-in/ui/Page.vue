@@ -39,6 +39,7 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/entities/auth';
 import { SignInValidationSchema } from '@/pages/sign-in/model/validation';
+import { logError } from '@/shared/lib/log';
 import { ProfileDashboardRouteName, SignUpRouteName } from '@/shared/model/routes';
 import { toTypedSchema } from '@vee-validate/zod';
 import Button from 'primevue/button';
@@ -77,7 +78,7 @@ const submit = handleSubmit(async (values) => {
       life: 5000,
     });
   } else {
-    console.error(error);
+    logError(error);
     toast.add({
       severity: 'error',
       summary: 'Login failed',

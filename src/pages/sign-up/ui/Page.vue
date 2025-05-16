@@ -59,6 +59,7 @@
 <script setup lang="ts">
 import { signUp } from '@/entities/auth';
 import { SignUpValidationSchema } from '@/pages/sign-up/model/validation';
+import { logError } from '@/shared/lib/log';
 import { ProfileDashboardRouteName, SignInRouteName } from '@/shared/model/routes';
 import { toTypedSchema } from '@vee-validate/zod';
 import Button from 'primevue/button';
@@ -110,7 +111,7 @@ const submit = handleSubmit(async (values) => {
     }
   }
 
-  console.error(error);
+  logError(error);
   toast.add({
     severity: 'error',
     summary: 'Account creation failed',

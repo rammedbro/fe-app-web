@@ -4,9 +4,11 @@ import { primevue } from '@/app/providers/primevue';
 import { router } from '@/app/providers/router';
 import App from '@/app/ui/App.vue';
 import { createApp } from 'vue';
+import { query } from './app/providers/query';
 
 const app = createApp(App)
   .use(pinia)
+  .use(query, { enableDevtoolsV6Plugin: true })
   .use(router)
   .use(api, { url: import.meta.env.API_PATH })
   .use(primevue, {

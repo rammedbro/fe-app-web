@@ -2,7 +2,7 @@
   <div class="p-card p-3 md:p-6">
     <div class="mb-4 flex items-start justify-between gap-4">
       <div>
-        <div class="text-lg font-bold">{{ brand }} {{ model }}</div>
+        <div class="text-lg font-bold">{{ title }}</div>
         <div class="text-sm text-surface-400">{{ type }}</div>
       </div>
 
@@ -13,7 +13,7 @@
       <UseImage v-slot="{ isLoading, error }" :src="images[0]">
         <img
           :src="error ? noImgUrl : images[0]"
-          :alt="`${brand} ${model}`"
+          :alt="title"
           class="mb-6 h-60 w-full rounded-lg object-contain"
           :class="{ 'p-skeleton': isLoading }"
         />
@@ -58,17 +58,16 @@
 </template>
 
 <script setup lang="ts">
-import { useCarStore } from '@/entities/car/model/store';
 import type { Car } from '@/entities/car/model/types';
 import { FavoriteButton } from '@/entities/favorite';
 import { noImgUrl } from '@/shared/assets/images';
+import { calcDiscountPrice } from '@/shared/lib/numbers';
 import { CarDetailsRouteName, CarPaymentRouteName } from '@/shared/model/routes';
 import { GasStationIcon, Profile2UserIcon, SteeringWheelIcon } from '@/shared/ui/icons';
 import { UseImage } from '@vueuse/components';
 import Button from 'primevue/button';
 
-const { id, price, discount } = defineProps<Car>();
-
-const carStore = useCarStore();
-const totalPrice = computed(() => carStore.calcTotalPrice(price, discount));
+const props = defineProps<Car>();
+const title = computed(() => `${props.brand} ${props.model}`);
+const totalPrice = computed(() => calcDiscountPrice(props.price, props.discount));
 </script>

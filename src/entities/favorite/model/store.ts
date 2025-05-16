@@ -1,14 +1,21 @@
 import { bulkFavorite, type BulkFavoritePayload, getFavoriteList } from '@/entities/favorite/api';
-import { useAsync } from '@/shared/lib/async';
+import { useAsync } from '@/shared/lib/async/useAsync';
+import { logError } from '@/shared/lib/log';
 import debounce from 'lodash/debounce';
 import { defineStore } from 'pinia';
 
 export const useFavoriteStore = defineStore('favorite', () => {
   const favoritesId = ref(new Set<number>([]));
   const lastStableFavoritesId = ref(new Set<number>([]));
-  const pendingFavorites = new Map<number, 'add' | 'del'>();
-  const debouncedFlushFavorites = debounce(flushFavorites, 1000);
-  const { execute: fetchFavorites, ...favoritesAsync } = useAsync(
+  const pendingFavorites = new Map<number, keyof BulkFavoritePayload>();
+  const debouncedFlushFavorites = debounce(flushFavorites, 750);
+  const {
+    refetch: fetchFavorites,
+    data,
+    isSuccess,
+    isPending,
+    isError,
+  } = useAsync(
     async () => {
       const { data } = await getFavoriteList<true>({
         query: {
@@ -25,7 +32,7 @@ export const useFavoriteStore = defineStore('favorite', () => {
     [],
     {
       immediate: false,
-      onError: console.error,
+      onError: logError,
     }
   );
 
@@ -88,5 +95,5 @@ export const useFavoriteStore = defineStore('favorite', () => {
     return favoritesId.value.has(carId);
   }
 
-  return { fetchFavorites, favoritesAsync, toggleFavorite, isFavorite };
+  return { fetchFavorites, data, isSuccess, isPending, isError, toggleFavorite, isFavorite };
 });

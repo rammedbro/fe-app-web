@@ -7,6 +7,7 @@ import { HomeRoute } from '@/pages/home';
 import { ProfileRoute } from '@/pages/profile';
 import { SignInRoute } from '@/pages/sign-in';
 import { SignUpRoute } from '@/pages/sign-up';
+import { logError } from '@/shared/lib/log';
 import { renderError } from '@/shared/lib/router/abort';
 import { ProfileDashboardRouteName, SignInRouteName } from '@/shared/model/routes';
 import { useProgressBarStore } from '@/widgets/progress-bar';
@@ -26,18 +27,22 @@ const router = createRouter({
     ErrorRoute,
   ],
   scrollBehavior(to, from, position) {
+    /* Scroll to pages saved in history state harshly to imitate non-spa page navigation */
     if (position) {
       return position;
     }
 
+    /* Scroll to #id dom elements with smooth */
     if (to.hash) {
       return { selector: to.hash, behavior: 'smooth' };
     }
 
+    /* Scroll smoothly when it's the same page (e.g. when query params are changed)  */
     if (from.path === to.path) {
-      return {};
+      return { top: 0, behavior: 'smooth' };
     }
 
+    /* Scroll to new pages harshly to imitate non-spa page navigation */
     return { top: 0 };
   },
 });
@@ -69,7 +74,7 @@ router.afterEach(() => {
 });
 
 router.onError((err, to) => {
-  console.error(err);
+  logError(err);
   router.replace(renderError(to, 500));
 });
 

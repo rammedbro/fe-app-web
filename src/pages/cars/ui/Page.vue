@@ -1,6 +1,6 @@
 <template>
   <div class="flex">
-    <CarListAside v-model:visible="isDrawerVisible" v-model:filter="options" />
+    <CarListAside v-model:visible="isDrawerVisible" v-model:filter="filter" />
 
     <div class="flex-1 px-4 py-8 xl:px-8">
       <div class="md:flex md:justify-center">
@@ -32,26 +32,33 @@
       </div>
 
       <div ref="itemsRef" class="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
-        <template v-if="carsAsync.isReady.value">
-          <CarCard
-            v-for="car in carsAsync.state.value"
-            v-if="carsAsync.state.value.length"
-            :key="car.id"
-            v-bind="car"
-          />
-          <div v-else class="col-span-full text-center">There are no cars available for your search :(</div>
+        <template v-if="carsAsync.isSuccess.value">
+          <template v-if="cars.length">
+            <CarCard v-for="car in cars" :key="car.id" v-bind="car" />
+          </template>
+          <div v-else class="col-span-full text-center">
+            <p class="mb-4">
+              There are no cars available for your search :(<br />
+              Try to clear set options by pushing button bellow!
+            </p>
+            <Button label="Clear" class="w-60" @click="clearOptions" />
+          </div>
         </template>
-        <CarCardSkeleton v-for="n in limit" v-else-if="carsAsync.isLoading.value" :key="n" />
-        <div v-else-if="carsAsync.error.value" class="col-span-full text-center">
+
+        <template v-if="carsAsync.isPending.value">
+          <CarCardSkeleton v-for="n in limit" :key="n" />
+        </template>
+
+        <div v-if="carsAsync.isError.value" class="col-span-full text-center">
           <p class="mb-4">
             Something went wrong while fetching cars :(<br />
             Try to push button bellow and see what happens!
           </p>
-          <Button label="Retry" @click="carsAsync.execute(options)" />
+          <Button label="Retry" class="w-60" @click="carsAsync.refetch()" />
         </div>
       </div>
 
-      <div v-if="carsAsync.isReady.value" class="flex justify-center">
+      <div v-if="carsAsync.isSuccess.value" class="flex justify-center">
         <Paginator
           :rows="limit"
           :first="page > 1 ? (page - 1) * limit : 0"
@@ -65,25 +72,23 @@
 </template>
 
 <script setup lang="ts">
-import { CarCard, CarCardSkeleton, getCarList, type GetCarListOptions } from '@/entities/car';
-import { useAsync } from '@/shared/lib/async';
+import { CarCard, CarCardSkeleton, getCarList, GetCarListOptions } from '@/entities/car';
 import { ensureArray } from '@/shared/lib/objects';
 import { useRouteQuery } from '@/shared/lib/router/useRouteQuery';
 import { defaultBreakpoints } from '@/shared/model/breakpoints';
 import type { SortDirection } from '@/shared/model/types';
 import { PickupDropoff } from '@/widgets/pickup-dropoff';
+import { keepPreviousData, useQuery } from '@tanstack/vue-query';
 import { useBreakpoints } from '@vueuse/core';
 import Button from 'primevue/button';
 import ListBox from 'primevue/listbox';
 import Paginator, { type PageState } from 'primevue/paginator';
 import Popover, { type PopoverMethods } from 'primevue/popover';
-import { useToast } from 'primevue/usetoast';
 import { useRoute, useRouter } from 'vue-router';
 import CarListAside from './Aside.vue';
 
 const router = useRouter();
 const route = useRoute();
-const toast = useToast();
 const itemsRef = ref<HTMLDivElement | null>(null);
 const sortByPopoverRef = ref<PopoverMethods | null>(null);
 const search = useRouteQuery('search', '');
@@ -98,38 +103,34 @@ const options = reactive({
   sortBy,
   sortDir,
 });
-const totalCount = ref(0);
-const carsAsync = useAsync(
-  async (args?: GetCarListOptions) => {
-    const { data, headers } = await getCarList<true>({ query: args });
+const filter = reactive<GetCarListOptions>({});
+const isFilterSet = computed(() => Object.keys(filter).length > 0);
+const carsAsync = useQuery({
+  queryKey: ['cars', options, filter],
+  queryFn: async () => {
+    const { data, headers } = await getCarList<true>({ query: { ...options, ...filter } });
 
-    totalCount.value = Number(headers['x-total-count']);
-
-    return data;
+    return { data, headers };
   },
-  [],
-  {
-    immediate: false,
-    onError(e) {
-      console.error(e?.message);
-      toast.add({
-        severity: 'error',
-        summary: 'Fetch error',
-        detail: 'Something went wrong while fetching cars.',
-        life: 5000,
-      });
-    },
-  }
-);
+  placeholderData: keepPreviousData,
+  enabled: isFilterSet,
+});
+const cars = computed(() => carsAsync.data.value?.data || []);
+const totalCount = computed(() => Number(carsAsync.data.value?.headers['x-total-count'] || 0));
 const breakpoints = useBreakpoints(defaultBreakpoints);
 const isDrawerVisible = ref(false);
 
-watch(options, async (value) => {
-  await carsAsync.execute(value);
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
 function onUpdatePaginatorState(state: PageState) {
-  router.push({ query: { ...route.query, page: state.page + 1, limit: state.rows }, replace: true });
+  router.push({
+    query: {
+      ...route.query,
+      page: state.page + 1,
+      limit: state.rows,
+    },
+  });
+}
+
+function clearOptions() {
+  router.push({ path: route.path });
 }
 </script>

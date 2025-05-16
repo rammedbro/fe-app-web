@@ -76,7 +76,7 @@ import Slider from 'primevue/slider';
 import { useRoute, useRouter } from 'vue-router';
 
 const visible = defineModel<boolean>('visible', { default: false });
-const filter = defineModel<GetCarListOptions>('filter', { default: () => ({}) });
+const filter = defineModel<GetCarListOptions>('filter', { required: true });
 
 const router = useRouter();
 const route = useRoute();
@@ -112,11 +112,10 @@ watchDebounced(
     filter.value.gasoline = gasoline.value;
     filter.value.price = price.value?.toFixed(2);
   },
-  { immediate: true, debounce: 1000 }
+  { immediate: true, debounce: 750 }
 );
 
 function clearFilter() {
-  // TODO: Implement correct logic when undefined in query refs will be supported
   router.push({ path: route.path });
 }
 </script>

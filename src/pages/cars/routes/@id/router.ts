@@ -1,6 +1,6 @@
 import { CarDetailsRouteName } from '@/shared/model/routes';
 import type { RouteRecordRaw } from 'vue-router';
-import { beforeEnter } from './guards/beforeEnter';
+import { beforeEnter } from './hooks/beforeEnter';
 import { CarPaymentRoute } from './routes/payment';
 
 export const CarDetailsRoute: RouteRecordRaw = {

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isAuthenticated" class="inline-flex items-center gap-2 xl:gap-4">
+  <div class="inline-flex items-center gap-2 xl:gap-4">
     <Button rounded class="ml-auto" title="Toggle sticky header" @click="stickyHeader = !stickyHeader">
       <template #icon>
         <i class="pi pi-thumbtack" :class="{ 'rotate-45': stickyHeader }" />
@@ -7,23 +7,25 @@
     </Button>
     <Button rounded title="Toggle dark theme" @click="darkMode = !darkMode">
       <template #icon>
-        <i class="pi pi-sun dark:pi-moon" />
+        <i class="pi" :class="{ 'pi-sun': !darkMode, 'pi-moon': darkMode }" />
       </template>
     </Button>
-    <template v-if="breakpoints.lg.value">
-      <Button
-        as="router-link"
-        :to="{ name: ProfileFavoritesRouteName }"
-        icon="pi pi-heart-fill"
-        rounded
-        variant="outlined"
-      />
-      <HeaderNotifications />
-      <Button as="router-link" :to="{ name: ProfileSettingsRouteName }" icon="pi pi-cog" rounded variant="outlined" />
+    <template v-if="isAuthenticated">
+      <template v-if="breakpoints.lg.value">
+        <Button
+          as="router-link"
+          :to="{ name: ProfileFavoritesRouteName }"
+          icon="pi pi-heart-fill"
+          rounded
+          variant="outlined"
+        />
+        <HeaderNotifications />
+        <Button as="router-link" :to="{ name: ProfileSettingsRouteName }" icon="pi pi-cog" rounded variant="outlined" />
+      </template>
+      <Button as="router-link" :to="{ name: ProfileDashboardRouteName }" icon="pi pi-user" rounded variant="outlined" />
     </template>
-    <Button as="router-link" :to="{ name: ProfileDashboardRouteName }" icon="pi pi-user" rounded variant="outlined" />
+    <Button v-else as="router-link" :to="{ name: SignInRouteName }" icon="pi pi-sign-in" rounded variant="outlined" />
   </div>
-  <Button v-else as="router-link" :to="{ name: SignInRouteName }" icon="pi pi-sign-in" rounded variant="outlined" />
 </template>
 
 <script setup lang="ts">
@@ -31,6 +33,7 @@ import { useAuthStore } from '@/entities/auth';
 import { useFavoriteStore } from '@/entities/favorite';
 import { useSettingsStore } from '@/entities/settings';
 import { userSocket, useUserStore } from '@/entities/user';
+import { reload } from '@/shared/lib/browser';
 import { defaultBreakpoints } from '@/shared/model/breakpoints';
 import {
   ProfileDashboardRouteName,
@@ -53,10 +56,7 @@ const { stickyHeader, darkMode } = storeToRefs(settingsStore);
 
 userSocket.on('signOut', () => {
   userSocket.disconnect();
-
-  if (isAuthenticated.value) {
-    window.location.reload();
-  }
+  reload();
 });
 
 onMounted(() => {
@@ -69,7 +69,7 @@ watch(isAuthenticated, (value) => {
   if (value) {
     onUserAuthenticate();
   } else {
-    window.location.reload();
+    reload();
   }
 });
 

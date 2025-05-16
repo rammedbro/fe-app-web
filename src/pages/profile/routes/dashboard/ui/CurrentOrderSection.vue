@@ -2,7 +2,7 @@
   <section class="flex flex-1 flex-col gap-4 md:gap-8">
     <div class="text-xl font-bold">Current Rent</div>
 
-    <template v-if="orderAsync.isReady.value && order">
+    <template v-if="orderAsync.isSuccess.value && order">
       <Map class="p-panel h-100 w-full rounded-lg">
         <LMarker
           :model-value="[order.pickup.location.latitude, order.pickup.location.longitude]"
@@ -95,7 +95,8 @@
         <div class="text-4xl font-bold">${{ order.price }}</div>
       </div>
     </template>
-    <template v-else-if="orderAsync.isLoading.value">
+
+    <template v-if="orderAsync.isPending.value">
       <OrderCardSkeleton />
       <div class="p-divider-horizontal" />
       <div class="flex items-center justify-between">
@@ -106,7 +107,8 @@
         <div class="p-skeleton h-12 w-1/4" />
       </div>
     </template>
-    <div v-else class="text-center">
+
+    <div v-if="orderAsync.isError.value" class="text-center">
       <p class="mb-4">
         There is no current rent :(<br />
         Click the button below and chose your first drive!
@@ -120,7 +122,7 @@
 <script setup lang="ts">
 import { getCurrentOrder, OrderCardSkeleton } from '@/entities/order';
 import { noImgUrl } from '@/shared/assets/images';
-import { useAsync } from '@/shared/lib/async';
+import { useAsync } from '@/shared/lib/async/useAsync';
 import { defaultBreakpoints } from '@/shared/model/breakpoints';
 import { colors } from '@/shared/model/colors';
 import { CarListRouteName, ProfileOrderDetailsRouteName } from '@/shared/model/routes';
@@ -130,9 +132,13 @@ import { useBreakpoints } from '@vueuse/core';
 import Button from 'primevue/button';
 
 const breakpoints = useBreakpoints(defaultBreakpoints);
-const orderAsync = useAsync(async () => {
-  const { data } = await getCurrentOrder({ withCredentials: true, throwOnError: false });
-  return data;
-}, undefined);
-const order = orderAsync.state;
+const orderAsync = useAsync(
+  async () => {
+    const { data } = await getCurrentOrder({ withCredentials: true });
+    return data;
+  },
+  undefined,
+  { throwOnError: false }
+);
+const order = orderAsync.data;
 </script>

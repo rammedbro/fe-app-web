@@ -6,4 +6,5 @@ export const CarPaymentRoute = {
   name: CarPaymentRouteName,
   meta: { requiresAuth: true },
   component: () => import('./ui/Page.vue'),
+  props: (route) => ({ id: Number(route.params.id) }),
 } as RouteRecordRaw;

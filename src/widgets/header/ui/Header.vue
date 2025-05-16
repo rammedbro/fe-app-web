@@ -10,12 +10,14 @@
 
       <HeaderSearch class="min-w-[320px] flex-1 lg:mx-16 lg:max-w-[500px]" />
     </div>
+    <ProgressBar class="rounded-none" />
   </header>
 </template>
 
 <script setup lang="ts">
 import { useSettingsStore } from '@/entities/settings';
 import { HomeRouteName } from '@/shared/model/routes';
+import { ProgressBar } from '@/widgets/progress-bar';
 import { storeToRefs } from 'pinia';
 import HeaderProfile from './HeaderProfile.vue';
 import HeaderSearch from './HeaderSearch.vue';

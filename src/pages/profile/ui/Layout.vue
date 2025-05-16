@@ -56,6 +56,7 @@
 
 <script setup lang="ts">
 import { useAuthStore } from '@/entities/auth';
+import { logError } from '@/shared/lib/log';
 import {
   ProfileDashboardRouteName,
   ProfileFavoritesRouteName,
@@ -104,7 +105,7 @@ async function logout() {
       });
       break;
     default:
-      console.error(error);
+      logError(error);
       toast.add({
         severity: 'error',
         summary: 'Logout failed',

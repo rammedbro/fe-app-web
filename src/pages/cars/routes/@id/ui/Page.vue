@@ -71,7 +71,7 @@
           <div class="flex items-center justify-between gap-4">
             <div>
               <div class="text-xl font-bold">
-                ${{ ((Number(car.price) * (100 - car.discount)) / 100).toFixed(2) }} /
+                ${{ calcDiscountPrice(car.price, car.discount) }} /
                 <span class="font-semibold text-surface-400">a day</span>
               </div>
               <div class="font-semibold text-surface-400 line-through">${{ car.price }}</div>
@@ -89,10 +89,6 @@
         </div>
 
         <ReviewCard v-for="review in car.reviews" :key="review.id" v-bind="review" class="mb-6" />
-
-        <div v-if="car.reviews.length > 5" class="flex justify-center">
-          <Button text label="Show more" icon="pi pi-chevron-down" icon-pos="right" />
-        </div>
       </section>
 
       <CarCarousel title="Recent cars" :query="{ sortBy: ['createdAt'], sortDir: 'desc', limit: 10 }" />
@@ -100,6 +96,7 @@
       <CarCarousel title="Recommended cars" :query="{ sortBy: ['rating'], limit: 10 }" />
     </template>
     <div v-else class="text-center">
+      {{ car }}
       <p class="mb-4">Something went wrong while fetching a car :(</p>
       <Button label="Reload" size="large" class="w-full" @click="reload" />
     </div>
@@ -107,16 +104,17 @@
 </template>
 
 <script setup lang="ts">
-import { CarCarousel, useCarSocket, useCarStore } from '@/entities/car';
+import { CarCarousel, useCarQuery, useCarSocket } from '@/entities/car';
 import { FavoriteButton } from '@/entities/favorite';
 import { ReviewCard } from '@/entities/review';
-import { beforeEnter } from '@/pages/cars/routes/@id/guards/beforeEnter';
+import { beforeEnter } from '@/pages/cars/routes/@id/hooks/beforeEnter';
 import { noImgUrl } from '@/shared/assets/images';
+import { reload } from '@/shared/lib/browser';
+import { calcDiscountPrice } from '@/shared/lib/numbers';
 import { defaultBreakpoints } from '@/shared/model/breakpoints';
 import { CarPaymentRouteName } from '@/shared/model/routes';
 import { UseImage } from '@vueuse/components';
 import { useBreakpoints } from '@vueuse/core';
-import { storeToRefs } from 'pinia';
 import Badge from 'primevue/badge';
 import Button from 'primevue/button';
 import Galleria from 'primevue/galleria';
@@ -126,15 +124,17 @@ import { useToast } from 'primevue/usetoast';
 import { onBeforeRouteUpdate } from 'vue-router';
 
 const props = defineProps<{ id: number }>();
+const id = computed(() => props.id);
 const toast = useToast();
 const breakpoints = useBreakpoints(defaultBreakpoints);
-const carStore = useCarStore();
-const { car } = storeToRefs(carStore);
+const { data: car } = useCarQuery(id).query();
 const title = computed(() => `${car.value?.brand} ${car.value?.model}`);
-const carSocket = useCarSocket(props.id);
+const carSocket = useCarSocket(id.value);
 
 carSocket.on('addReview', (review) => {
-  car.value?.reviews.push(review);
+  if (!car.value) return;
+
+  car.value.reviews.push(review);
   toast.add({
     severity: 'info',
     summary: "We've got a new review",
@@ -142,9 +142,7 @@ carSocket.on('addReview', (review) => {
     life: 5000,
   });
 });
-onBeforeRouteUpdate((...args) => beforeEnter(...args));
 
-function reload() {
-  window.location.reload();
-}
+/** Important! It has to be registered exactly this way otherwise it won't work */
+onBeforeRouteUpdate((...args) => beforeEnter(...args));
 </script>

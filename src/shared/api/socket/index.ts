@@ -1,3 +1,4 @@
+import { logError } from '@/shared/lib/log';
 import type { ManagerOptions, SocketOptions } from 'socket.io-client';
 import { io } from 'socket.io-client';
 
@@ -7,11 +8,12 @@ export function createSocketClient(namespace: string, options?: Partial<SocketCl
   const socket = io(namespace, {
     path: import.meta.env.SOCKET_PATH,
     autoConnect: false,
-    reconnectionAttempts: 10,
+    reconnectionAttempts: 5,
+    transports: ['websocket'],
     ...options,
   });
 
-  socket.on('connect_error', console.error);
+  socket.on('connect_error', logError);
 
   return socket;
 }

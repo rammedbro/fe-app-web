@@ -8,12 +8,12 @@
           v-model="groupBy"
           :options="['type', 'brand']"
           class="border-0 shadow-none"
-          @change="orderAggregationAsync.execute()"
+          @change="orderAggregationAsync.refetch()"
         />
       </Popover>
     </div>
 
-    <div v-if="orderAggregationAsync.isReady.value && chartData" class="flex flex-col gap-4 md:flex-row">
+    <div v-if="orderAggregationAsync.isSuccess.value && chartData" class="flex flex-col gap-4 md:flex-row">
       <div class="relative">
         <Chart
           type="doughnut"
@@ -34,17 +34,19 @@
         </li>
       </ul>
     </div>
-    <ProgressSpinner v-else-if="orderAggregationAsync.isLoading.value" />
-    <div v-else class="text-center">
+    <template v-if="orderAggregationAsync.isPending.value">
+      <ProgressSpinner />
+    </template>
+    <div v-if="orderAggregationAsync.isError.value" class="text-center">
       <p class="mb-4">Something went wrong while fetching your review :(</p>
-      <Button label="Retry" class="w-full" @click="orderAggregationAsync.execute()" />
+      <Button label="Retry" class="w-full" @click="orderAggregationAsync.refetch()" />
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
 import { getOrderAggregation } from '@/entities/order';
-import { useAsync } from '@/shared/lib/async';
+import { useAsync } from '@/shared/lib/async/useAsync';
 import { colors } from '@/shared/model/colors';
 import { GetOrderAggregationOptions } from '@/shared/model/types';
 import type { ChartOptions } from 'chart.js';
@@ -54,44 +56,28 @@ import ListBox from 'primevue/listbox';
 import type { PopoverMethods } from 'primevue/popover';
 import Popover from 'primevue/popover';
 import ProgressSpinner from 'primevue/progressspinner';
-import { useToast } from 'primevue/usetoast';
 
-const toast = useToast();
 const groupByPopoverRef = ref<PopoverMethods>();
 const groupBy = ref<GetOrderAggregationOptions['groupBy']>('type');
-const orderAggregationAsync = useAsync(
-  async () => {
-    const { data } = await getOrderAggregation<true>({
-      query: { groupBy: groupBy.value },
-      withCredentials: true,
-    });
-    return data;
-  },
-  undefined,
-  {
-    onError(e) {
-      console.error(e?.message);
-      toast.add({
-        severity: 'error',
-        summary: 'Fetch error',
-        detail: 'Something went wrong while fetching your top rental',
-        life: 5000,
-      });
-    },
-  }
-);
+const orderAggregationAsync = useAsync(async () => {
+  const { data } = await getOrderAggregation<true>({
+    query: { groupBy: groupBy.value },
+    withCredentials: true,
+  });
+  return data;
+}, undefined);
 const orderAggregationTotalCount = computed(() =>
-  orderAggregationAsync.state.value?.reduce((acc, item) => acc + item._count, 0)
+  orderAggregationAsync.data.value?.reduce((acc, item) => acc + item._count, 0)
 );
 const chartData = computed(() => {
-  if (!orderAggregationAsync.state.value) return;
+  if (!orderAggregationAsync.data.value) return;
 
   const labels: string[] = [];
   const data: number[] = [];
   const backgroundColor: string[] = [];
   const colorsToArray = Object.values(colors).reverse();
 
-  orderAggregationAsync.state.value.forEach((item, index) => {
+  orderAggregationAsync.data.value.forEach((item, index) => {
     if ('type' in item) {
       labels.push(item.type);
     } else if ('brand' in item) {

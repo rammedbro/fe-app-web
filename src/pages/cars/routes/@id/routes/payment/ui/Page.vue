@@ -255,20 +255,32 @@
 
         <div class="mb-4">
           <div class="flex items-center rounded-lg bg-surface-200 px-6 py-4 dark:bg-surface-700">
-            <Checkbox v-model="order.newsletterConfirmation.value" name="confirmation.newsletter" binary class="mr-4" />
-            <div>I agree with sending marketing and newsletter emails</div>
+            <Checkbox
+              v-model="order.newsletterConfirmation.value"
+              input-id="confirmation.newsletter"
+              name="confirmation.newsletter"
+              binary
+              class="mr-4"
+            />
+            <label for="confirmation.newsletter">I agree with sending marketing and newsletter emails</label>
           </div>
         </div>
 
         <div class="mb-8 grid gap-2">
           <div class="flex items-center rounded-lg bg-surface-200 px-6 py-4 dark:bg-surface-700">
-            <Checkbox v-model="order.policiesConfirmation.value" name="confirmation.policies" binary class="mr-4" />
-            <div>
+            <Checkbox
+              v-model="order.policiesConfirmation.value"
+              input-id="confirmation.policies"
+              name="confirmation.policies"
+              binary
+              class="mr-4"
+            />
+            <label for="confirmation.policies">
               I agree with our
               <RouterLink :to="{ name: TermsOfServiceRouteName }" class="underline">Terms and Conditions</RouterLink>
               and
               <RouterLink :to="{ name: PrivacyPolicyRouteName }" class="underline">Privacy Policy</RouterLink>
-            </div>
+            </label>
           </div>
           <div v-if="order.errors.value['confirmation.policies']" class="text-sm text-error">
             {{ order.errors.value['confirmation.policies'] }}
@@ -327,7 +339,7 @@
             <div class="text-sm text-surface-400">Overall price including discount</div>
           </div>
 
-          <div class="text-4xl font-bold">${{ carStore.calcTotalPrice(car.price, car.discount) }}</div>
+          <div class="text-4xl font-bold">${{ calcDiscountPrice(car.price, car.discount) }}</div>
         </div>
       </template>
       <Spinner v-else class="mx-auto block" />
@@ -336,7 +348,7 @@
 </template>
 
 <script setup lang="ts">
-import { useCarStore } from '@/entities/car';
+import { useCarQuery } from '@/entities/car';
 import { addOrder, useAddOrderStore } from '@/entities/order';
 import {
   bitcoinImgUrl,
@@ -345,6 +357,8 @@ import {
   securitySafetyImgUrl,
   visaImgUrl,
 } from '@/shared/assets/images';
+import { logError } from '@/shared/lib/log';
+import { calcDiscountPrice } from '@/shared/lib/numbers';
 import { PrivacyPolicyRouteName, ProfileOrderDetailsRouteName, TermsOfServiceRouteName } from '@/shared/model/routes';
 import { Map } from '@/shared/ui/map';
 import { storeToRefs } from 'pinia';
@@ -364,18 +378,19 @@ import Stepper from 'primevue/stepper';
 import { useToast } from 'primevue/usetoast';
 import { useRouter } from 'vue-router';
 
+const props = defineProps<{ id: number }>();
 const router = useRouter();
 const toast = useToast();
-const carStore = useCarStore();
 const orderStore = useAddOrderStore();
 const order = storeToRefs(orderStore);
-const { car } = storeToRefs(carStore);
+const { data: car } = useCarQuery(() => props.id).query();
 
 const submit = orderStore.handleSubmit(async (values) => {
   if (!car.value) {
     toast.add({
       severity: 'error',
       summary: 'Something went wrong',
+      life: 5000,
     });
     return;
   }
@@ -402,7 +417,7 @@ const submit = orderStore.handleSubmit(async (values) => {
       },
       payment: values.payment,
       carId: car.value.id,
-      price: carStore.calcTotalPrice(car.value.price, car.value.discount),
+      price: calcDiscountPrice(car.value.price, car.value.discount),
     },
     throwOnError: false,
   });
@@ -426,7 +441,7 @@ const submit = orderStore.handleSubmit(async (values) => {
     }
   }
 
-  console.error(error);
+  logError(error);
   toast.add({
     severity: 'error',
     summary: 'Order creation failed',

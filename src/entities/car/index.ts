@@ -1,4 +1,4 @@
 export * from './api';
-export { useCarStore } from './model/store';
+export { useCarQuery } from './model/query';
 export * from './model/types';
 export * from './ui';

@@ -50,6 +50,7 @@
   "dependencies": {
     "@dotenvx/dotenvx": "^1.39.1",
     "@hey-api/client-axios": "0.5.1",
+    "@tanstack/vue-query": "^5.76.0",
     "@vee-validate/zod": "^4.15.0",
     "@vueuse/components": "^12.5.0",
     "@vueuse/core": "^12.2.0",

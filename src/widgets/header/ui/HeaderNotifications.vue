@@ -1,5 +1,5 @@
 <template>
-  <Button icon="pi pi-bell" rounded variant="outlined" @click="toggle">
+  <Button icon="pi pi-bell" rounded variant="outlined" @click="togglePopover">
     <template v-if="badge > 0" #icon>
       <OverlayBadge>
         <i class="pi pi-bell" />
@@ -35,19 +35,19 @@ userSocket.on('addNotification', (notification) => {
 });
 
 onMounted(() => {
-  window.addEventListener('scroll', hide);
+  window.addEventListener('scroll', hidePopover);
 });
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', hide);
+  window.removeEventListener('scroll', hidePopover);
 });
 
-function toggle(evt: Event) {
+function togglePopover(evt: Event) {
   badge.value = 0;
   popoverRef.value?.toggle(evt);
 }
 
-function hide() {
+function hidePopover() {
   popoverRef.value?.hide();
 }
 </script>

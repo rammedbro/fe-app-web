@@ -39,6 +39,7 @@
 <script setup lang="ts">
 import { addReview } from '@/entities/review/api';
 import { AddReviewValidationSchema } from '@/entities/review/model/validation';
+import { logError } from '@/shared/lib/log';
 import { toTypedSchema } from '@vee-validate/zod';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
@@ -84,7 +85,7 @@ const submit = handleSubmit(async (values) => {
       setErrors(error.details);
     }
   } else {
-    console.error(error);
+    logError(error);
     toast.add({
       severity: 'error',
       summary: 'Review creation failed',

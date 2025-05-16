@@ -1,5 +1,5 @@
 <template>
-  <section v-intersection-observer.once="([e]: IntersectionObserverEntry[]) => e.isIntersecting && cars.execute()">
+  <section v-intersection-observer.once="([e]: IntersectionObserverEntry[]) => (isVisible = e.isIntersecting)">
     <div class="mb-4 flex items-center justify-between">
       <div class="text-surface-600 dark:text-surface-200">
         <slot name="title">{{ props.title }}</slot>
@@ -10,22 +10,23 @@
 
     <Carousel
       v-bind="props.carousel"
-      :value="cars.state.value"
+      :value="carsAsync.data.value"
       :show-navigators="false"
       content-class="-mx-2 mb-2"
       container-class="overflow-hidden"
     >
-      <template #item="{ data }">
-        <CarCard v-if="cars.isReady.value" v-bind="data as Car" class="mx-2" />
-        <CarCardSkeleton v-else class="mx-2" />
+      <template v-if="carsAsync.isSuccess.value" #item="{ data: item }">
+        <CarCardSkeleton v-if="carsAsync.isPlaceholderData.value" class="mx-2" />
+        <CarCard v-else v-bind="item as Car" class="mx-2" />
       </template>
+
       <template #empty>
         <div class="text-center">
           <p class="mb-4">
             Something went wrong while fetching cars :(<br />
             Try to push button bellow and see what happens!
           </p>
-          <Button label="Retry" class="w-60" @click="cars.execute()" />
+          <Button label="Retry" class="w-60" @click="carsAsync.refetch()" />
         </div>
       </template>
     </Carousel>
@@ -35,49 +36,41 @@
 <script setup lang="ts">
 import { getCarList, type GetCarListOptions } from '@/entities/car/api';
 import type { Car } from '@/entities/car/model/types';
-import { useAsync } from '@/shared/lib/async';
 import { vIntersectionObserver } from '@/shared/lib/dom';
 import { defaultCarouselBreakpoints } from '@/shared/model/breakpoints';
 import { CarListRouteName } from '@/shared/model/routes';
+import { skipToken, useQuery } from '@tanstack/vue-query';
 import Button from 'primevue/button';
 import Carousel, { type CarouselProps } from 'primevue/carousel';
-import { useToast } from 'primevue/usetoast';
 import CarCard from './CarCard.vue';
 import CarCardSkeleton from './CarCardSkeleton.vue';
 
-interface CarCarouselProps {
+interface Props {
   title?: string;
   query?: GetCarListOptions;
   carousel?: CarouselProps;
 }
 
-const props = withDefaults(defineProps<CarCarouselProps>(), {
+const props = withDefaults(defineProps<Props>(), {
+  query: () => ({}),
   carousel: () => ({
     numVisible: 4,
     numScroll: 1,
     responsiveOptions: defaultCarouselBreakpoints,
   }),
 });
-const toast = useToast();
-const cars = useAsync(
-  async () => {
-    const { data, error } = await getCarList<false>({ query: props.query, throwOnError: false });
-
-    if (error) {
-      console.error(error);
-      toast.add({
-        severity: 'error',
-        summary: 'Fetch error',
-        detail: 'Something went wrong while fetching cars.',
-        life: 5000,
-      });
-
-      return [];
-    }
-
-    return data;
-  },
-  new Array(props.carousel.numVisible),
-  { immediate: false }
+const isVisible = ref(false);
+const queryFn = computed(() =>
+  isVisible.value
+    ? async () => {
+        const { data } = await getCarList<true>({ query: props.query });
+        return data;
+      }
+    : skipToken
 );
+const carsAsync = useQuery({
+  queryKey: ['cars', props.query],
+  queryFn,
+  placeholderData: Array(props.carousel.numVisible),
+});
 </script>

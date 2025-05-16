@@ -10,8 +10,8 @@ export function renderError(to: RouteLocationNormalized, status?: number): Route
   };
 }
 
-export function validateRoute(to: RouteLocationNormalized, status?: number): NavigationGuardReturn {
-  if (status === 200) {
+export function validateRoute(to: RouteLocationNormalized, status: number = 500): NavigationGuardReturn {
+  if (status < 300) {
     return true;
   }
 
