@@ -1,4 +1,5 @@
 import dotenv from '@dotenvx/dotenvx';
+import vueI18n from '@intlify/unplugin-vue-i18n/vite';
 import tailwindcss from '@tailwindcss/vite';
 import vue from '@vitejs/plugin-vue';
 import jsx from '@vitejs/plugin-vue-jsx';
@@ -77,6 +78,10 @@ export default defineConfig(() => {
         dts: './src/app/ambient/auto-imports.d.ts',
       }),
       tailwindcss(),
+      vueI18n({
+        include: './src/**/i18n/messages.json',
+        fullInstall: false,
+      }),
     ],
     server: {
       proxy: {

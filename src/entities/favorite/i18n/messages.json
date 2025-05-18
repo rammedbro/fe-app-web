@@ -1,0 +1,22 @@
+{
+  "en": {
+    "entities": {
+      "favorite": {
+        "buttons": {
+          "add": "Add to favorites",
+          "del": "Delete from favorites"
+        }
+      }
+    }
+  },
+  "ru": {
+    "entities": {
+      "favorite": {
+        "buttons": {
+          "add": "Добавить в избранное",
+          "del": "Удалить из избранного"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "en": {
+    "shared": {
+      "entities": {
+        "car": "авто",
+        "review": "отзыв | отзывы"
+      },
+      "buttons": {
+        "reload": "Reload",
+        "view-all": "View All",
+        "clear": "Clear"
+      },
+      "messages": {
+        "error": {
+          "fetch": "Something went wrong while fetching data :("
+        },
+        "info": {
+          "empty": "There are no {0} available for your search :("
+        }
+      }
+    }
+  },
+  "ru": {
+    "shared": {
+      "entities": {
+        "car": "авто",
+        "review": "отзыв | отзывы"
+      },
+      "buttons": {
+        "reload": "Перезагрузить",
+        "view-all": "Смотреть все",
+        "clear": "Очистить"
+      },
+      "messages": {
+        "error": {
+          "fetch": "Что-то пошло не так во время загрузки данных :("
+        },
+        "info": {
+          "empty": "Не нашлось ни одной {0} удовлетворяющей результатам поиска :("
+        }
+      }
+    }
+  }
+}

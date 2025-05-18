@@ -1,0 +1,262 @@
+{
+  "en": {
+    "pages": {
+      "cars/@id/payment": {
+        "title": "Order creation",
+        "form": {
+          "sections": {
+            "billing-info": {
+              "title": "Billing Info",
+              "subtitle": "Please enter your billing info",
+              "step": "Step 1 of 4",
+              "inputs": {
+                "name": {
+                  "label": "Name",
+                  "placeholder": "John Smith"
+                },
+                "phone": {
+                  "label": "Phone"
+                },
+                "address": {
+                  "label": "Address",
+                  "placeholder": "2050 Reedy Creek Place"
+                },
+                "city": {
+                  "label": "City",
+                  "placeholder": "Santa Barbara"
+                }
+              }
+            },
+            "rental-info": {
+              "title": "Rental Info",
+              "subtitle": "Please select your rental date",
+              "step": "Step 2 of 4",
+              "sections": {
+                "pickup": {
+                  "title": "Pick Up",
+                  "inputs": {
+                    "location": {
+                      "label": "Location"
+                    },
+                    "date": {
+                      "label": "Date"
+                    },
+                    "time": {
+                      "label": "Time"
+                    }
+                  }
+                },
+                "dropoff": {
+                  "title": "Drop Off",
+                  "inputs": {
+                    "location": {
+                      "label": "Location"
+                    },
+                    "date": {
+                      "label": "Date"
+                    },
+                    "time": {
+                      "label": "Time"
+                    }
+                  }
+                }
+              }
+            },
+            "payment-method": {
+              "title": "Payment Method",
+              "subtitle": "Please enter your payment method",
+              "step": "Step 3 of 4",
+              "inputs": {
+                "card-number": {
+                  "label": "Card Number"
+                },
+                "card-expires": {
+                  "label": "Card Expires"
+                },
+                "card-cvc": {
+                  "label": "CVC"
+                }
+              }
+            },
+            "confirmation": {
+              "title": "Confirmation",
+              "subtitle": "We are getting to the end. Just few clicks and your rental is ready!",
+              "step": "Step 4 of 4",
+              "inputs": {
+                "newsletter": {
+                  "label": "I agree with sending marketing and newsletter emails"
+                },
+                "policies": {
+                  "label": "I agree with our {terms} and {policy}"
+                }
+              }
+            },
+            "data-safety": {
+              "title": "All your data are safe",
+              "subtitle": "We are using the most advanced security to provide you the best experience ever."
+            }
+          },
+          "buttons": {
+            "submit": "Rent Now"
+          },
+          "links": {
+            "terms": "Terms and Conditions",
+            "policy": "Privacy Policy"
+          },
+          "messages": {
+            "success": {
+              "message": "Order creation succeeded",
+              "details": "Lets go see current order details on the dashboard"
+            },
+            "error": {
+              "500": {
+                "message": "Order creation failed",
+                "details": "Something went wrong while booking you a car"
+              }
+            }
+          }
+        },
+        "aside": {
+          "title": "Rental Summary",
+          "subtitle": "Prices may change depending on the length of the rental and the price of your rental car.",
+          "sections": {
+            "price": {
+              "title": "Total Price",
+              "subtitle": "Overall price including discount"
+            }
+          }
+        }
+      }
+    }
+  },
+  "ru": {
+    "pages": {
+      "cars/@id/payment": {
+        "title": "Оформление заказа",
+        "form": {
+          "sections": {
+            "billing-info": {
+              "title": "Данные заказчика",
+              "subtitle": "Пожалуйста введите ваши данные",
+              "step": "Шаг 1 из 4",
+              "inputs": {
+                "name": {
+                  "label": "Имя",
+                  "placeholder": "Иван Петров"
+                },
+                "phone": {
+                  "label": "Телефон"
+                },
+                "address": {
+                  "label": "Адрес",
+                  "placeholder": "ул. Ленина д. 15 кв. 3"
+                },
+                "city": {
+                  "label": "Город",
+                  "placeholder": "Санкт-Петербург"
+                }
+              }
+            },
+            "rental-info": {
+              "title": "Данные аренды",
+              "subtitle": "Пожалуйста введите данные аренды",
+              "step": "Шаг 2 из 4",
+              "sections": {
+                "pickup": {
+                  "title": "Заберу",
+                  "inputs": {
+                    "location": {
+                      "label": "Локация"
+                    },
+                    "date": {
+                      "label": "Дата"
+                    },
+                    "time": {
+                      "label": "Время"
+                    }
+                  }
+                },
+                "dropoff": {
+                  "title": "Оставлю",
+                  "inputs": {
+                    "location": {
+                      "label": "Локация"
+                    },
+                    "date": {
+                      "label": "Дата"
+                    },
+                    "time": {
+                      "label": "Время"
+                    }
+                  }
+                }
+              }
+            },
+            "payment-method": {
+              "title": "Данные оплаты",
+              "subtitle": "Пожалуйста введите данные оплаты",
+              "step": "Шаг 3 из 4",
+              "inputs": {
+                "card-number": {
+                  "label": "Номер карты"
+                },
+                "card-expires": {
+                  "label": "Срок действия"
+                },
+                "card-cvc": {
+                  "label": "CVC"
+                }
+              }
+            },
+            "confirmation": {
+              "title": "Подтверждение",
+              "subtitle": "Мы приближаемся к концу. Всего несколько кликов и ваша аренда готова!",
+              "step": "Шаг 4 из 4",
+              "inputs": {
+                "newsletter": {
+                  "label": "Я согласен на отправку маркетинговых и информационных писем"
+                },
+                "policies": {
+                  "label": "Я согласен с {terms} и {policy}"
+                }
+              }
+            },
+            "data-safety": {
+              "title": "Ваши данные в безопасности",
+              "subtitle": "Мы используем передовые средства безопасности для ваших лучших впечатлений."
+            }
+          },
+          "buttons": {
+            "submit": "Оформить"
+          },
+          "links": {
+            "terms": "Условиями и положениями",
+            "policy": "Политикой конфиденциальности"
+          },
+          "messages": {
+            "success": {
+              "message": "Успешное создание заказа",
+              "details": "Следить за текущем заказом можно на панели управления"
+            },
+            "error": {
+              "500": {
+                "message": "Ошибка создания заказа",
+                "details": "Что-то пошло не так во время создания заказа"
+              }
+            }
+          }
+        },
+        "aside": {
+          "title": "Данные авто",
+          "subtitle": "Цены могут меняться в зависимости от длительности аренды и стоимости арендованного вами автомобиля.",
+          "sections": {
+            "price": {
+              "title": "Финальная цена",
+              "subtitle": "Итоговая цена с учетом скидки"
+            }
+          }
+        }
+      }
+    }
+  }
+}

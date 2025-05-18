@@ -1,0 +1,58 @@
+{
+  "en": {
+    "pages": {
+      "home": {
+        "sections": {
+          "banners": {
+            "items": [
+              {
+                "title": "The Best Platform For Car Rental",
+                "desc": "Ease of doing a car rental safely and reliably. Of course at a low price.",
+                "button": "Rent a car"
+              },
+              {
+                "title": "Easy way to rent a car at a low price",
+                "desc": "Providing cheap car rental services and safe and comfortable facilities.",
+                "button": "Have a dream"
+              }
+            ]
+          },
+          "popular-cars": {
+            "title": "Popular cars"
+          },
+          "cheap-cars": {
+            "title": "Cheap cars"
+          }
+        }
+      }
+    }
+  },
+  "ru": {
+    "pages": {
+      "home": {
+        "sections": {
+          "banners": {
+            "items": [
+              {
+                "title": "Лучшая платформа для аренды авто",
+                "desc": "Легкое оформление аренды автомобиля. Конечно, по низкой цене.",
+                "button": "Оформи заказ"
+              },
+              {
+                "title": "Легкий способ арендовать авто",
+                "desc": "Недорогие услуги по прокату автомобилей на комфортных условиях.",
+                "button": "Управляй мечтой"
+              }
+            ]
+          },
+          "popular-cars": {
+            "title": "Популярные авто"
+          },
+          "cheap-cars": {
+            "title": "Недорогие авто"
+          }
+        }
+      }
+    }
+  }
+}

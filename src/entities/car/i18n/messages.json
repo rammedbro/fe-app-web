@@ -1,0 +1,100 @@
+{
+  "en": {
+    "entities": {
+      "car": {
+        "buttons": {
+          "order": "Rent Now"
+        },
+        "fields": {
+          "brand": {
+            "label": "Brand"
+          },
+          "model": {
+            "label": "Model"
+          },
+          "rating": {
+            "label": "Rating"
+          },
+          "type": {
+            "label": "Type"
+          },
+          "steering": {
+            "label": "Steering",
+            "values": {
+              "Manual": "Manual",
+              "Auto": "Auto"
+            }
+          },
+          "capacity": {
+            "label": "Capacity",
+            "value": "{0} People"
+          },
+          "gasoline": {
+            "label": "Gasoline",
+            "value": "{0}L"
+          },
+          "price": {
+            "label": "Price",
+            "value": "${0}"
+          },
+          "discount": {
+            "label": "Discount"
+          },
+          "views": {
+            "label": "Views",
+            "value": "{0} Views"
+          }
+        }
+      }
+    }
+  },
+  "ru": {
+    "entities": {
+      "car": {
+        "buttons": {
+          "order": "Оформить"
+        },
+        "fields": {
+          "brand": {
+            "label": "Марка"
+          },
+          "model": {
+            "label": "Модель"
+          },
+          "rating": {
+            "label": "Рейтинг"
+          },
+          "type": {
+            "label": "Тип"
+          },
+          "steering": {
+            "label": "Коробка",
+            "values": {
+              "Manual": "Механика",
+              "Auto": "Автомат"
+            }
+          },
+          "capacity": {
+            "label": "Вместимость",
+            "value": "{0} Чел"
+          },
+          "gasoline": {
+            "label": "Двигатель",
+            "value": "{0}Л"
+          },
+          "price": {
+            "label": "Цена",
+            "value": "${0}"
+          },
+          "discount": {
+            "label": "Скидка"
+          },
+          "views": {
+            "label": "Просмотры",
+            "value": "{0} Просмотр | {0} Просмотров"
+          }
+        }
+      }
+    }
+  }
+}

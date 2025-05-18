@@ -1,0 +1,76 @@
+{
+  "en": {
+    "pages": {
+      "sign-in": {
+        "title": "Sign in",
+        "form": {
+          "inputs": {
+            "login": {
+              "label": "Login"
+            },
+            "password": {
+              "label": "Password"
+            }
+          },
+          "buttons": {
+            "submit": "Sign in",
+            "sign-up": "Sign up"
+          },
+          "messages": {
+            "success": {
+              "message": "Login successful",
+              "details": "Lets go to the dashboard"
+            },
+            "error": {
+              "401": {
+                "message": "Login failed",
+                "details": "Invalid login or password"
+              },
+              "500": {
+                "message": "Login failed",
+                "details": "Something went wrong while letting you in"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "ru": {
+    "pages": {
+      "sign-in": {
+        "title": "Вход",
+        "form": {
+          "inputs": {
+            "login": {
+              "label": "Логин"
+            },
+            "password": {
+              "label": "Пароль"
+            }
+          },
+          "buttons": {
+            "submit": "Войти",
+            "sign-up": "Регистрация"
+          },
+          "messages": {
+            "success": {
+              "message": "Успешный вход",
+              "details": "Переходим в панель управления"
+            },
+            "error": {
+              "401": {
+                "message": "Ошибка входа",
+                "details": "Неправильный логин или пароль"
+              },
+              "500": {
+                "message": "Ошибка входа",
+                "details": "Что-то пошло не так во время входа"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

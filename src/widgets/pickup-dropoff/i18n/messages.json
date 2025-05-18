@@ -1,0 +1,88 @@
+{
+  "en": {
+    "widgets": {
+      "pickup-dropoff": {
+        "buttons": {
+          "swap": "Swap pickup/dropoff points"
+        },
+        "pickup": {
+          "title": "Pick - Up",
+          "inputs": {
+            "location": {
+              "label": "Location",
+              "placeholder": "Select your city"
+            },
+            "date": {
+              "label": "Date",
+              "placeholder": "Select your date"
+            },
+            "time": {
+              "label": "Time",
+              "placeholder": "Select your time"
+            }
+          }
+        },
+        "dropoff": {
+          "title": "Drop - Off",
+          "inputs": {
+            "location": {
+              "label": "Location",
+              "placeholder": "Select your city"
+            },
+            "date": {
+              "label": "Date",
+              "placeholder": "Select your date"
+            },
+            "time": {
+              "label": "Time",
+              "placeholder": "Select your time"
+            }
+          }
+        }
+      }
+    }
+  },
+  "ru": {
+    "widgets": {
+      "pickup-dropoff": {
+        "buttons": {
+          "swap": "Поменять точки заберу/оставлю местами"
+        },
+        "pickup": {
+          "title": "Заберу",
+          "inputs": {
+            "location": {
+              "label": "Локация",
+              "placeholder": "Выберите город"
+            },
+            "date": {
+              "label": "Дата",
+              "placeholder": "Выберите дату"
+            },
+            "time": {
+              "label": "Время",
+              "placeholder": "Выберите время"
+            }
+          }
+        },
+        "dropoff": {
+          "title": "Оставлю",
+          "inputs": {
+            "location": {
+              "label": "Локация",
+              "placeholder": "Выберите город"
+            },
+            "date": {
+              "label": "Дата",
+              "placeholder": "Выберите дату"
+            },
+            "time": {
+              "label": "Время",
+              "placeholder": "Выберите время"
+            }
+          }
+        }
+      }
+    }
+  }
+}

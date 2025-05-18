@@ -4,12 +4,14 @@ import { primevue } from '@/app/providers/primevue';
 import { router } from '@/app/providers/router';
 import App from '@/app/ui/App.vue';
 import { createApp } from 'vue';
+import { i18n } from './app/providers/i18n';
 import { query } from './app/providers/query';
 
 const app = createApp(App)
   .use(pinia)
   .use(query, { enableDevtoolsV6Plugin: true })
   .use(router)
+  .use(i18n)
   .use(api, { url: import.meta.env.API_PATH })
   .use(primevue, {
     theme: 'none',

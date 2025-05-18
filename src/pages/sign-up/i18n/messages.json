@@ -1,0 +1,82 @@
+{
+  "en": {
+    "pages": {
+      "sign-up": {
+        "title": "Sign up",
+        "form": {
+          "inputs": {
+            "email": {
+              "label": "Email"
+            },
+            "password": {
+              "label": "Password"
+            },
+            "confirm": {
+              "label": "Confirm"
+            }
+          },
+          "buttons": {
+            "submit": "Sign up",
+            "sign-in": "Sign in"
+          },
+          "messages": {
+            "success": {
+              "message": "Account successfully created",
+              "details": "Lets go sign in to it"
+            },
+            "error": {
+              "409": {
+                "message": "Account creation failed",
+                "details": "User with such fields as {fields} already exists"
+              },
+              "500": {
+                "message": "Account creation failed",
+                "details": "Something went wrong while creating your account"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "ru": {
+    "pages": {
+      "sign-up": {
+        "title": "Регистрация",
+        "form": {
+          "inputs": {
+            "email": {
+              "label": "Email"
+            },
+            "password": {
+              "label": "Пароль"
+            },
+            "confirm": {
+              "label": "Подтверждение"
+            }
+          },
+          "buttons": {
+            "submit": "Создать",
+            "sign-in": "Войти"
+          },
+          "messages": {
+            "success": {
+              "message": "Аккаунт успешно создан",
+              "details": "Теперь в него можно войти"
+            },
+            "error": {
+              "409": {
+                "message": "Ошибка создания аккаунта",
+                "details": "Пользователь с такими полями как {fields} уже существует"
+              },
+              "500": {
+                "message": "Ошибка создания аккаунта",
+                "details": "Что-то пошло не так во время создания аккаунта"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

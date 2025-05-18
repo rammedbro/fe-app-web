@@ -1,0 +1,68 @@
+{
+  "en": {
+    "entities": {
+      "notification": {
+        "list": {
+          "slots": {
+            "item": {
+              "type": {
+                "user-created": {
+                  "title": "Hey there! Glad that you are with us now 😄",
+                  "text": "Don't forget to check your {dashboard} after you make your first order! And in the {settings} you can tune the site visuals. Have fun!",
+                  "links": {
+                    "dashboard": "Dashboard",
+                    "settings": "Settings"
+                  }
+                },
+                "order-created": {
+                  "title": "Order {id} has been planted 💣",
+                  "text": "Thank you for choosing our 'real' service. Now you can check your {dashboard} or see the details on the {order} page",
+                  "links": {
+                    "dashboard": "Dashboard",
+                    "order": "Order's"
+                  }
+                }
+              }
+            },
+            "empty": {
+              "text": "You have no notifications. Maybe it's time to do something on the site? 😉!"
+            }
+          }
+        }
+      }
+    }
+  },
+  "ru": {
+    "entities": {
+      "notification": {
+        "list": {
+          "slots": {
+            "item": {
+              "type": {
+                "user-created": {
+                  "title": "Салют! Рады что ты теперь с нами 😄",
+                  "text": "Не забудь проверить {dashboard} после того, как сделаешь первый заказ! А в {settings} можно поменять вид сайта. Хорошего дня!",
+                  "links": {
+                    "dashboard": "Панель управления",
+                    "settings": "Настройках"
+                  }
+                },
+                "order-created": {
+                  "title": "Заказ {id} установлен 💣",
+                  "text": "Спасибо, что используете наш 'настоящий' сервис. Следить за заказом можно в {dashboard} или на детальной странице {order}",
+                  "links": {
+                    "dashboard": "Панели управления",
+                    "order": "Заказа"
+                  }
+                }
+              }
+            },
+            "empty": {
+              "text": "Уведомлений пока не поступало. Может стоит что-нибудь поделать на сайте? 😉"
+            }
+          }
+        }
+      }
+    }
+  }
+}

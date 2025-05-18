@@ -1,6 +1,6 @@
 <template>
   <div class="flex">
-    <CarListAside v-model:visible="isDrawerVisible" v-model:filter="filter" />
+    <CarListAside v-model:visible="isDrawerVisible" v-model:filter="filter" :title="t('pages.cars.aside.title')" />
 
     <div class="flex-1 px-4 py-8 xl:px-8">
       <div class="md:flex md:justify-center">
@@ -21,7 +21,9 @@
             <Popover ref="sortByPopoverRef">
               <ListBox
                 v-model="sortBy"
-                :options="['brand', 'model', 'rating', 'price', 'gasoline']"
+                :options="sortByListOptions"
+                option-label="label"
+                option-value="value"
                 multiple
                 checkmark
                 class="border-0 shadow-none"
@@ -37,11 +39,8 @@
             <CarCard v-for="car in cars" :key="car.id" v-bind="car" />
           </template>
           <div v-else class="col-span-full text-center">
-            <p class="mb-4">
-              There are no cars available for your search :(<br />
-              Try to clear set options by pushing button bellow!
-            </p>
-            <Button label="Clear" class="w-60" @click="clearOptions" />
+            <p class="mb-4">{{ t('shared.messages.info.empty') }}</p>
+            <Button :label="t('shared.buttons.clear')" class="w-60" @click="clearOptions" />
           </div>
         </template>
 
@@ -50,11 +49,8 @@
         </template>
 
         <div v-if="carsAsync.isError.value" class="col-span-full text-center">
-          <p class="mb-4">
-            Something went wrong while fetching cars :(<br />
-            Try to push button bellow and see what happens!
-          </p>
-          <Button label="Retry" class="w-60" @click="carsAsync.refetch()" />
+          <p class="mb-4">{{ t('shared.messages.error.fetch') }}</p>
+          <Button :label="t('shared.buttons.reload')" class="w-60" @click="carsAsync.refetch()" />
         </div>
       </div>
 
@@ -72,7 +68,8 @@
 </template>
 
 <script setup lang="ts">
-import { CarCard, CarCardSkeleton, getCarList, GetCarListOptions } from '@/entities/car';
+import { CarCard, CarCardSkeleton, getCarList, GetCarListOptions, mergeCarMessages } from '@/entities/car';
+import messages from '@/pages/cars/i18n/messages.json';
 import { ensureArray } from '@/shared/lib/objects';
 import { useRouteQuery } from '@/shared/lib/router/useRouteQuery';
 import { defaultBreakpoints } from '@/shared/model/breakpoints';
@@ -84,9 +81,11 @@ import Button from 'primevue/button';
 import ListBox from 'primevue/listbox';
 import Paginator, { type PageState } from 'primevue/paginator';
 import Popover, { type PopoverMethods } from 'primevue/popover';
+import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 import CarListAside from './Aside.vue';
 
+const { t } = useI18n({ messages: mergeCarMessages(messages) });
 const router = useRouter();
 const route = useRoute();
 const itemsRef = ref<HTMLDivElement | null>(null);
@@ -119,6 +118,13 @@ const cars = computed(() => carsAsync.data.value?.data || []);
 const totalCount = computed(() => Number(carsAsync.data.value?.headers['x-total-count'] || 0));
 const breakpoints = useBreakpoints(defaultBreakpoints);
 const isDrawerVisible = ref(false);
+const sortByListOptions = computed(() => [
+  { label: t('entities.car.fields.brand.label'), value: 'brand' },
+  { label: t('entities.car.fields.model.label'), value: 'model' },
+  { label: t('entities.car.fields.rating.label'), value: 'rating' },
+  { label: t('entities.car.fields.gasoline.label'), value: 'gasoline' },
+  { label: t('entities.car.fields.price.label'), value: 'price' },
+]);
 
 function onUpdatePaginatorState(state: PageState) {
   router.push({

@@ -1,9 +1,12 @@
 <template>
   <section class="flex flex-1 flex-col gap-4 md:gap-8">
-    <div class="text-xl font-bold">Current Rent</div>
+    <div class="text-xl font-bold">{{ t('pages.profile/dashboard.sections.current-rent.title') }}</div>
 
     <template v-if="orderAsync.isSuccess.value && order">
-      <Map class="p-panel h-100 w-full rounded-lg">
+      <Map
+        :center="[order.pickup.location.latitude, order.pickup.location.longitude]"
+        class="p-panel h-100 w-full rounded-lg"
+      >
         <LMarker
           :model-value="[order.pickup.location.latitude, order.pickup.location.longitude]"
           :popup="{ content: 'Pickup point' }"
@@ -44,7 +47,9 @@
         <div class="flex flex-col gap-2 md:flex-row md:justify-around">
           <div class="pulse-dot my-auto" />
           <div>
-            <div class="mb-2 font-semibold">Location</div>
+            <div class="mb-2 font-semibold">
+              {{ t('pages.profile/dashboard.sections.current-rent.pickup.location') }}
+            </div>
             <div class="text-surface-400">
               {{ order.pickup.location.latitude.toFixed(4) }},
               {{ order.pickup.location.longitude.toFixed(4) }}
@@ -52,12 +57,16 @@
           </div>
           <div :class="{ 'p-divider-vertical': breakpoints.md.value }" />
           <div>
-            <div class="mb-2 font-semibold">Date</div>
+            <div class="mb-2 font-semibold">
+              {{ t('pages.profile/dashboard.sections.current-rent.pickup.date') }}
+            </div>
             <div class="text-surface-400">{{ new Date(order.pickup.date).toLocaleDateString() }}</div>
           </div>
           <div :class="{ 'p-divider-vertical': breakpoints.md.value }" />
           <div>
-            <div class="mb-2 font-semibold">Time</div>
+            <div class="mb-2 font-semibold">
+              {{ t('pages.profile/dashboard.sections.current-rent.pickup.time') }}
+            </div>
             <div class="text-surface-400">{{ new Date(order.pickup.date).toLocaleTimeString() }}</div>
           </div>
         </div>
@@ -65,7 +74,9 @@
         <div class="flex flex-col gap-2 md:flex-row md:justify-around">
           <div class="pulse-dot my-auto" />
           <div>
-            <div class="mb-2 font-semibold">Location</div>
+            <div class="mb-2 font-semibold">
+              {{ t('pages.profile/dashboard.sections.current-rent.pickup.location') }}
+            </div>
             <div class="text-surface-400">
               {{ order.dropoff.location.latitude.toFixed(4) }},
               {{ order.dropoff.location.longitude.toFixed(4) }}
@@ -73,12 +84,16 @@
           </div>
           <div :class="{ 'p-divider-vertical': breakpoints.md.value }" />
           <div>
-            <div class="mb-2 font-semibold">Date</div>
+            <div class="mb-2 font-semibold">
+              {{ t('pages.profile/dashboard.sections.current-rent.pickup.date') }}
+            </div>
             <div class="text-surface-400">{{ new Date(order.dropoff.date).toLocaleDateString() }}</div>
           </div>
           <div :class="{ 'p-divider-vertical': breakpoints.md.value }" />
           <div>
-            <div class="mb-2 font-semibold">Time</div>
+            <div class="mb-2 font-semibold">
+              {{ t('pages.profile/dashboard.sections.current-rent.pickup.time') }}
+            </div>
             <div class="text-surface-400">{{ new Date(order.dropoff.date).toLocaleTimeString() }}</div>
           </div>
         </div>
@@ -88,8 +103,10 @@
 
       <div class="flex items-center justify-between gap-4">
         <div>
-          <div class="text-xl font-bold">Total Rental Price</div>
-          <div class="text-sm text-surface-400">Overall price and includes rental discount</div>
+          <div class="text-xl font-bold">{{ t('pages.profile/dashboard.sections.current-rent.price.title') }}</div>
+          <div class="text-sm text-surface-400">
+            {{ t('pages.profile/dashboard.sections.current-rent.price.subtitle') }}
+          </div>
         </div>
 
         <div class="text-4xl font-bold">${{ order.price }}</div>
@@ -109,18 +126,15 @@
     </template>
 
     <div v-if="orderAsync.isError.value" class="text-center">
-      <p class="mb-4">
-        There is no current rent :(<br />
-        Click the button below and chose your first drive!
-      </p>
-
-      <Button as="router-link" :to="{ name: CarListRouteName }" label="Rent now" class="w-full" />
+      <p class="mb-4">{{ t('shared.messages.error.fetch') }}</p>
+      <Button as="router-link" :to="{ name: CarListRouteName }" :label="t('shared.buttons.order')" class="w-full" />
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
 import { getCurrentOrder, OrderCardSkeleton } from '@/entities/order';
+import messages from '@/pages/profile/routes/dashboard/i18n/messages.json';
 import { noImgUrl } from '@/shared/assets/images';
 import { useAsync } from '@/shared/lib/async/useAsync';
 import { defaultBreakpoints } from '@/shared/model/breakpoints';
@@ -130,7 +144,9 @@ import { LMarker, LPolyline, Map } from '@/shared/ui/map';
 import { UseImage } from '@vueuse/components';
 import { useBreakpoints } from '@vueuse/core';
 import Button from 'primevue/button';
+import { useI18n } from 'vue-i18n';
 
+const { t } = useI18n({ messages });
 const breakpoints = useBreakpoints(defaultBreakpoints);
 const orderAsync = useAsync(
   async () => {

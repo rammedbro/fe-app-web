@@ -1,0 +1,26 @@
+{
+  "en": {
+    "pages": {
+      "_error": {
+        "title": "Oops! {status} 😢",
+        "messages": {
+          "404": "This page doesn't exist.",
+          "500": "An unexpected error occurred."
+        },
+        "link": "Go Back Home"
+      }
+    }
+  },
+  "ru": {
+    "pages": {
+      "_error": {
+        "title": "Упс! {status} 😢",
+        "messages": {
+          "404": "Такой страницы не существует.",
+          "500": "Возникла непредвиденная ошибка."
+        },
+        "link": "На главную"
+      }
+    }
+  }
+}

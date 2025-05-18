@@ -1,0 +1,64 @@
+{
+  "en": {
+    "widgets": {
+      "footer": {
+        "text": "Our vision is to provide convenience and help increase your sales business.",
+        "menus": {
+          "about": {
+            "title": "About",
+            "items": {
+              "how-it-works": "How it works",
+              "features": "Features",
+              "partnership": "Partnership",
+              "business": "Business"
+            }
+          },
+          "community": {
+            "title": "Community",
+            "items": { "events": "Events", "blog": "Blog", "podcast": "Podcast", "invite-a-friend": "Invite a friend" }
+          },
+          "socials": {
+            "title": "Socials",
+            "items": { "discord": "Discord", "instagram": "Instagram", "twitter": "Twitter", "facebook": "Facebook" }
+          }
+        },
+        "bottom": {
+          "all-rights-reserved": "{year} MORENT. All rights reserved",
+          "privacy-policy": "Privacy policy",
+          "terms-and-conditions": "Terms & Conditions"
+        }
+      }
+    }
+  },
+  "ru": {
+    "widgets": {
+      "footer": {
+        "text": "Наша цель — обеспечить удобство и помочь увеличить объемы продаж вашего бизнеса.",
+        "menus": {
+          "about": {
+            "title": "О нас",
+            "items": {
+              "how-it-works": "Как мы работаем",
+              "features": "Особенности",
+              "partnership": "Партнерство",
+              "business": "Бизнес"
+            }
+          },
+          "community": {
+            "title": "Сообщество",
+            "items": { "events": "События", "blog": "Блог", "podcast": "Подкаст", "invite-a-friend": "Пригласи друга" }
+          },
+          "socials": {
+            "title": "Соцсети",
+            "items": { "discord": "Discord", "instagram": "Instagram", "twitter": "Twitter", "facebook": "Facebook" }
+          }
+        },
+        "bottom": {
+          "all-rights-reserved": "{year} MORENT. Все права защищены",
+          "privacy-policy": "Политика кофиденциальности",
+          "terms-and-conditions": "Условия и положения"
+        }
+      }
+    }
+  }
+}

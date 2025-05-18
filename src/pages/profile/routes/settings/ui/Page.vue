@@ -1,21 +1,32 @@
 <template>
   <div class="p-card mx-auto grid gap-4 p-8 lg:container">
-    <div class="flex items-center justify-between">
-      <label class="text-lg">Dark Mode</label>
-      <ToggleSwitch v-model="darkMode" />
-    </div>
+    <h1 class="mb-12 text-3xl font-bold">{{ t('pages.profile/settings.title') }}</h1>
 
     <div class="flex items-center justify-between">
-      <label class="text-lg">Sticky Header</label>
+      <label class="text-lg">{{ t('pages.profile/settings.inputs.dark-mode.label') }}</label>
+      <ToggleSwitch v-model="darkMode" />
+    </div>
+    <div class="flex items-center justify-between">
+      <label class="text-lg">{{ t('pages.profile/settings.inputs.sticky-header.label') }}</label>
       <ToggleSwitch v-model="stickyHeader" />
+    </div>
+    <div class="flex items-center justify-between">
+      <label class="text-lg">{{ t('pages.profile/settings.inputs.language.label') }}</label>
+      <Select v-model="locale" :options="Object.values(locales)" class="w-60" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useSettingsStore } from '@/entities/settings';
+import messages from '@/pages/profile/routes/settings/i18n/messages.json';
+import { locales } from '@/shared/model/locales';
 import { storeToRefs } from 'pinia';
+import Select from 'primevue/select';
 import ToggleSwitch from 'primevue/toggleswitch';
+import { useI18n } from 'vue-i18n';
 
-const { darkMode, stickyHeader } = storeToRefs(useSettingsStore());
+const { t } = useI18n({ messages });
+const settingsStore = useSettingsStore();
+const { darkMode, stickyHeader, locale } = storeToRefs(settingsStore);
 </script>

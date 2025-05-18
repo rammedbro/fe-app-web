@@ -1,5 +1,6 @@
 import { breakpointsTailwind } from '@vueuse/core';
 
+export type Breakpoint = keyof typeof defaultBreakpoints;
 export const defaultBreakpoints = breakpointsTailwind;
 export const defaultCarouselBreakpoints = [
   { breakpoint: `${breakpointsTailwind['2xl'] - 1}px`, numVisible: 3, numScroll: 1 },

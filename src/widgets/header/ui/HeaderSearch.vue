@@ -3,7 +3,7 @@
     <span class="p-inputicon pi pi-search" />
     <InputText
       v-model="searchInput"
-      placeholder="e.g. Audi A4 or BMW M5"
+      :placeholder="t('header.search.placeholder')"
       class="w-full rounded-full"
       @keyup.enter="search"
     />
@@ -14,9 +14,12 @@
 
 <script setup lang="ts">
 import { CarListRouteName } from '@/shared/model/routes';
+import messages from '@/widgets/header/i18n/messages.json';
 import InputText from 'primevue/inputtext';
+import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 
+const { t } = useI18n({ messages });
 const route = useRoute();
 const router = useRouter();
 const searchInput = ref('');

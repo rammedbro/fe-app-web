@@ -1,0 +1,74 @@
+{
+  "en": {
+    "entities": {
+      "review": {
+        "form": {
+          "inputs": {
+            "title": {
+              "label": "Title",
+              "placeholder": "What a great car!"
+            },
+            "rating": {
+              "label": "Rating"
+            },
+            "text": {
+              "label": "Text",
+              "placeholder": "Tell us your thoughts..."
+            }
+          },
+          "buttons": {
+            "submit": "Send"
+          },
+          "messages": {
+            "success": {
+              "message": "Review creation succeeded",
+              "details": "Thanks for your feedback"
+            },
+            "error": {
+              "500": {
+                "message": "Review creation failed",
+                "details": "Something went wrong while publishing your review"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "ru": {
+    "entities": {
+      "review": {
+        "form": {
+          "inputs": {
+            "title": {
+              "label": "Заголовок",
+              "placeholder": "Ну что за машина!"
+            },
+            "rating": {
+              "label": "Оценка"
+            },
+            "text": {
+              "label": "Текст",
+              "placeholder": "Поделитесь своими мыслями..."
+            }
+          },
+          "buttons": {
+            "submit": "Отправить"
+          },
+          "messages": {
+            "success": {
+              "message": "Отзыв добавлен успешно",
+              "details": "Спасибо за обратную связь"
+            },
+            "error": {
+              "500": {
+                "message": "Ошибка добавления отзыва",
+                "details": "Что-то пошло не так во время добавления отзыва"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

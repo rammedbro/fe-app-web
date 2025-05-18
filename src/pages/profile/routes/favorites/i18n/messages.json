@@ -1,0 +1,32 @@
+{
+  "en": {
+    "pages": {
+      "profile/favorites": {
+        "title": "Favorites",
+        "list": {
+          "slots": {
+            "empty": {
+              "text": "There is no a single car in your favorites :(",
+              "button": "Look for a car"
+            }
+          }
+        }
+      }
+    }
+  },
+  "ru": {
+    "pages": {
+      "profile/favorites": {
+        "title": "Избранное",
+        "list": {
+          "slots": {
+            "empty": {
+              "text": "There is no a single car in your favorites :(",
+              "button": "Подобрать машину"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -9,8 +9,7 @@
   --color-error: var(--color-red-600);
   --color-warning: var(--color-yellow-500);
 
-  --font-logo: 'Titillium Web', 'sans-serif';
-  --font-body: 'Plus Jakarta Sans', 'serif';
+  --font-body: 'Wix Madefor Display', 'sans-serif';
 
   --breakpoint-sm: 640px;
   --breakpoint-md: 768px;

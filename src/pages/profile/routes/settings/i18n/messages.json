@@ -1,0 +1,38 @@
+{
+  "en": {
+    "pages": {
+      "profile/settings": {
+        "title": "Settings",
+        "inputs": {
+          "dark-mode": {
+            "label": "Dark mode"
+          },
+          "sticky-header": {
+            "label": "Sticky header"
+          },
+          "language": {
+            "label": "Language"
+          }
+        }
+      }
+    }
+  },
+  "ru": {
+    "pages": {
+      "profile/settings": {
+        "title": "Настройки",
+        "inputs": {
+          "dark-mode": {
+            "label": "Темная тема"
+          },
+          "sticky-header": {
+            "label": "Прилипающий хэдер"
+          },
+          "language": {
+            "label": "Язык сайта"
+          }
+        }
+      }
+    }
+  }
+}

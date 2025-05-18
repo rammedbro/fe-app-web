@@ -5,16 +5,15 @@
       <NotificationListItem v-bind="item" />
     </li>
   </ul>
-  <div v-else class="text-sm">You have no notifications to read. Good job!</div>
+  <div v-else class="text-sm">{{ t('entities.notification.list.slots.empty.text') }}</div>
 </template>
 
 <script setup lang="ts">
+import messages from '@/entities/notification/i18n/messages.json';
 import type { Notification } from '@/entities/notification/model/types';
+import { useI18n } from 'vue-i18n';
 import NotificationListItem from './NotificationListItem.vue';
 
-interface Props {
-  items: Notification[];
-}
-
-defineProps<Props>();
+defineProps<{ items: Notification[] }>();
+const { t } = useI18n({ messages });
 </script>

@@ -1,0 +1,52 @@
+{
+  "en": {
+    "profile": {
+      "aside": {
+        "menus": {
+          "main": {
+            "title": "Main menu",
+            "items": {
+              "dashboard": "Dashboard",
+              "favorites": "Favorites",
+              "orders": "Rents"
+            }
+          },
+          "preferences": {
+            "title": "Preferences",
+            "items": {
+              "settings": "Settings"
+            }
+          }
+        },
+        "buttons": {
+          "sign-out": "Sign Out"
+        }
+      }
+    }
+  },
+  "ru": {
+    "profile": {
+      "aside": {
+        "menus": {
+          "main": {
+            "title": "Главное меню",
+            "items": {
+              "dashboard": "Управление",
+              "favorites": "Избранное",
+              "orders": "Поездки"
+            }
+          },
+          "preferences": {
+            "title": "Предпочтения",
+            "items": {
+              "settings": "Настройки"
+            }
+          }
+        },
+        "buttons": {
+          "sign-out": "Выйти"
+        }
+      }
+    }
+  }
+}

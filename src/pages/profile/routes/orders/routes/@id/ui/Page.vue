@@ -2,15 +2,15 @@
   <div class="mx-auto lg:container">
     <template v-if="order">
       <section class="p-card mb-8 p-6">
-        <div class="mb-12 flex items-end justify-between">
-          <span class="text-3xl font-bold">Rental Details</span>
+        <h1 class="mb-12 flex items-end justify-between">
+          <span class="text-3xl font-bold">{{ t('pages.profile/orders/@id.title') }}</span>
           <span class="text-xl font-semibold">#{{ order.id }}</span>
-        </div>
+        </h1>
 
         <div class="mb-8 grid gap-8 md:grid-cols-2">
           <div class="grid grid-cols-2 gap-8">
             <div class="flex flex-col gap-4">
-              <div class="mb-2 text-lg font-semibold">Customer</div>
+              <div class="mb-2 text-lg font-semibold">{{ t('pages.profile/orders/@id.sections.customer.title') }}</div>
               <div class="text-md flex items-center gap-2">
                 <i class="pi pi-user" />
                 <span>{{ order.name }}</span>
@@ -30,27 +30,27 @@
             </div>
 
             <div class="flex flex-col gap-4">
-              <div class="mb-2 text-lg font-semibold">Car</div>
+              <div class="mb-2 text-lg font-semibold">{{ t('pages.profile/orders/@id.sections.car.title') }}</div>
               <div class="text-md flex items-center gap-2">
                 <i class="pi pi-car" />
                 <span>{{ `${order.car.brand} ${order.car.model}` }}</span>
               </div>
               <div class="text-md flex items-center gap-2">
                 <SteeringWheelIcon class="w-5" />
-                <span>{{ order.car.steering }}</span>
+                <span>{{ t(`entities.car.fields.steering.values.${order.car.steering}`) }}</span>
               </div>
               <div class="text-md flex items-center gap-2">
                 <Profile2UserIcon class="w-5" />
-                <span>{{ order.car.capacity }} People</span>
+                <span>{{ t('entities.car.fields.capacity.value', [order.car.capacity]) }}</span>
               </div>
               <div class="text-md flex items-center gap-2">
                 <GasStationIcon class="w-5" />
-                <span>{{ order.car.gasoline }}L</span>
+                <span>{{ t('entities.car.fields.gasoline.value', [order.car.gasoline]) }}</span>
               </div>
             </div>
 
             <div class="flex flex-col gap-4">
-              <div class="mb-2 text-lg font-semibold">Pick Up</div>
+              <div class="mb-2 text-lg font-semibold">{{ t('pages.profile/orders/@id.sections.pickup.title') }}</div>
               <div class="text-md flex items-center gap-2">
                 <i class="pi pi-calendar-clock" />
                 <span>{{ new Date(order.pickup.date).toLocaleDateString() }}</span>
@@ -65,7 +65,7 @@
             </div>
 
             <div class="flex flex-col gap-4">
-              <div class="mb-2 text-lg font-semibold">Drop Off</div>
+              <div class="mb-2 text-lg font-semibold">{{ t('pages.profile/orders/@id.sections.dropoff.title') }}</div>
               <div class="text-md flex items-center gap-2">
                 <i class="pi pi-calendar-clock" />
                 <span>{{ new Date(order.dropoff.date).toLocaleDateString() }}</span>
@@ -117,25 +117,27 @@
 
         <div class="flex items-center justify-between gap-4">
           <div>
-            <div class="text-xl font-bold">Total Rental Price</div>
-            <div class="text-sm text-surface-400">Overall price including rental discount</div>
+            <div class="text-xl font-bold">{{ t('pages.profile/orders/@id.sections.price.title') }}</div>
+            <div class="text-sm text-surface-400">{{ t('pages.profile/orders/@id.sections.price.subtitle') }}</div>
           </div>
           <div class="text-4xl font-bold">${{ order.price }}</div>
         </div>
       </section>
 
-      <ReviewSection :car-id="order.carId" />
+      <ReviewSection :title="t('pages.profile/orders/@id.sections.review.title')" :car-id="order.carId" />
     </template>
     <div v-else class="text-center">
-      <p class="mb-4">Something went wrong while fetching an order :(</p>
-      <Button label="Reload" size="large" class="w-full" @click="reload" />
+      <p class="mb-4">{{ t('shared.messages.error.fetch') }}</p>
+      <Button :label="t('shared.buttons.reload')" size="large" class="w-full" @click="reload" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { mergeCarMessages } from '@/entities/car';
 import { useOrderQuery } from '@/entities/order';
 import { beforeEnter } from '@/pages/profile/routes/orders/routes/@id/hooks/beforeEnter';
+import messages from '@/pages/profile/routes/orders/routes/@id/i18n/messages.json';
 import { noImgUrl } from '@/shared/assets/images';
 import { reload } from '@/shared/lib/browser';
 import { defaultBreakpoints } from '@/shared/model/breakpoints';
@@ -146,13 +148,14 @@ import { UseImage } from '@vueuse/components';
 import { useBreakpoints } from '@vueuse/core';
 import Button from 'primevue/button';
 import Image from 'primevue/image';
+import { useI18n } from 'vue-i18n';
 import { onBeforeRouteUpdate } from 'vue-router';
 import ReviewSection from './ReviewSection.vue';
 
 const props = defineProps<{ id: number }>();
-const id = computed(() => props.id);
+const { t } = useI18n({ messages: mergeCarMessages(messages) });
 const breakpoints = useBreakpoints(defaultBreakpoints);
-const { data: order } = useOrderQuery(id).query();
+const { data: order } = useOrderQuery(() => props.id).query();
 
 /** Important! It has to be registered exactly this way otherwise it won't work */
 onBeforeRouteUpdate((...args) => beforeEnter(...args));

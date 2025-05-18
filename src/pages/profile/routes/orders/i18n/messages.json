@@ -1,0 +1,32 @@
+{
+  "en": {
+    "pages": {
+      "profile/orders": {
+        "title": "Rental list",
+        "list": {
+          "slots": {
+            "empty": {
+              "text": "You haven't book a single car yet :(",
+              "button": "Look for a car"
+            }
+          }
+        }
+      }
+    }
+  },
+  "ru": {
+    "pages": {
+      "profile/orders": {
+        "title": "Список поездок",
+        "list": {
+          "slots": {
+            "empty": {
+              "text": "Вы пока не попробовали воспользоваться нашим сервисом :(",
+              "button": "Подобрать машину"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "en": {
+    "header": {
+      "search": {
+        "placeholder": "e.g. Audi A4 or BMW M5"
+      },
+      "buttons": {
+        "sticky-header": {
+          "tooltip": "Toggle sticky header"
+        },
+        "dark-mode": {
+          "tooltip": "Toggle dark mode"
+        },
+        "locale": {
+          "tooltip": "Select site language"
+        },
+        "favorites": {
+          "tooltip": "Favorites"
+        },
+        "notifications": {
+          "tooltip": "Notifications",
+          "popover": {
+            "title": "Notifications"
+          },
+          "toast": {
+            "title": "You have a new notification"
+          }
+        },
+        "settings": {
+          "tooltip": "Settings"
+        },
+        "profile": {
+          "tooltip": "Dashboard"
+        },
+        "sign-in": {
+          "tooltip": "Sign in"
+        }
+      }
+    }
+  },
+  "ru": {
+    "header": {
+      "search": {
+        "placeholder": "напр. Audi A4 or BMW M5"
+      },
+      "buttons": {
+        "sticky-header": {
+          "tooltip": "Вкл/выкл прилипающий header"
+        },
+        "dark-mode": {
+          "tooltip": "Вкл/выкл темную тему"
+        },
+        "locale": {
+          "tooltip": "Выбрать язык сайта"
+        },
+        "favorites": {
+          "tooltip": "Избранное"
+        },
+        "notifications": {
+          "tooltip": "Уведомления",
+          "popover": {
+            "title": "Уведомления"
+          },
+          "toast": {
+            "title": "У вас новое уведомление"
+          }
+        },
+        "settings": {
+          "tooltip": "Настройки"
+        },
+        "profile": {
+          "tooltip": "Панель управления"
+        },
+        "sign-in": {
+          "tooltip": "Авторизация"
+        }
+      }
+    }
+  }
+}

@@ -5,7 +5,13 @@
         <slot name="title">{{ props.title }}</slot>
       </div>
 
-      <Button as="router-link" :to="{ name: CarListRouteName, query: props.query }" text label="View all" class="" />
+      <Button
+        as="router-link"
+        :to="{ name: CarListRouteName, query: props.query }"
+        text
+        :label="t('shared.buttons.view-all')"
+        class=""
+      />
     </div>
 
     <Carousel
@@ -22,11 +28,8 @@
 
       <template #empty>
         <div class="text-center">
-          <p class="mb-4">
-            Something went wrong while fetching cars :(<br />
-            Try to push button bellow and see what happens!
-          </p>
-          <Button label="Retry" class="w-60" @click="carsAsync.refetch()" />
+          <p class="mb-4">{{ t('shared.messages.error.fetch') }}</p>
+          <Button :label="t('shared.buttons.reload')" class="w-60" @click="carsAsync.refetch()" />
         </div>
       </template>
     </Carousel>
@@ -39,9 +42,10 @@ import type { Car } from '@/entities/car/model/types';
 import { vIntersectionObserver } from '@/shared/lib/dom';
 import { defaultCarouselBreakpoints } from '@/shared/model/breakpoints';
 import { CarListRouteName } from '@/shared/model/routes';
-import { skipToken, useQuery } from '@tanstack/vue-query';
+import { useQuery } from '@tanstack/vue-query';
 import Button from 'primevue/button';
 import Carousel, { type CarouselProps } from 'primevue/carousel';
+import { useI18n } from 'vue-i18n';
 import CarCard from './CarCard.vue';
 import CarCardSkeleton from './CarCardSkeleton.vue';
 
@@ -59,18 +63,15 @@ const props = withDefaults(defineProps<Props>(), {
     responsiveOptions: defaultCarouselBreakpoints,
   }),
 });
+const { t } = useI18n();
 const isVisible = ref(false);
-const queryFn = computed(() =>
-  isVisible.value
-    ? async () => {
-        const { data } = await getCarList<true>({ query: props.query });
-        return data;
-      }
-    : skipToken
-);
 const carsAsync = useQuery({
   queryKey: ['cars', props.query],
-  queryFn,
+  queryFn: async () => {
+    const { data } = await getCarList<true>({ query: props.query });
+    return data;
+  },
   placeholderData: Array(props.carousel.numVisible),
+  enabled: isVisible,
 });
 </script>

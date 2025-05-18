@@ -1,0 +1,80 @@
+{
+  "en": {
+    "pages": {
+      "profile/dashboard": {
+        "sections": {
+          "current-rent": {
+            "title": "Current Rent",
+            "pickup": {
+              "location": "Location",
+              "date": "Date",
+              "time": "Time"
+            },
+            "dropoff": {
+              "location": "Location",
+              "date": "Date",
+              "time": "Time"
+            },
+            "price": {
+              "title": "Total Rental Price",
+              "subtitle": "Overall price and includes rental discount"
+            }
+          },
+          "recent-orders": {
+            "title": "Recent Rents",
+            "messages": {
+              "info": {
+                "empty": "You've not made a single order yet :( Go checkout our car park, it's amazing!"
+              }
+            }
+          },
+          "top": {
+            "title": "Top Rental",
+            "chart": {
+              "total": "Total rents"
+            }
+          }
+        }
+      }
+    }
+  },
+  "ru": {
+    "pages": {
+      "profile/dashboard": {
+        "sections": {
+          "current-rent": {
+            "title": "Текущая поездка",
+            "pickup": {
+              "location": "Координаты",
+              "date": "Дата",
+              "time": "Время"
+            },
+            "dropoff": {
+              "location": "Координаты",
+              "date": "Дата",
+              "time": "Время"
+            },
+            "price": {
+              "title": "Итоговая цена поездки",
+              "subtitle": "Включает в себя цену с учетом скидки"
+            }
+          },
+          "recent-orders": {
+            "title": "Недавние поездки",
+            "messages": {
+              "info": {
+                "empty": "Вы пока не сделали ни одного заказа :( Поглядите наш автопарк, он классный!"
+              }
+            }
+          },
+          "top": {
+            "title": "Топ машин",
+            "chart": {
+              "total": "Всего поездок"
+            }
+          }
+        }
+      }
+    }
+  }
+}

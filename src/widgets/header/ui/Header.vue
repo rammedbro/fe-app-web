@@ -4,9 +4,11 @@
     :class="{ sticky: stickyHeader }"
   >
     <div class="container mx-auto flex flex-wrap gap-4 py-6 lg:items-center lg:py-10">
-      <RouterLink :to="{ name: HomeRouteName }" class="text-3xl font-bold text-primary uppercase">Morent</RouterLink>
+      <RouterLink :to="{ name: HomeRouteName }" class="text-3xl leading-10 font-bold text-primary uppercase">
+        Morent
+      </RouterLink>
 
-      <HeaderProfile class="ml-auto md:order-3" />
+      <HeaderButtons class="ml-auto md:order-3" />
 
       <HeaderSearch class="min-w-[320px] flex-1 lg:mx-16 lg:max-w-[500px]" />
     </div>
@@ -19,7 +21,7 @@ import { useSettingsStore } from '@/entities/settings';
 import { HomeRouteName } from '@/shared/model/routes';
 import { ProgressBar } from '@/widgets/progress-bar';
 import { storeToRefs } from 'pinia';
-import HeaderProfile from './HeaderProfile.vue';
+import HeaderButtons from './HeaderButtons.vue';
 import HeaderSearch from './HeaderSearch.vue';
 
 const settingsStore = useSettingsStore();

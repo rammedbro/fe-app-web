@@ -1,0 +1,58 @@
+{
+  "en": {
+    "pages": {
+      "profile/orders/@id": {
+        "title": "Rental Details",
+        "sections": {
+          "customer": {
+            "title": "Customer"
+          },
+          "car": {
+            "title": "Car"
+          },
+          "pickup": {
+            "title": "Pick Up"
+          },
+          "dropoff": {
+            "title": "Drop Off"
+          },
+          "price": {
+            "title": "Total Rental Price",
+            "subtitle": "Overall price including rental discount"
+          },
+          "review": {
+            "title": "Feedback"
+          }
+        }
+      }
+    }
+  },
+  "ru": {
+    "pages": {
+      "profile/orders/@id": {
+        "title": "Детали аренды",
+        "sections": {
+          "customer": {
+            "title": "Клиент"
+          },
+          "car": {
+            "title": "Машина"
+          },
+          "pickup": {
+            "title": "Забрать"
+          },
+          "dropoff": {
+            "title": "Оставить"
+          },
+          "price": {
+            "title": "Итоговая цена поездки",
+            "subtitle": "В итоговую цену включены скидки"
+          },
+          "review": {
+            "title": "Ваш отзыв"
+          }
+        }
+      }
+    }
+  }
+}

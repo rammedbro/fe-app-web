@@ -1,0 +1,20 @@
+{
+  "en": {
+    "pages": {
+      "cars": {
+        "aside": {
+          "title": "Filter"
+        }
+      }
+    }
+  },
+  "ru": {
+    "pages": {
+      "cars": {
+        "aside": {
+          "title": "Фильтр"
+        }
+      }
+    }
+  }
+}

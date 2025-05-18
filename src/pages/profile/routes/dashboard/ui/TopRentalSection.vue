@@ -1,12 +1,14 @@
 <template>
   <section>
     <div class="mb-8 flex items-center justify-between">
-      <span class="text-xl font-bold">Top Rental</span>
+      <span class="text-xl font-bold">{{ t('pages.profile/dashboard.sections.top.title') }}</span>
       <Button icon="pi pi-ellipsis-v" severity="secondary" text class="-mr-4" @click="groupByPopoverRef?.toggle" />
       <Popover ref="groupByPopoverRef">
         <ListBox
           v-model="groupBy"
-          :options="['type', 'brand']"
+          :options="groupByListOptions"
+          option-label="label"
+          option-value="value"
           class="border-0 shadow-none"
           @change="orderAggregationAsync.refetch()"
         />
@@ -23,7 +25,7 @@
         />
         <div class="absolute inset-0 flex flex-col items-center justify-center">
           <div class="text-lg font-semibold">{{ orderAggregationTotalCount }}</div>
-          <div class="text-surface-400">Total Rents</div>
+          <div class="text-surface-500">{{ t('pages.profile/dashboard.sections.top.chart.total') }}</div>
         </div>
       </div>
       <ul class="grid flex-1 gap-2">
@@ -34,18 +36,20 @@
         </li>
       </ul>
     </div>
-    <template v-if="orderAggregationAsync.isPending.value">
+    <div v-if="orderAggregationAsync.isPending.value" class="flex justify-center">
       <ProgressSpinner />
-    </template>
+    </div>
     <div v-if="orderAggregationAsync.isError.value" class="text-center">
-      <p class="mb-4">Something went wrong while fetching your review :(</p>
-      <Button label="Retry" class="w-full" @click="orderAggregationAsync.refetch()" />
+      <p class="mb-4">{{ t('shared.messages.error.fetch') }}</p>
+      <Button :label="t('shared.buttons.reload')" class="w-full" @click="orderAggregationAsync.refetch()" />
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
+import { mergeCarMessages } from '@/entities/car';
 import { getOrderAggregation } from '@/entities/order';
+import messages from '@/pages/profile/routes/dashboard/i18n/messages.json';
 import { useAsync } from '@/shared/lib/async/useAsync';
 import { colors } from '@/shared/model/colors';
 import { GetOrderAggregationOptions } from '@/shared/model/types';
@@ -56,9 +60,15 @@ import ListBox from 'primevue/listbox';
 import type { PopoverMethods } from 'primevue/popover';
 import Popover from 'primevue/popover';
 import ProgressSpinner from 'primevue/progressspinner';
+import { useI18n } from 'vue-i18n';
 
+const { t } = useI18n({ messages: mergeCarMessages(messages) });
 const groupByPopoverRef = ref<PopoverMethods>();
 const groupBy = ref<GetOrderAggregationOptions['groupBy']>('type');
+const groupByListOptions = computed(() => [
+  { label: t('entities.car.fields.type.label'), value: 'type' },
+  { label: t('entities.car.fields.brand.label'), value: 'brand' },
+]);
 const orderAggregationAsync = useAsync(async () => {
   const { data } = await getOrderAggregation<true>({
     query: { groupBy: groupBy.value },
