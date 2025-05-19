@@ -10,22 +10,9 @@ export const useSettingsStore = defineStore('settings', () => {
   const i18n = useI18n({ useScope: 'global' });
 
   watch(
-    darkMode,
-    (value) => {
-      if (value) {
-        document.body.classList.add('dark');
-      } else {
-        document.body.classList.remove('dark');
-      }
-    },
-    { immediate: true }
-  );
-
-  watch(
     locale,
     (value) => {
       i18n.locale.value = value;
-      document.head.setAttribute('lang', value);
     },
     { immediate: true }
   );

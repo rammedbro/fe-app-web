@@ -1,6 +1,10 @@
 <template>
+  <Head>
+    <title>{{ t('pages.cars/@id/payment.head.title') }}</title>
+    <meta name="description" :content="t('pages.cars/@id/payment.head.description')" />
+  </Head>
   <div class="container mx-auto py-8">
-    <h1 class="mb-8 text-3xl font-bold">{{ t('pages.cars/@id/payment.title') }}</h1>
+    <h1 class="mb-8 text-3xl font-bold">{{ t('pages.cars/@id/payment.h1') }}</h1>
     <div class="flex flex-col-reverse gap-4 lg:flex-row lg:items-start">
       <form class="lg:w-2/3" @submit="submit">
         <section id="billing-info" class="p-card mb-6 p-6">
@@ -443,6 +447,7 @@ import { logError } from '@/shared/lib/log';
 import { calcDiscountPrice } from '@/shared/lib/numbers';
 import { PrivacyPolicyRouteName, ProfileDashboardRouteName, TermsOfServiceRouteName } from '@/shared/model/routes';
 import { Map } from '@/shared/ui/map';
+import { Head } from '@unhead/vue/components';
 import { storeToRefs } from 'pinia';
 import Button from 'primevue/button';
 import Checkbox from 'primevue/checkbox';

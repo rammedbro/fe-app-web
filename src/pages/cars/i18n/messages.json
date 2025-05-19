@@ -2,6 +2,10 @@
   "en": {
     "pages": {
       "cars": {
+        "head": {
+          "title": "Browse Cars",
+          "description": "Find the right car for your needs. Use filters to sort by model, price, and more."
+        },
         "aside": {
           "title": "Filter"
         }
@@ -11,6 +15,10 @@
   "ru": {
     "pages": {
       "cars": {
+        "head": {
+          "title": "Поиск автомобиля",
+          "description": "Найдите подходящую машину для своих нужд. Используйте фильтры для сортировки по модели, цене и т. д."
+        },
         "aside": {
           "title": "Фильтр"
         }

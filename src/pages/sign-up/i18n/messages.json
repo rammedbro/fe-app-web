@@ -2,7 +2,11 @@
   "en": {
     "pages": {
       "sign-up": {
-        "title": "Sign up",
+        "head": {
+          "title": "Sign Up",
+          "description": "Join Morent to easily browse, book, and manage your rentals."
+        },
+        "h1": "Sign Up",
         "form": {
           "inputs": {
             "email": {
@@ -42,7 +46,11 @@
   "ru": {
     "pages": {
       "sign-up": {
-        "title": "Регистрация",
+        "head": {
+          "title": "Регистрация",
+          "description": "Присоединяйтесь к Morent, чтобы легко просматривать, бронировать и управлять арендованными автомобилями."
+        },
+        "h1": "Регистрация",
         "form": {
           "inputs": {
             "email": {

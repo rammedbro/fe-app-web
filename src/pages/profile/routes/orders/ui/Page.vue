@@ -1,6 +1,10 @@
 <template>
+  <Head>
+    <title>{{ t('pages.profile/orders.head.title') }}</title>
+    <meta name="description" :content="t('pages.profile/orders.head.description')" />
+  </Head>
   <div class="mx-auto grid gap-4 lg:max-w-200">
-    <h1 class="mb-8 text-3xl font-bold">{{ t('pages.profile/orders.title') }}</h1>
+    <h1 class="mb-8 text-3xl font-bold">{{ t('pages.profile/orders.h1') }}</h1>
 
     <template v-if="ordersAsync.isSuccess.value">
       <template v-if="ordersAsync.data.value?.length">
@@ -32,6 +36,7 @@
 import { OrderCard, OrderCardSkeleton, useOrderListQuery } from '@/entities/order';
 import messages from '@/pages/profile/routes/orders/i18n/messages.json';
 import { CarListRouteName } from '@/shared/model/routes';
+import { Head } from '@unhead/vue/components';
 import Button from 'primevue/button';
 import { useI18n } from 'vue-i18n';
 

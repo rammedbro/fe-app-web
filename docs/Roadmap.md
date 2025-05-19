@@ -4,18 +4,18 @@
 
 - [x] Car listing with filters
 - [x] Car detail page
-- [ ] Car booking
-- [ ] User profile dashboard
+- [x] Car booking
+- [x] User profile dashboard
 - [ ] User profile edit
-- [ ] User profile settings
-- [ ] Real-time notifications
+- [x] User profile settings
+- [x] Real-time notifications
 - [ ] Chat with AI support bot
 
 ## Performance Optimization
 
-- [ ] Implement **code splitting** & lazy loading for routes and components
+- [x] Implement **code splitting** & lazy loading for routes and components
 - [ ] Optimize **initial load time** by reducing bundle size (e.g., tree shaking, ESBuild optimizations)
-- [ ] Optimize images with **modern formats** (WebP, AVIF) and lazy loading
+- [x] Optimize images with **modern formats** (WebP, AVIF) and lazy loading
 - [ ] Reduce render-blocking resources with **preloading & prefetching** strategies
 - [ ] Add **server-side rendering (SSR) and static site generation (SSG)** for better SEO & performance
 - [ ] Use **service workers** for caching assets and improving offline support
@@ -23,14 +23,15 @@
 ## State Management & API Optimization
 
 - [ ] Use **caching strategies** (e.g., SWR, local storage, indexedDB) to reduce redundant API calls
-- [ ] Use **WebSockets or SSE** for real-time data updates instead of frequent polling
+- [x] Use **WebSockets or SSE** for real-time data updates instead of frequent polling
 
 ## Accessibility & UX
 
 - [ ] Improve **keyboard navigation** and ensure all interactive elements are accessible
 - [ ] Ensure full **WCAG compliance** (color contrast, screen reader support, semantic HTML)
-- [ ] Add **skeleton loaders** for better perceived performance on slow connections
-- [ ] Implement **dark mode** based on user preferences
+- [x] Add **skeleton loaders** for better perceived performance on slow connections
+- [x] Implement **dark mode** based on user preferences
+- [x] Implement i18n
 - [ ] Implement a11y standards
 
 ## Progressive Web App (PWA) Enhancements
@@ -54,6 +55,6 @@
 
 ## Deployment & DevOps
 
-- [ ] Add **Docker image** build
+- [x] Add **Docker image** build
 - [x] Set up **automatic deployments** with CI/CD pipelines
 - [ ] Implement **feature flags** to control experimental features

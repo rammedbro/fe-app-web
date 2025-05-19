@@ -2,7 +2,11 @@
   "en": {
     "pages": {
       "cars/@id/payment": {
-        "title": "Order creation",
+        "head": {
+          "title": "Book Your Rental – Secure Checkout",
+          "description": "Finalize your rental with secure payment and pick-up options. Book now with confidence."
+        },
+        "h1": "Order creation",
         "form": {
           "sections": {
             "billing-info": {
@@ -132,7 +136,11 @@
   "ru": {
     "pages": {
       "cars/@id/payment": {
-        "title": "Оформление заказа",
+        "head": {
+          "title": "Забронируйте аренду – Безопасная оплата",
+          "description": "Завершите аренду с помощью безопасных вариантов оплаты и получения. Бронируйте сейчас с уверенностью."
+        },
+        "h1": "Оформление заказа",
         "form": {
           "sections": {
             "billing-info": {

@@ -2,7 +2,11 @@
   "en": {
     "pages": {
       "profile/orders/@id": {
-        "title": "Rental Details",
+        "head": {
+          "title": "Rental Details",
+          "description": "View the details of your rental order including status, dates, and payments."
+        },
+        "h1": "Rental Details",
         "sections": {
           "customer": {
             "title": "Customer"
@@ -30,7 +34,11 @@
   "ru": {
     "pages": {
       "profile/orders/@id": {
-        "title": "Детали аренды",
+        "head": {
+          "title": "Детали аренды",
+          "description": "Просмотрите сведения о вашем заказе на аренду, включая статус, даты и платежи."
+        },
+        "h1": "Детали аренды",
         "sections": {
           "customer": {
             "title": "Клиент"

@@ -2,7 +2,11 @@
   "en": {
     "pages": {
       "profile/favorites": {
-        "title": "Favorites",
+        "head": {
+          "title": "Favorites",
+          "description": "See your saved cars and manage your favorites easily."
+        },
+        "h1": "Favorites",
         "list": {
           "slots": {
             "empty": {
@@ -17,7 +21,11 @@
   "ru": {
     "pages": {
       "profile/favorites": {
-        "title": "Избранное",
+        "head": {
+          "title": "Избранное",
+          "description": "Просматривайте сохраненные автомобили и управляйте избранными c легкостью."
+        },
+        "h1": "Избранное",
         "list": {
           "slots": {
             "empty": {

@@ -1,4 +1,8 @@
 <template>
+  <Head>
+    <title>{{ t('pages.cars/@id.head.title') }}</title>
+    <meta name="description" :content="t('pages.cars/@id.head.description')" />
+  </Head>
   <div class="container mx-auto py-8">
     <template v-if="car">
       <section class="mb-4 flex flex-col gap-4 md:mb-8 md:gap-8 lg:flex-row">
@@ -124,6 +128,7 @@ import { reload } from '@/shared/lib/browser';
 import { calcDiscountPrice } from '@/shared/lib/numbers';
 import { defaultBreakpoints } from '@/shared/model/breakpoints';
 import { CarPaymentRouteName } from '@/shared/model/routes';
+import { Head } from '@unhead/vue/components';
 import { UseImage } from '@vueuse/components';
 import { useBreakpoints } from '@vueuse/core';
 import Badge from 'primevue/badge';

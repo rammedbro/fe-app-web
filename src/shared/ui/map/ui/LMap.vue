@@ -5,6 +5,7 @@
 </template>
 
 <script setup lang="ts">
+import { markerImgUrl } from '@/shared/assets/images';
 import { MapInjectionKey } from '@/shared/ui/map/model/symbols';
 import type { GeosearchShowLocationEvent, LocationPoint, MapCallback, MapProps } from '@/shared/ui/map/model/types';
 import { vElementVisibility } from '@vueuse/components';
@@ -27,7 +28,9 @@ const emit = defineEmits<{
 const model = defineModel<LocationPoint>();
 const id = useId();
 const map = ref<Map>();
-const marker = leaflet.marker(model.value || [0, 0]);
+const marker = leaflet.marker(model.value || [0, 0], {
+  icon: leaflet.icon({ iconUrl: markerImgUrl, iconSize: [24, 40] }),
+});
 const nestedCallbacks = ref<MapCallback[]>([]);
 
 provide(MapInjectionKey, (cb) => nestedCallbacks.value.push(cb));

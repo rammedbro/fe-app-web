@@ -1,7 +1,11 @@
 <template>
+  <Head>
+    <title>{{ t('pages.sign-up.head.title') }}</title>
+    <meta name="description" :content="t('pages.sign-up.head.description')" />
+  </Head>
   <div class="container mx-auto py-8 lg:py-16">
     <div class="p-card mx-auto max-w-sm p-8">
-      <h2 class="mb-6 text-2xl font-bold">{{ t('pages.sign-up.title') }}</h2>
+      <h1 class="mb-6 text-2xl font-bold">{{ t('pages.sign-up.h1') }}</h1>
       <form @submit="submit">
         <div class="mb-4">
           <div class="p-iftalabel">
@@ -53,6 +57,7 @@ import messages from '@/pages/sign-up/i18n/messages.json';
 import { SignUpValidationSchema } from '@/pages/sign-up/model/validation';
 import { logError } from '@/shared/lib/log';
 import { ProfileDashboardRouteName, SignInRouteName } from '@/shared/model/routes';
+import { Head } from '@unhead/vue/components';
 import { toTypedSchema } from '@vee-validate/zod';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';

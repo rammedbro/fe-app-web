@@ -2,6 +2,10 @@
   "en": {
     "pages": {
       "home": {
+        "head": {
+          "title": "Find Your Perfect Ride",
+          "description": "Rent a car quickly and easily. Explore our fleet and book your next ride today"
+        },
         "sections": {
           "banners": {
             "items": [
@@ -30,6 +34,10 @@
   "ru": {
     "pages": {
       "home": {
+        "head": {
+          "title": "Найдите свою идеальную поездку",
+          "description": "Арендуйте автомобиль быстро и легко. Изучите наш автопарк и забронируйте следующую поездку сегодня"
+        },
         "sections": {
           "banners": {
             "items": [

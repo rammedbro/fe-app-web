@@ -1,9 +1,13 @@
 <template>
+  <Head>
+    <title>{{ t('pages.profile/orders/@id.head.title') }}</title>
+    <meta name="description" :content="t('pages.profile/orders/@id.head.description')" />
+  </Head>
   <div class="mx-auto lg:container">
     <template v-if="order">
       <section class="p-card mb-8 p-6">
         <h1 class="mb-12 flex items-end justify-between">
-          <span class="text-3xl font-bold">{{ t('pages.profile/orders/@id.title') }}</span>
+          <span class="text-3xl font-bold">{{ t('pages.profile/orders/@id.h1') }}</span>
           <span class="text-xl font-semibold">#{{ order.id }}</span>
         </h1>
 
@@ -144,6 +148,7 @@ import { defaultBreakpoints } from '@/shared/model/breakpoints';
 import { colors } from '@/shared/model/colors';
 import { GasStationIcon, Profile2UserIcon, SteeringWheelIcon } from '@/shared/ui/icons';
 import { LMarker, LPolyline, Map } from '@/shared/ui/map';
+import { Head } from '@unhead/vue/components';
 import { UseImage } from '@vueuse/components';
 import { useBreakpoints } from '@vueuse/core';
 import Button from 'primevue/button';

@@ -42,14 +42,34 @@ export default defineConfig(() => {
       cssMinify: 'lightningcss',
       rollupOptions: {
         output: {
+          experimentalMinChunkSize: 5000, // @see https://github.com/rollup/rollup/issues/4327
+          manualChunks: (id) => {
+            if (id.includes('@vue/')) {
+              return 'vue';
+            }
+
+            if (id.includes('@primevue/icons')) {
+              return 'icons';
+            }
+
+            if (id.includes('chart.js')) {
+              return 'chart';
+            }
+
+            if (id.match('leaflet')) {
+              return 'leaflet';
+            }
+
+            return null;
+          },
           assetFileNames: (assetInfo) => {
             if (assetInfo.source === '/* vite internal call, ignore */') return '';
 
             const assetName = assetInfo.names[0];
-            return assetPath('[hash:12].[ext]', mime.lookup(assetName) || '');
+            return assetPath('[name].[ext]', mime.lookup(assetName) || '');
           },
-          entryFileNames: assetPath('[hash:12].js'),
-          chunkFileNames: assetPath('[hash:12].js'),
+          chunkFileNames: assetPath('chunk-[name].[hash].js'),
+          entryFileNames: assetPath('entry-[name].[hash].js'),
         },
       },
     },
@@ -79,7 +99,7 @@ export default defineConfig(() => {
       }),
       tailwindcss(),
       vueI18n({
-        include: './src/**/i18n/messages.json',
+        compositionOnly: true,
         fullInstall: false,
       }),
     ],

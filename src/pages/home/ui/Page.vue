@@ -1,4 +1,8 @@
 <template>
+  <Head>
+    <title>{{ t('pages.home.head.title') }}</title>
+    <meta name="description" :content="t('pages.home.head.description')" />
+  </Head>
   <div class="container mx-auto py-8">
     <Carousel
       :value="banners"
@@ -47,6 +51,7 @@ import { banner1ImgUrl, banner2ImgUrl } from '@/shared/assets/images';
 import { defaultBreakpoints } from '@/shared/model/breakpoints';
 import { CarListRouteName } from '@/shared/model/routes';
 import { PickupDropoff } from '@/widgets/pickup-dropoff';
+import { Head } from '@unhead/vue/components';
 import { useBreakpoints } from '@vueuse/core';
 import Button from 'primevue/button';
 import Carousel from 'primevue/carousel';

@@ -2,6 +2,10 @@
   "en": {
     "pages": {
       "profile/dashboard": {
+        "head": {
+          "title": "Dashboard",
+          "description": "Track your current rentals, view stats, and manage your car rental activity."
+        },
         "sections": {
           "current-rent": {
             "title": "Current Rent",
@@ -41,6 +45,10 @@
   "ru": {
     "pages": {
       "profile/dashboard": {
+        "head": {
+          "title": "Панель управления",
+          "description": "Отслеживайте текущую аренду, просматривайте статистику и управляйте арендой автомобилей."
+        },
         "sections": {
           "current-rent": {
             "title": "Текущая поездка",

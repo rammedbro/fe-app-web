@@ -10,7 +10,6 @@
         :to="{ name: CarListRouteName, query: props.query }"
         text
         :label="t('shared.buttons.view-all')"
-        class=""
       />
     </div>
 

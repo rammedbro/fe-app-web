@@ -18,14 +18,12 @@ export default defineConfig(() => {
         [API_PATH]: {
           target: API_PROXY,
           changeOrigin: true,
-          toProxy: true,
           timeout: 10e3,
         },
         [SOCKET_PATH]: {
           ws: true,
           target: SOCKET_PROXY,
           rewriteWsOrigin: true,
-          toProxy: true,
         },
       },
     },

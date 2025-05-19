@@ -2,6 +2,10 @@
   "en": {
     "pages": {
       "cars/@id": {
+        "head": {
+          "title": "Car Details – Rent this vehicle right away",
+          "description": "View details, features, and availability of the selected car. Ready to rent it now."
+        },
         "sections": {
           "reviews": {
             "title": "Reviews"
@@ -27,6 +31,10 @@
   "ru": {
     "pages": {
       "cars/@id": {
+        "head": {
+          "title": "Информация об автомобиле – Арендуйте его уже сегодня",
+          "description": "Посмотреть детали, характеристики и доступность выбранного автомобиля. Готовы арендовать его сейчас."
+        },
         "sections": {
           "reviews": {
             "title": "Отзывы"

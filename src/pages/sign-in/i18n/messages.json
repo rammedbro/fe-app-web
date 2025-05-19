@@ -2,7 +2,11 @@
   "en": {
     "pages": {
       "sign-in": {
-        "title": "Sign in",
+        "head": {
+          "title": "Sign In",
+          "description": "Access your account to manage rentals and preferences."
+        },
+        "h1": "Sign In",
         "form": {
           "inputs": {
             "login": {
@@ -39,7 +43,11 @@
   "ru": {
     "pages": {
       "sign-in": {
-        "title": "Вход",
+        "head": {
+          "title": "Вход",
+          "description": "Войдите в свою учетную запись, чтобы управлять арендой и предпочтениями."
+        },
+        "h1": "Вход",
         "form": {
           "inputs": {
             "login": {

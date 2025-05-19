@@ -2,7 +2,11 @@
   "en": {
     "pages": {
       "profile/orders": {
-        "title": "Rental list",
+        "head": {
+          "title": "Your Rentals",
+          "description": "Review your car rental history and manage ongoing orders."
+        },
+        "h1": "Rental list",
         "list": {
           "slots": {
             "empty": {
@@ -17,7 +21,11 @@
   "ru": {
     "pages": {
       "profile/orders": {
-        "title": "Список поездок",
+        "head": {
+          "title": "Ваши поездки",
+          "description": "Просматривайте историю аренды автомобилей и управляйте текущими заказами."
+        },
+        "h1": "Список поездок",
         "list": {
           "slots": {
             "empty": {

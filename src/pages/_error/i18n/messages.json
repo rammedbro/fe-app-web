@@ -2,7 +2,11 @@
   "en": {
     "pages": {
       "_error": {
-        "title": "Oops! {status} 😢",
+        "head": {
+          "title": "Error",
+          "description": "Oops! Something went wrong or the page doesn't exist."
+        },
+        "h1": "Oops! {status} 😢",
         "messages": {
           "404": "This page doesn't exist.",
           "500": "An unexpected error occurred."
@@ -14,7 +18,11 @@
   "ru": {
     "pages": {
       "_error": {
-        "title": "Упс! {status} 😢",
+        "head": {
+          "title": "Ошибка",
+          "description": "Упс! Что-то пошло не так, или страница не существует."
+        },
+        "h1": "Упс! {status} 😢",
         "messages": {
           "404": "Такой страницы не существует.",
           "500": "Возникла непредвиденная ошибка."

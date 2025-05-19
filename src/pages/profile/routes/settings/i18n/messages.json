@@ -2,7 +2,11 @@
   "en": {
     "pages": {
       "profile/settings": {
-        "title": "Settings",
+        "head": {
+          "title": "Settings",
+          "description": "Manage your preferences, account information, and site settings."
+        },
+        "h1": "Settings",
         "inputs": {
           "dark-mode": {
             "label": "Dark mode"
@@ -20,7 +24,11 @@
   "ru": {
     "pages": {
       "profile/settings": {
-        "title": "Настройки",
+        "head": {
+          "title": "Настройки",
+          "description": "Управляйте своими предпочтениями, данными учетной записи и настройками сайта."
+        },
+        "h1": "Настройки",
         "inputs": {
           "dark-mode": {
             "label": "Темная тема"

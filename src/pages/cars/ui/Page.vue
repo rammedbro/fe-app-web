@@ -1,4 +1,8 @@
 <template>
+  <Head>
+    <title>{{ t('pages.cars.head.title') }}</title>
+    <meta name="description" :content="t('pages.cars.head.description')" />
+  </Head>
   <div class="flex">
     <CarListAside v-model:visible="isDrawerVisible" v-model:filter="filter" :title="t('pages.cars.aside.title')" />
 
@@ -76,6 +80,7 @@ import { defaultBreakpoints } from '@/shared/model/breakpoints';
 import type { SortDirection } from '@/shared/model/types';
 import { PickupDropoff } from '@/widgets/pickup-dropoff';
 import { keepPreviousData, useQuery } from '@tanstack/vue-query';
+import { Head } from '@unhead/vue/components';
 import { useBreakpoints } from '@vueuse/core';
 import Button from 'primevue/button';
 import ListBox from 'primevue/listbox';
