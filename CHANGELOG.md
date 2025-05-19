@@ -1,3 +1,15 @@
+## [1.8.0](https://gitlab.com/imolater/fe-app-web/compare/v1.7.0...v1.8.0) (2025-05-19)
+
+
+### Features
+
+* **[FAW-29](https://imolater.atlassian.net/browse/FAW-29):** Implement i18n ([f7e52e2](https://gitlab.com/imolater/fe-app-web/commit/f7e52e20ea24abb7c40dd005c78c2165bee8c311))
+* **[FAW-53](https://imolater.atlassian.net/browse/FAW-53):** Add seo meta ([2a80ce7](https://gitlab.com/imolater/fe-app-web/commit/2a80ce74dd05bd96c4da8cd22dc993c272ff83c2))
+* **[FAW-59](https://imolater.atlassian.net/browse/FAW-59):** Replace simple vue components with css components ([391afe6](https://gitlab.com/imolater/fe-app-web/commit/391afe66c83c07e8d07ff48fd67419112a33701d))
+* **[FAW-62](https://imolater.atlassian.net/browse/FAW-62):** Add 404 page ([c9bf3b5](https://gitlab.com/imolater/fe-app-web/commit/c9bf3b5c0eb138b66e88f767f294ca9009a115d8))
+* **[FAW-69](https://imolater.atlassian.net/browse/FAW-69):** Replace server-state data managing with vue-query ([09fc808](https://gitlab.com/imolater/fe-app-web/commit/09fc808d55bc1db9ccb8996c0ff9a2b3a5417288))
+* **[FAW-82](https://imolater.atlassian.net/browse/FAW-82):** Add frequent request's batching ([0a2a315](https://gitlab.com/imolater/fe-app-web/commit/0a2a315e4b339ebfb32a1ff5b8942812a69c3fb6))
+
 ## [1.7.0](https://gitlab.com/imolater/fe-app-web/compare/v1.6.0...v1.7.0) (2025-05-13)
 
 
